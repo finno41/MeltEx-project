@@ -8,8 +8,8 @@ class Company(models.Model):
     type = models.TextField(max_length=50, blank=False, null=False)
 
 class User(AbstractUser):
-    phone_number = models.TextField(max_length=20, blank=True)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=False, null=False)
+    phone_number = models.TextField(max_length=20, blank=True, null=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
     subscriber = models.BooleanField(default=False)
 
 class AssetClass(models.Model):
