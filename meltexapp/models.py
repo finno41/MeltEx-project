@@ -24,10 +24,10 @@ class User(AbstractUser):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=False, null=False)
     subscriber = models.BooleanField(default=False)
 
-class AssetClassInterest(models.model):
+class AssetClassInterest(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
-    type = models.IntegerField(max_length=2, blank=False, null=False)
+    type = models.IntegerField(blank=False, null=False)
     ac_id = models.CharField(max_length=32, blank=False, null=False)
 
 class Geography(models.Model):
