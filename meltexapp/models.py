@@ -1,7 +1,16 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 import uuid
+
+class Company(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.TextField(max_length=50, blank=False, null=False)
+    type = models.TextField(max_length=50, blank=False, null=False)
+
+class User(AbstractUser):
+    phone_number = models.TextField(max_length=20, blank=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=False, null=False)
+    subscriber = models.BooleanField(default=False)
 
 class AssetClass(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -13,16 +22,6 @@ class SubAssetClass(models.Model):
     name = models.CharField(max_length=100, blank=False, null=False)
     asset_class = models.ForeignKey(AssetClass, on_delete=models.CASCADE, blank=False, null=False)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
-
-class Company(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.TextField(max_length=50, blank=False, null=False)
-    type = models.TextField(max_length=50, blank=False, null=False)
-
-class User(AbstractUser):
-    phone_number = models.TextField(max_length=20, blank=True)
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=False, null=False)
-    subscriber = models.BooleanField(default=False)
 
 class AssetClassInterest(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -40,7 +39,7 @@ class Listing(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     asset_class_name = models.CharField(max_length=100)
     sub_asset_class_name = models.CharField(max_length=100)
-    geography = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
+    geography = models.ForeignKey(Geography, on_delete=models.CASCADE, blank=False, null=False)
     impl_approach = models.CharField(max_length=100)
     fund_levr = models.FloatField(blank=True, null=True)
     fund_struc = models.CharField(max_length=100, blank=True, null=True)

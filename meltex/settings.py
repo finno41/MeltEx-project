@@ -30,11 +30,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+AUTH_USER_MODEL = 'meltexapp.User'
 # Application definition
 
 INSTALLED_APPS = [
-    'meltexapp.apps.MeltexappConfig',
+    'meltexapp',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
