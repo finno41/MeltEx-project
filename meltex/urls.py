@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path("app/", include("meltexapp.urls")),
+    path("", include("meltexapp.urls")),
     path("admin/", admin.site.urls),
     # test
 ]
