@@ -54,6 +54,7 @@ class Listing(models.Model):
     fund_ter = models.FloatField(blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
     comments = models.TextField(max_length=1000)
+    public = models.BooleanField(default=False)
 
 class Tag(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
