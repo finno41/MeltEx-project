@@ -22,6 +22,7 @@ def get_geo_children_with_parent(user, parent_id):
     geos = perm_geos.filter(Q(parent_id=parent_id) | Q(id=parent_id))
     return geos
 
+
 def get_geographies_by_ids(user, ids):
     perm_geos = get_permitted_geographies(user)
     geos = perm_geos.filter(id__in=ids)
