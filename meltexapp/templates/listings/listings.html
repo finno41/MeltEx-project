@@ -1,0 +1,19 @@
+{% if values %}
+<ul>
+  <table>
+    <tr>
+      {% for header in headers %}
+      <th>{{header}}</th>
+      {% endfor %}
+    </tr>
+    {% for row in values %}
+    <tr>
+      {%for value in row%}
+      <td>{{value}}</td>
+      {% endfor %}
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p>No values are available.</p>
+  {% endif %}
