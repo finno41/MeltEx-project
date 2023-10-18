@@ -1,6 +1,13 @@
 {% if values %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'main.css' %}">
 <ul>
   <table>
+    <colgroup>
+      {% for header in headers %}
+      <col>
+      {% endfor %}
+    </colgroup>
     <tr>
       {% for header in headers %}
       <th>{{header}}</th>
