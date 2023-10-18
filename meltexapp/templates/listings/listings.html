@@ -1,8 +1,8 @@
+{% extends "master.html" %}
 {% if values %}
-{% load static %}
-<link rel="stylesheet" href="{% static 'main.css' %}">
+{% block content %}
 <ul>
-  <table>
+  <table table class="table table-striped">
     <colgroup>
       {% for header in headers %}
       <col>
@@ -21,6 +21,7 @@
     </tr>
     {% endfor %}
   </table>
+  {% endblock %}
   {% else %}
   <p>No values are available.</p>
   {% endif %}
