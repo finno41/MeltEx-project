@@ -8,7 +8,9 @@ class ListingDTO(BaseDTO):
         geog_id = data["geography_id"]
         geog_info = geog_df.loc[[geog_id]]
         self.geography = geog_info["name"][0]
-        super().__init__(data, user, hide_keys=["id", "geography_id"])
+        super().__init__(
+            data, user, hide_keys=["id", "geography_id", "owner_id", "public"]
+        )
 
 
 class ListingDTOCollection(BaseDTOCollection):
