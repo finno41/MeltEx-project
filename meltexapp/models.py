@@ -48,10 +48,11 @@ class Geography(models.Model):
 
 class Listing(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    asset_class_name = models.CharField(max_length=100)
-    sub_asset_class_name = models.CharField(max_length=100)
     geography = models.ForeignKey(
         Geography, on_delete=models.CASCADE, blank=False, null=False
+    )
+    sub_asset_class = models.ForeignKey(
+        SubAssetClass, on_delete=models.CASCADE, blank=False, null=False
     )
     impl_approach = models.CharField(max_length=100)
     fund_levr = models.FloatField(blank=True, null=True)

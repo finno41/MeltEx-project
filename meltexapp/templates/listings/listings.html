@@ -1,12 +1,14 @@
 {% extends "master.html" %}
-{% if values %}
 {% block content %}
+{% include "nav.html" %}
+{% if values %}
 <form action="/listings" method="get">
   <label for="ac_id">Asset Class: </label>
   <select id="ac_id" name="ac_id">
     {% for ac in ac_options %}
     <option value="{{ac.id}}">{{ac.name}}</option>
     {% endfor %}
+    <option value="all">All</option>
   </select>
   <input type="submit" value="OK">
 </form>
@@ -30,7 +32,7 @@
     </tr>
     {% endfor %}
   </table>
-  {% endblock %}
   {% else %}
   <p>No values are available.</p>
   {% endif %}
+  {% endblock %}
