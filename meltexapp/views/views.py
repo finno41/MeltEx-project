@@ -30,12 +30,18 @@ def get_listings(request):
     return render(request, "listings/listings.html", template_vars)
 
 
-def add_listing(request, listing_added=False):
+def add_listing(request):
     form = ListingForm(request.user, request.POST)
+    listing_added = request.GET.get("listing_added", False)
+    missing_fields = request.GET.get("missing_fields", False).split(",")
     return render(
         request,
         "listings/add_listing.html",
-        {"form": form, "listing_added": listing_added},
+        {
+            "form": form,
+            "listing_added": listing_added,
+            "missing_fields": missing_fields,
+        },
     )
 
 

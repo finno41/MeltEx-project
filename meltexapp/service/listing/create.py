@@ -1,11 +1,13 @@
 from meltexapp.helper.listing import create_listing as create_listing_helper
 from meltexapp.config.listing import LISTING_REQUIRED_FIELDS
+from django.shortcuts import redirect
 
 
 def create_listing(user, data):
-    for rf in LISTING_REQUIRED_FIELDS:
-        if not data.get(rf, False):
-            raise Exception(f"{rf} is a required field")
+    missing_fields = [rf for rf in LISTING_REQUIRED_FIELDS if not data.get(rf, False)]
+    if missing_fields:
+        url = f"/listings/add_listing?missing_fields={','.join(missing_fields)}"
+        return redirect(url)
     geography_id = data.get("geography")
     sub_asset_class_id = data.get("sub_asset_class")
     impl_approach = data.get("impl_approach")

@@ -23,27 +23,25 @@ class ListingForm(forms.Form):
             "fund_vehi_type",
             "nav",
             "nav_dis_avl",
-            "expr_int_ddline",
             "targ_irr",
             "risk_prof",
             "fund_ter",
             "comments",
         ]
         select_fields = ["asset_class", "sub_asset_class"]
-        date_fields = ["expr_int_ddline"]
+        start_date = forms.DateField(widget=forms.DateInput(attrs={"type": "date"}))
         self.fields["asset_class"] = forms.ChoiceField(choices=AC_CHOICES)
+        self.fields["expr_int_ddline"] = forms.DateField(
+            widget=forms.DateInput(attrs={"type": "date"})
+        )
         for field in fields:
             self.fields[field] = Listing._meta.get_field(field).formfield()
             self.fields[field].label = get_listing_title(field)
         for field in self.fields:
-            self.fields[field].widget.attrs["class"] = (
-                "form-control" if field not in select_fields else "form-select"
-            )
-            if field in date_fields:
-                self.fields[field].input_formats = ["%d/%m/%Y"]
-                self.fields[field].widget.attrs[
-                    "class"
-                ] = "form-control datetimepicker-input"
+            if field in select_fields:
+                self.fields[field].widget.attrs["class"] = "form-select"
+            else:
+                self.fields[field].widget.attrs["class"] = "form-control"
             if self.fields[field].required:
                 self.fields[field].required = False
                 self.fields[field].widget.attrs["required"] = True
