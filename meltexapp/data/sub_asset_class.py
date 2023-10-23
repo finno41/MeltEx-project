@@ -17,6 +17,8 @@ def get_sub_assets_by_ids(user, sub_ids):
 
 
 def get_sub_acs_by_ac(user, asset_class_id):
+    if asset_class_id == "":
+        return SubAssetClass.objects.none()
     perm_sub_acs = get_permitted_asset_classes(user)
     return perm_sub_acs.filter(asset_class_id=asset_class_id)
 

@@ -8,7 +8,9 @@ from meltexapp.models import SubAssetClass
 
 class ListingForm(forms.Form):
     def __init__(self, user, *args, **kwargs):
-        AC_CHOICES = get_asset_class_key_labels(user, format="tuple")
+        AC_CHOICES = (tuple(["", ""]),) + get_asset_class_key_labels(
+            user, format="tuple"
+        )
         super(ListingForm, self).__init__(*args, **kwargs)
         fields = [
             "sub_asset_class",
@@ -26,11 +28,17 @@ class ListingForm(forms.Form):
             "fund_ter",
             "comments",
         ]
+        select_fields = ["asset_class", "sub_asset_class"]
         self.fields["asset_class"] = forms.ChoiceField(choices=AC_CHOICES)
-        self.fields["asset_class"].widget.attrs["class"] = "form-select"
         for field in fields:
             self.fields[field] = Listing._meta.get_field(field).formfield()
             self.fields[field].label = get_listing_title(field)
-            self.fields[field].widget.attrs["class"] = "form-label"
+        for field in self.fields:
+            self.fields[field].widget.attrs["class"] = (
+                "form-control" if field not in select_fields else "form-select"
+            )
+            if self.fields[field].required:
+                self.fields[field].required = False
+                self.fields[field].widget.attrs["required"] = True
 
         self.fields["sub_asset_class"].queryset = SubAssetClass.objects.none()
