@@ -1,13 +1,16 @@
 from django.forms import ModelForm
+from django import forms
 from meltexapp.models import Listing
 from meltexapp.config.listing import get_listing_title
+from meltexapp.helper.asset_class import get_asset_class_key_labels
+from meltexapp.models import SubAssetClass
 
 
-class ListingForm(ModelForm):
-    class Meta:
-        model = Listing
+class ListingForm(forms.Form):
+    def __init__(self, user, *args, **kwargs):
+        AC_CHOICES = get_asset_class_key_labels(user, format="tuple")
+        super(ListingForm, self).__init__(*args, **kwargs)
         fields = [
-            "geography",
             "sub_asset_class",
             "impl_approach",
             "fund_levr",
@@ -23,8 +26,8 @@ class ListingForm(ModelForm):
             "fund_ter",
             "comments",
         ]
-
-    def __init__(self, *args, **kwargs):
-        super(ListingForm, self).__init__(*args, **kwargs)
-        for field in self.fields:
+        self.fields["asset_class"] = forms.ChoiceField(choices=AC_CHOICES)
+        for field in fields:
+            self.fields[field] = Listing._meta.get_field(field).formfield()
             self.fields[field].label = get_listing_title(field)
+        self.fields["sub_asset_class"].queryset = SubAssetClass.objects.none()

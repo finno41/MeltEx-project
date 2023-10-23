@@ -9,7 +9,7 @@ def get_listing_title_map():
         "nav": "Nav (£m)",
         "nav_dis_avl": "Nav Discount Available",
         "expr_int_ddline": "Expression of Interest Deadline",
-        "targ_irr": "Targ IRR p.a",
+        "targ_irr": "Targ IRR p/a",
         "risk_prof": "Risk Profile",
         "fund_ter": "Fund TER",
         "comments": "Comments",

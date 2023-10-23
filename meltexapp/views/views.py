@@ -30,5 +30,5 @@ def get_listings(request):
 
 
 def add_listing(request):
-    form = ListingForm(request.POST)
+    form = ListingForm(request.user, request.POST)
     return render(request, "listings/add_listing.html", {"form": form})
