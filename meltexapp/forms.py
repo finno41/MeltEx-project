@@ -27,7 +27,10 @@ class ListingForm(forms.Form):
             "comments",
         ]
         self.fields["asset_class"] = forms.ChoiceField(choices=AC_CHOICES)
+        self.fields["asset_class"].widget.attrs["class"] = "form-select"
         for field in fields:
             self.fields[field] = Listing._meta.get_field(field).formfield()
             self.fields[field].label = get_listing_title(field)
+            self.fields[field].widget.attrs["class"] = "form-label"
+
         self.fields["sub_asset_class"].queryset = SubAssetClass.objects.none()

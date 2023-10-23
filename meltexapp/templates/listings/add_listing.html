@@ -1,27 +1,37 @@
 {% extends "master.html" %}
 {% block content %}
 {% include "nav.html" %}
-<form action="/listings/create" id="listingForm" method="post" data-subac-url="{% url 'load_sub_acs' %}" novalidate>
-  {% csrf_token %}
-  {{ form }}
-  <input type="submit" value="Submit">
-</form>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script>
-  $("#id_asset_class").change(function () {
-    var url = $("#listingForm").attr("data-subac-url");
-    var assetClassId = $(this).val();
+<div class="container">
+  <div class="row">
+    <div class="col">
+    </div>
+    <div class="col-9">
+      <form action="/listings/create" id="listingForm" method="post" data-subac-url="{% url 'load_sub_acs' %}"
+        novalidate>
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+      </form>
+    </div>
+    <div class="col">
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    $("#id_asset_class").change(function () {
+      var url = $("#listingForm").attr("data-subac-url");
+      var assetClassId = $(this).val();
 
-    $.ajax({
-      url: url,
-      data: {
-        'ac_id': assetClassId
-      },
-      success: function (data) {
-        $("#id_sub_asset_class").html(data);
-      }
+      $.ajax({
+        url: url,
+        data: {
+          'ac_id': assetClassId
+        },
+        success: function (data) {
+          $("#id_sub_asset_class").html(data);
+        }
+      });
+
     });
-
-  });
-</script>
-{% endblock %}
+  </script>
+  {% endblock %}
