@@ -6,6 +6,7 @@ from meltexapp.helper.asset_class import get_asset_class_options
 from django.shortcuts import render
 from meltexapp.config.listing import get_listing_title_map
 from meltexapp.forms import ListingForm
+from meltexapp.data.sub_asset_class import get_sub_acs_by_ac
 
 
 def index(request):
@@ -32,3 +33,12 @@ def get_listings(request):
 def add_listing(request):
     form = ListingForm(request.user, request.POST)
     return render(request, "listings/add_listing.html", {"form": form})
+
+
+def load_sub_acs(request):
+    ac_id = request.GET.get("ac_id")
+    user = request.user
+    sub_acs = get_sub_acs_by_ac(user, ac_id)
+    return render(
+        request, "asset_class/sub_ac_dropdown_list_options.html", {"sub_acs": sub_acs}
+    )
