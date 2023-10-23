@@ -27,3 +27,6 @@ def get_column_titles():
 def get_listing_title(listing_key):
     title_map = get_listing_title_map()
     return title_map.get(listing_key, listing_key)
+
+
+LISTING_REQUIRED_FIELDS = ["geography", "sub_asset_class"]

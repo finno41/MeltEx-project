@@ -11,6 +11,11 @@ def get_permitted_asset_classes(user):
     )
 
 
+def get_sub_asset_by_id(user, sub_id):
+    perm_sub_acs = get_permitted_asset_classes(user)
+    return perm_sub_acs.get(id=sub_id)
+
+
 def get_sub_assets_by_ids(user, sub_ids):
     perm_sub_acs = get_permitted_asset_classes(user)
     return perm_sub_acs.filter(id__in=sub_ids)

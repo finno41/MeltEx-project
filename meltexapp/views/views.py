@@ -30,9 +30,13 @@ def get_listings(request):
     return render(request, "listings/listings.html", template_vars)
 
 
-def add_listing(request):
+def add_listing(request, listing_added=False):
     form = ListingForm(request.user, request.POST)
-    return render(request, "listings/add_listing.html", {"form": form})
+    return render(
+        request,
+        "listings/add_listing.html",
+        {"form": form, "listing_added": listing_added},
+    )
 
 
 def load_sub_acs(request):

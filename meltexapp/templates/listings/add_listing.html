@@ -6,6 +6,9 @@
     <div class="col">
     </div>
     <div class="col-9">
+      {% if listing_added %}
+      "Listing Added successfully"
+      {% endif %}
       <form action="/listings/create" id="listingForm" method="post" data-subac-url="{% url 'load_sub_acs' %}"
         novalidate>
         {% csrf_token %}
@@ -32,6 +35,13 @@
         }
       });
 
+    });
+  </script>
+  <script>
+    $(function () {
+      $("#id_expr_int_ddline").datetimepicker({
+        format: 'DD/MM/YYYY HH:mm',
+      });
     });
   </script>
   {% endblock %}

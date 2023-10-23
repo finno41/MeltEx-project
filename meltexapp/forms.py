@@ -14,6 +14,7 @@ class ListingForm(forms.Form):
         super(ListingForm, self).__init__(*args, **kwargs)
         fields = [
             "sub_asset_class",
+            "geography",
             "impl_approach",
             "fund_levr",
             "fund_struc",
@@ -29,6 +30,7 @@ class ListingForm(forms.Form):
             "comments",
         ]
         select_fields = ["asset_class", "sub_asset_class"]
+        date_fields = ["expr_int_ddline"]
         self.fields["asset_class"] = forms.ChoiceField(choices=AC_CHOICES)
         for field in fields:
             self.fields[field] = Listing._meta.get_field(field).formfield()
@@ -37,6 +39,11 @@ class ListingForm(forms.Form):
             self.fields[field].widget.attrs["class"] = (
                 "form-control" if field not in select_fields else "form-select"
             )
+            if field in date_fields:
+                self.fields[field].input_formats = ["%d/%m/%Y"]
+                self.fields[field].widget.attrs[
+                    "class"
+                ] = "form-control datetimepicker-input"
             if self.fields[field].required:
                 self.fields[field].required = False
                 self.fields[field].widget.attrs["required"] = True

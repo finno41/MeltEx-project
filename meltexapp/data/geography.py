@@ -11,6 +11,11 @@ def get_permitted_geographies(user):
     )
 
 
+def get_geography_by_id(user, geog_id):
+    perm_geos = get_permitted_geographies(user)
+    return perm_geos.get(id=geog_id)
+
+
 def get_geography_children(user, parent_id):
     perm_geos = get_permitted_geographies(user)
     geos = perm_geos.filter(parent_id=parent_id)
