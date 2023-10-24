@@ -6,6 +6,7 @@ from meltexapp.api.listing import create_listing
 urlpatterns = [
     path("", views.index, name="index"),
     path("listings", views.get_listings, name="get_listings"),
+    path("listings/my_listings", views.my_listings, name="get_listings"),
     path(
         "listings/add_listing",
         views.add_listing,

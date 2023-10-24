@@ -5,7 +5,9 @@ import pandas as pd
 
 
 class ListingDTO(BaseDTO):
-    def __init__(self, data, user, geog_df=pd.DataFrame(), ac_df=pd.DataFrame()):
+    def __init__(
+        self, data, user, hide_keys=[], geog_df=pd.DataFrame(), ac_df=pd.DataFrame()
+    ):
         geog_id = data["geography_id"]
         sub_ac_id = data["sub_asset_class_id"]
         if geog_df.empty:
@@ -26,22 +28,12 @@ class ListingDTO(BaseDTO):
         super().__init__(
             data,
             user,
-            hide_keys=[
-                "id",
-                "geography_id",
-                "owner_id",
-                "public",
-                "asset_class_id",
-                "sub_asset_class_id",
-                "created_on",
-                "updated_on",
-                "deleted_on",
-            ],
+            hide_keys=hide_keys,
         )
 
 
 class ListingDTOCollection(BaseDTOCollection):
-    def __init__(self, data, user):
+    def __init__(self, data, user, hide_keys=[]):
         if not isinstance(data, list):
             data = list(data.values())
         if not data:
@@ -56,5 +48,10 @@ class ListingDTOCollection(BaseDTOCollection):
             )
             ac_df = pd.DataFrame(sub_acs).set_index("id")
             super().__init__(
-                data, user, base_dto=ListingDTO, geog_df=geog_df, ac_df=ac_df
+                data,
+                user,
+                base_dto=ListingDTO,
+                hide_keys=hide_keys,
+                geog_df=geog_df,
+                ac_df=ac_df,
             )

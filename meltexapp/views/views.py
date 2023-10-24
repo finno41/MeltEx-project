@@ -22,7 +22,54 @@ def get_listings(request):
     user = request.user
     params = dict(request.GET)
     listings_data = listing_search(user, **params)
-    listings = ListingDTOCollection(listings_data, user).output()
+    listings = ListingDTOCollection(
+        listings_data,
+        user,
+        hide_keys=[
+            "geography_id",
+            "owner_id",
+            "public",
+            "asset_class_id",
+            "sub_asset_class_id",
+            "created_on",
+            "updated_on",
+            "deleted_on",
+        ],
+    ).output()
+    table_variables = (
+        format_for_table(listings)
+        if listings
+        else format_for_table(
+            listings, col_headers=list(get_listing_title_map().values())
+        )
+    )
+    params_present = json.dumps(bool(params))
+    ac_options = get_asset_class_options(user)
+    template_vars = table_variables | {
+        "ac_options": ac_options,
+        "params_present": params_present,
+    }
+    return render(request, "listings/listings.html", template_vars)
+
+
+@login_required
+def my_listings(request):
+    user = request.user
+    params = dict(request.GET)
+    listings_data = listing_search(user, company_only=True, **params)
+    listings = ListingDTOCollection(
+        listings_data,
+        user,
+        hide_keys=[
+            "geography_id",
+            "owner_id",
+            "asset_class_id",
+            "sub_asset_class_id",
+            "created_on",
+            "updated_on",
+            "deleted_on",
+        ],
+    ).output()
     table_variables = (
         format_for_table(listings)
         if listings
