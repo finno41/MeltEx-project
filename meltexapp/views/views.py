@@ -7,12 +7,16 @@ from django.shortcuts import render
 from meltexapp.config.listing import get_listing_title_map
 from meltexapp.forms import ListingForm
 from meltexapp.data.sub_asset_class import get_sub_acs_by_ac
+from meltexapp.data.geography import get_permitted_geographies
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def index(request):
     return render(request, "home.html")
 
 
+@login_required
 def get_listings(request):
     user = request.user
     params = dict(request.GET)
@@ -30,6 +34,7 @@ def get_listings(request):
     return render(request, "listings/listings.html", template_vars)
 
 
+@login_required
 def add_listing(request):
     form = ListingForm(request.user, request.POST)
     listing_added = request.GET.get("listing_added", False)
@@ -45,10 +50,19 @@ def add_listing(request):
     )
 
 
+@login_required
 def load_sub_acs(request):
     ac_id = request.GET.get("ac_id")
     user = request.user
     sub_acs = get_sub_acs_by_ac(user, ac_id)
     return render(
         request, "asset_class/sub_ac_dropdown_list_options.html", {"sub_acs": sub_acs}
+    )
+
+
+def load_geographies(request):
+    user = request.user
+    geographies = get_permitted_geographies(user)
+    return render(
+        request, "geography/geography_dropdown.html", {"geographies": geographies}
     )

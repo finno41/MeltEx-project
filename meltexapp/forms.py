@@ -3,6 +3,7 @@ from django import forms
 from meltexapp.models import Listing
 from meltexapp.config.listing import get_listing_title
 from meltexapp.helper.asset_class import get_asset_class_key_labels
+from meltexapp.data.geography import get_permitted_geographies
 from meltexapp.models import SubAssetClass
 
 
@@ -28,7 +29,7 @@ class ListingForm(forms.Form):
             "fund_ter",
             "comments",
         ]
-        select_fields = ["asset_class", "sub_asset_class"]
+        select_fields = ["asset_class", "sub_asset_class", "geography"]
         start_date = forms.DateField(widget=forms.DateInput(attrs={"type": "date"}))
         self.fields["asset_class"] = forms.ChoiceField(choices=AC_CHOICES)
         self.fields["expr_int_ddline"] = forms.DateField(
@@ -47,3 +48,6 @@ class ListingForm(forms.Form):
                 self.fields[field].widget.attrs["required"] = True
 
         self.fields["sub_asset_class"].queryset = SubAssetClass.objects.none()
+        self.fields["geography"].queryset = get_permitted_geographies(user).order_by(
+            "name"
+        )

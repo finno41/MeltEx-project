@@ -11,7 +11,8 @@
         "Listing Added successfully"
       </div>
       {% endif %}
-      <form action="/listings/create" id="listingForm" method="post" data-subac-url="{% url 'load_sub_acs' %}">
+      <form action="/listings/create" id="listingForm" method="post" data-subac-url="{% url 'load_sub_acs' %}"
+        data-load-geographies-url="{% url 'load_geographies'}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-outline-primary"> Submit </button>
@@ -37,5 +38,19 @@
       });
 
     });
+  </script>
+  <script>
+    // $("#id_geography").change(function () {
+    //   var url = $("#listingForm").attr("load_geographies");
+
+
+    $.ajax({
+      url: url,
+      success: function (data) {
+        $("#id_geography").html(data);
+      }
+    });
+
+    // });
   </script>
   {% endblock %}

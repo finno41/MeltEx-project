@@ -46,6 +46,9 @@ class Geography(models.Model):
     parent_id = models.CharField(max_length=32, blank=True, null=True, default=None)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
 
+    def __str__(self):
+        return self.name
+
 
 class Listing(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

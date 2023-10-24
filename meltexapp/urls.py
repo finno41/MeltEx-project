@@ -12,5 +12,6 @@ urlpatterns = [
         name="add_listing",
     ),
     path("ajax/load-subacs/", views.load_sub_acs, name="load_sub_acs"),
+    path("load-geographies", views.load_geographies, name="load_geographies"),
     path("listings/create", create_listing, name="create_listing"),
 ]
