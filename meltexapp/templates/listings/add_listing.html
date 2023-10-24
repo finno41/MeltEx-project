@@ -11,8 +11,7 @@
         "Listing Added successfully"
       </div>
       {% endif %}
-      <form action="/listings/create" id="listingForm" method="post" data-subac-url="{% url 'load_sub_acs' %}"
-        novalidate>
+      <form action="/listings/create" id="listingForm" method="post" data-subac-url="{% url 'load_sub_acs' %}">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-outline-primary"> Submit </button>

@@ -33,7 +33,7 @@ def get_listings(request):
 def add_listing(request):
     form = ListingForm(request.user, request.POST)
     listing_added = request.GET.get("listing_added", False)
-    missing_fields = request.GET.get("missing_fields", False).split(",")
+    missing_fields = request.GET.get("missing_fields", False)
     return render(
         request,
         "listings/add_listing.html",
