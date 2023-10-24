@@ -9,6 +9,7 @@ from meltexapp.forms import ListingForm
 from meltexapp.data.sub_asset_class import get_sub_acs_by_ac
 from meltexapp.data.geography import get_permitted_geographies
 from django.contrib.auth.decorators import login_required
+import json
 
 
 @login_required
@@ -29,8 +30,12 @@ def get_listings(request):
             listings, col_headers=list(get_listing_title_map().values())
         )
     )
+    params_present = json.dumps(bool(params))
     ac_options = get_asset_class_options(user)
-    template_vars = table_variables | {"ac_options": ac_options}
+    template_vars = table_variables | {
+        "ac_options": ac_options,
+        "params_present": params_present,
+    }
     return render(request, "listings/listings.html", template_vars)
 
 

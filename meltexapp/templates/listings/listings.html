@@ -2,7 +2,6 @@
 {% block content %}
 {% include "nav.html" %}
 {% if values %}
-
 <form action="/listings" method="get" onsubmit="setFormStore()">
   <label for="ac_id">Asset Class: </label>
   <select id="ac_id" name="ac_id">
@@ -39,15 +38,19 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script>
     function setFormStore() {
-      console.log(document.getElementById('ac_id')),
-        localStorage.setItem("selected_ac", document.getElementById('ac_id').value);
+      localStorage.setItem("selected_ac", document.getElementById('ac_id').value);
     };
-  </script>
-  <script>
     $(document).ready(function () {
       if ($('#ac_id').length) {
         $('#ac_id').val(localStorage.getItem("selected_ac"));
       }
+      else { $('#ac_id').val("all") }
     });
+    window.onload = clearStorage
+    function clearStorage() {
+      if (!("{{params_present}}" === "true")) {
+        localStorage.clear()
+      }
+    }
   </script>
   {% endblock %}
