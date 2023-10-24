@@ -33,6 +33,9 @@ class ListingDTO(BaseDTO):
                 "public",
                 "asset_class_id",
                 "sub_asset_class_id",
+                "created_on",
+                "updated_on",
+                "deleted_on",
             ],
         )
 

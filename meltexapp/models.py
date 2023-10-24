@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.fields import NOT_PROVIDED
 import uuid
+from datetime import datetime
 
 
 class Company(models.Model):
@@ -73,6 +74,9 @@ class Listing(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
     comments = models.TextField(max_length=1000)
     public = models.BooleanField(default=False)
+    created_on = models.DateTimeField(default=datetime.now())
+    updated_on = models.DateTimeField(default=datetime.now())
+    deleted_on = models.DateTimeField(blank=True, null=True)
 
 
 class Tag(models.Model):

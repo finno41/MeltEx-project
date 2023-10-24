@@ -40,9 +40,6 @@
     });
   </script>
   <script>
-    // $("#id_geography").change(function () {
-    //   var url = $("#listingForm").attr("load_geographies");
-
 
     $.ajax({
       url: url,
@@ -50,7 +47,5 @@
         $("#id_geography").html(data);
       }
     });
-
-    // });
   </script>
   {% endblock %}
