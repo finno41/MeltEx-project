@@ -24,14 +24,19 @@
       <th>{{header}}</th>
       {% endfor %}
     </tr>
-    {% for row in values %}
+    {% for id, values in values %}
     <tr>
-      {%for value in row%}
+      {%for value in values%}
       <td>{{value}}</td>
       {% endfor %}
+      {% if page == "my_listings" %}
       <td>
-        <botton class="btn btn-outline-primary">Update</botton>
+        <a href="/listings/{{id}}">
+
+          <botton class="btn btn-outline-primary" href="">Update</botton>
+        </a>
       </td>
+      {% endif %}
     </tr>
     {% endfor %}
   </table>

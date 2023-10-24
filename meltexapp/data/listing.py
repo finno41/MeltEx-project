@@ -7,6 +7,11 @@ def get_permitted_listings(user):
     return Listing.objects.filter(public=True)
 
 
+def get_listing_by_id(user, listing_id):
+    perm_listings = get_permitted_listings(user)
+    return perm_listings.get(id=listing_id)
+
+
 def get_company_listings(user):
     company_users = get_company_users(user)
     return Listing.objects.filter(

@@ -11,6 +11,7 @@ def format_for_table(data: list, col_headers=False, update=False):
     df.columns = [get_listing_title(col) for col in df.columns]
     headers = list(df.columns)
     values = [row for i, row in df.iterrows()]
+    values = [(ids[i], r) for i, r in enumerate(values)]
     if update:
         headers.append("")
-    return {"headers": headers, "values": values, "ids": ids}
+    return {"headers": headers, "values": values}

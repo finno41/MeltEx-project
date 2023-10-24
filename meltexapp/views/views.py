@@ -9,6 +9,7 @@ from meltexapp.forms import ListingForm
 from meltexapp.data.sub_asset_class import get_sub_acs_by_ac
 from meltexapp.data.geography import get_permitted_geographies
 from django.contrib.auth.decorators import login_required
+from meltexapp.data.listing import get_listing_by_id
 import json
 
 
@@ -48,6 +49,7 @@ def get_listings(request):
     template_vars = table_variables | {
         "ac_options": ac_options,
         "params_present": params_present,
+        "page": "listings",
     }
     return render(request, "listings/listings.html", template_vars)
 
@@ -82,6 +84,7 @@ def my_listings(request):
     template_vars = table_variables | {
         "ac_options": ac_options,
         "params_present": params_present,
+        "page": "my_listings",
     }
     return render(request, "listings/listings.html", template_vars)
 
@@ -98,6 +101,20 @@ def add_listing(request):
             "form": form,
             "listing_added": listing_added,
             "missing_fields": missing_fields,
+        },
+    )
+
+
+@login_required
+def view_listing(request, listing_id):
+    user = request.user
+    listing = get_listing_by_id(user, listing_id)
+    form = ListingForm(request.user, request.POST, isinstance=listing)
+    return render(
+        request,
+        "listings/add_listing.html",
+        {
+            "form": form,
         },
     )
 
