@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponseNotFound
 from meltexapp.service.listing.search import listing_search
 from meltexapp.dto.listing import ListingDTOCollection
 from meltexapp.data_format.table import format_for_table
@@ -112,6 +112,8 @@ def add_listing(request):
 def view_listing(request, listing_id):
     user = request.user
     listing = get_listing_by_id(user, listing_id)
+    if isinstance(listing, HttpResponseNotFound):
+        return listing
     form = ListingForm(request.user, instance=listing)
     form_action_url = f"/listings/{listing.pk}/update"
 

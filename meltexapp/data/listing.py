@@ -1,6 +1,7 @@
 from meltexapp.models import Listing
 from django.db.models import Q
 from meltexapp.helper.user import get_company_users
+from django.http import HttpResponseNotFound
 
 
 def get_permitted_listings(user):
@@ -17,7 +18,12 @@ def get_listing_by_id(user, listing_id, owned_only=False):
     perm_listings = (
         get_editable_listings(user) if owned_only else get_permitted_listings(user)
     )
-    return perm_listings.get(id=listing_id)
+    try:
+        return perm_listings.get(id=listing_id)
+    except:
+        return HttpResponseNotFound(
+            "<h1>You do not have permission to view this listing</h1>"
+        )
 
 
 def get_company_listings(user):
