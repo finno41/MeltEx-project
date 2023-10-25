@@ -25,8 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-raa_)uczfns2bd8y&-vl5cg0gvyrk29%sy641kwem$809elt2g"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+DEBUG = True
+ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = "meltexapp.User"
 # Application definition
