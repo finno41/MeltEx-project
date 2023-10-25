@@ -91,9 +91,11 @@ def my_listings(request):
 
 @login_required
 def add_listing(request):
-    form = ListingForm(request.user, request.POST)
+    user = request.user
+    form = ListingForm(user, request.POST)
     listing_added = request.GET.get("listing_added", False)
     missing_fields = request.GET.get("missing_fields", False)
+    form_action_url = "/listings/create"
     return render(
         request,
         "listings/add_listing.html",
@@ -101,6 +103,7 @@ def add_listing(request):
             "form": form,
             "listing_added": listing_added,
             "missing_fields": missing_fields,
+            "form_action_url": form_action_url,
         },
     )
 
@@ -109,13 +112,13 @@ def add_listing(request):
 def view_listing(request, listing_id):
     user = request.user
     listing = get_listing_by_id(user, listing_id)
-    form = ListingForm(request.user, request.POST, isinstance=listing)
+    form = ListingForm(request.user, instance=listing)
+    form_action_url = f"/listings/{listing.pk}/update"
+
     return render(
         request,
         "listings/add_listing.html",
-        {
-            "form": form,
-        },
+        {"form": form, "method": "update", "form_action_url": form_action_url},
     )
 
 

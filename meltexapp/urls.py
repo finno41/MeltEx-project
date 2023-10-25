@@ -1,7 +1,7 @@
 from django.urls import path
 
 from meltexapp.views import views
-from meltexapp.api.listing import create_listing
+from meltexapp.api.listing import create_listing, update_listing
 
 urlpatterns = [
     path("", views.index, name="index"),
@@ -16,4 +16,5 @@ urlpatterns = [
     path("load-geographies", views.load_geographies, name="load_geographies"),
     path("listings/create", create_listing, name="create_listing"),
     path("listings/<str:listing_id>", views.view_listing, name="view_listing"),
+    path("listings/<str:listing_id>/update", update_listing, name="update_listing"),
 ]

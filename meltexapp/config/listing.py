@@ -30,3 +30,22 @@ def get_listing_title(listing_key):
 
 
 LISTING_REQUIRED_FIELDS = ["geography", "sub_asset_class"]
+
+EDITABLE_LISTING_ATTRS = [
+    "geography",
+    "sub_asset_class",
+    "impl_approach",
+    "fund_levr",
+    "fund_struc",
+    "fund_inc_year",
+    "fund_targ_clos_yr",
+    "fund_vehi_type",
+    "nav",
+    "nav_dis_avl",
+    "expr_int_ddline",
+    "targ_irr",
+    "risk_prof",
+    "fund_ter",
+    "comments",
+    "public",
+]

@@ -11,41 +11,48 @@
         "Listing Added successfully"
       </div>
       {% endif %}
-      <form action="/listings/create" id="listingForm" method="post" data-subac-url="{% url 'load_sub_acs' %}"
-        data-load-geographies-url="{% url 'load_geographies'}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-outline-primary"> Submit </button>
-      </form>
+      <div class="col-9">
+        {% if banners == "listing_updated" %}
+        <div class="alert alert-success" role="alert">
+          "Listing Updated successfully"
+        </div>
+        {% endif %}
+
+        <form action={{form_action_url}} id="listingForm" method="post" data-subac-url="{% url 'load_sub_acs' %}"
+          data-load-geographies-url="{% url 'load_geographies'}">
+          {% csrf_token %}
+          {{ form }}
+          <button type="submit" class="btn btn-outline-primary"> Submit </button>
+        </form>
+      </div>
+      <div class="col">
+      </div>
     </div>
-    <div class="col">
-    </div>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script>
-    $("#id_asset_class").change(function () {
-      var url = $("#listingForm").attr("data-subac-url");
-      var assetClassId = $(this).val();
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      $("#id_asset_class").change(function () {
+        var url = $("#listingForm").attr("data-subac-url");
+        var assetClassId = $(this).val();
+
+        $.ajax({
+          url: url,
+          data: {
+            'ac_id': assetClassId
+          },
+          success: function (data) {
+            $("#id_sub_asset_class").html(data);
+          }
+        });
+
+      });
+    </script>
+    <script>
 
       $.ajax({
         url: url,
-        data: {
-          'ac_id': assetClassId
-        },
         success: function (data) {
-          $("#id_sub_asset_class").html(data);
+          $("#id_geography").html(data);
         }
       });
-
-    });
-  </script>
-  <script>
-
-    $.ajax({
-      url: url,
-      success: function (data) {
-        $("#id_geography").html(data);
-      }
-    });
-  </script>
-  {% endblock %}
+    </script>
+    {% endblock %}

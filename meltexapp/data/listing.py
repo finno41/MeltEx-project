@@ -4,11 +4,19 @@ from meltexapp.helper.user import get_company_users
 
 
 def get_permitted_listings(user):
-    return Listing.objects.filter(public=True)
+    company_users = get_company_users(user)
+    return Listing.objects.filter(Q(public=True) | Q(owner__in=company_users))
 
 
-def get_listing_by_id(user, listing_id):
-    perm_listings = get_permitted_listings(user)
+def get_editable_listings(user):
+    company_users = get_company_users(user)
+    return Listing.objects.filter(owner__in=company_users)
+
+
+def get_listing_by_id(user, listing_id, owned_only=False):
+    perm_listings = (
+        get_editable_listings(user) if owned_only else get_permitted_listings(user)
+    )
     return perm_listings.get(id=listing_id)
 
 
