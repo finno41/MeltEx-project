@@ -2,7 +2,7 @@
 {% block content %}
 {% include "nav.html" %}
 {% if values %}
-<form action="/listings" method="get" onsubmit="setFormStore()">
+<form action="" method="get" onsubmit="setFormStore()">
   <label for="ac_id">Asset Class: </label>
   <select id="ac_id" name="ac_id">
     {% for ac in ac_options %}
