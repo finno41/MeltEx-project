@@ -10,6 +10,7 @@ from meltexapp.data.sub_asset_class import get_sub_acs_by_ac
 from meltexapp.data.geography import get_permitted_geographies
 from django.contrib.auth.decorators import login_required
 from meltexapp.data.listing import get_listing_by_id
+from meltexapp.helper.asset_class import get_asset_class_from_listing
 import json
 
 
@@ -116,11 +117,41 @@ def view_listing(request, listing_id):
         return listing
     form = ListingForm(request.user, instance=listing)
     form_action_url = f"/listings/{listing.pk}/update"
+    delete_url = f"/listings/{listing.pk}/delete"
+    asset_class_id = get_asset_class_from_listing(listing).pk
+    sub_asset_class_id = listing.sub_asset_class.pk
 
     return render(
         request,
         "listings/add_listing.html",
-        {"form": form, "method": "update", "form_action_url": form_action_url},
+        {
+            "form": form,
+            "method": "update",
+            "form_action_url": form_action_url,
+            "delete_url": delete_url,
+            "asset_class_id": asset_class_id,
+            "sub_asset_class_id": sub_asset_class_id,
+        },
+    )
+
+
+@login_required
+def delete_listing(request, listing_id):
+    user = request.user
+    listing = get_listing_by_id(user, listing_id)
+    listing.delete()
+    form = ListingForm(request.user, instance=listing)
+    form_action_url = "/listings/create"
+
+    return render(
+        request,
+        "listings/add_listing.html",
+        {
+            "form": form,
+            "method": "delete",
+            "form_action_url": form_action_url,
+            "banners": "listing_deleted",
+        },
     )
 
 

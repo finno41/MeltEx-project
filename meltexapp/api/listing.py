@@ -21,6 +21,7 @@ def update_listing(request, listing_id):
     data = request.POST.dict()
     user = request.user
     listing = update_listing_service(user, listing_id, data)
+    delete_url = f"/listings/{listing.pk}/delete"
     form_action_url = f"/listings/{listing.pk}/update"
     form = ListingForm(request.user, instance=listing)
 
@@ -32,5 +33,6 @@ def update_listing(request, listing_id):
             "method": "update",
             "form_action_url": form_action_url,
             "banners": "listing_updated",
+            "delete_url": delete_url,
         },
     )
