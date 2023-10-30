@@ -11,7 +11,7 @@ from meltexapp.data.geography import get_permitted_geographies
 from django.contrib.auth.decorators import login_required
 from meltexapp.data.listing import get_listing_by_id
 from meltexapp.helper.asset_class import get_asset_class_from_listing
-from meltexapp.config.listing import DEFAULT_LISTING_COLUMNS
+from meltexapp.config.listing import DEFAULT_LISTING_COLUMNS, get_listing_k_v_tuple
 import json
 
 
@@ -24,7 +24,14 @@ def index(request):
 def get_listings(request):
     user = request.user
     params = dict(request.GET)
-    listings_data = listing_search(user, **params)
+    asset_class_name = params.get("asset_class_name")
+    sub_asset_class_name = params.get("sub_asset_class_name")
+    geography_id = params.get("geography_id")
+    ac_id = params.get("ac_id")
+    columns = params["columns"] if "columns" in params else DEFAULT_LISTING_COLUMNS
+    listings_data = listing_search(
+        user, asset_class_name, sub_asset_class_name, geography_id, ac_id
+    )
     listings = ListingDTOCollection(
         listings_data,
         user,
@@ -39,12 +46,14 @@ def get_listings(request):
             "deleted_on",
         ],
     ).output()
-    table_variables = format_for_table(listings, DEFAULT_LISTING_COLUMNS)
+    available_cols = get_listing_k_v_tuple()
+    table_variables = format_for_table(listings, columns)
     params_present = json.dumps(bool(params))
     ac_options = get_asset_class_options(user)
     template_vars = table_variables | {
         "ac_options": ac_options,
         "params_present": params_present,
+        "available_cols": available_cols,
         "page": "listings",
     }
     return render(request, "listings/listings.html", template_vars)

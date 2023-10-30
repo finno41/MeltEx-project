@@ -1,0 +1,16 @@
+.page-wrap {
+  position: relative;
+}
+
+#sidebar {
+  position: fixed;
+  overflow: auto;
+}
+
+.navbar-pad {
+  margin-left: 220px;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+}

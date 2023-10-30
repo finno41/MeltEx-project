@@ -1,3 +1,40 @@
+ALL_LISTING_COLUMNS = [
+    "asset_class_name",
+    "sub_asset_class_name",
+    "geography",
+    "impl_approach",
+    "fund_levr",
+    "fund_struc",
+    "fund_inc_year",
+    "fund_targ_clos_yr",
+    "fund_vehi_type",
+    "nav",
+    "nav_dis_avl",
+    "expr_int_ddline",
+    "targ_irr",
+    "risk_prof",
+    "fund_ter",
+]
+# This also dictates the order of the columns
+DEFAULT_LISTING_COLUMNS = [
+    "asset_class_name",
+    "sub_asset_class_name",
+    "geography",
+    "impl_approach",
+    "fund_levr",
+    "fund_struc",
+    "fund_inc_year",
+    "fund_targ_clos_yr",
+    "fund_vehi_type",
+    "nav",
+    "nav_dis_avl",
+    "expr_int_ddline",
+    "targ_irr",
+    "risk_prof",
+    "fund_ter",
+]
+
+
 def get_listing_title_map():
     return {
         "impl_approach": "Implementation Approach",
@@ -20,6 +57,12 @@ def get_listing_title_map():
     }
 
 
+def get_listing_k_v_tuple(filter_list=DEFAULT_LISTING_COLUMNS):
+    return [
+        (k, v) for k, v in get_listing_title_map().items() if k in ALL_LISTING_COLUMNS
+    ]
+
+
 def get_column_titles():
     return list(get_listing_title_map().values())
 
@@ -30,6 +73,7 @@ def get_listing_title(listing_key):
 
 
 LISTING_REQUIRED_FIELDS = ["geography", "sub_asset_class"]
+
 
 EDITABLE_LISTING_ATTRS = [
     "geography",
@@ -48,23 +92,4 @@ EDITABLE_LISTING_ATTRS = [
     "fund_ter",
     "comments",
     "public",
-]
-
-# This also dictates the order of the columns
-DEFAULT_LISTING_COLUMNS = [
-    "asset_class_name",
-    "sub_asset_class_name",
-    "geography",
-    "impl_approach",
-    "fund_levr",
-    "fund_struc",
-    "fund_inc_year",
-    "fund_targ_clos_yr",
-    "fund_vehi_type",
-    "nav",
-    "nav_dis_avl",
-    "expr_int_ddline",
-    "targ_irr",
-    "risk_prof",
-    "fund_ter",
 ]
