@@ -49,3 +49,22 @@ EDITABLE_LISTING_ATTRS = [
     "comments",
     "public",
 ]
+
+# This also dictates the order of the columns
+DEFAULT_LISTING_COLUMNS = [
+    "asset_class_name",
+    "sub_asset_class_name",
+    "geography",
+    "impl_approach",
+    "fund_levr",
+    "fund_struc",
+    "fund_inc_year",
+    "fund_targ_clos_yr",
+    "fund_vehi_type",
+    "nav",
+    "nav_dis_avl",
+    "expr_int_ddline",
+    "targ_irr",
+    "risk_prof",
+    "fund_ter",
+]

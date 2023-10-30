@@ -1,106 +1,110 @@
 {% extends "master.html" %}
 {% block content %}
-{% include "nav.html" %}
-<div class="container">
-  <div class="row">
-    <div class="col">
-    </div>
-    <div class="col-9">
-      {% if listing_added %}
-      <div class="alert alert-success" role="alert">
-        "Listing Added successfully"
-      </div>
-      {% endif %}
-      <div class="col-9">
-        {% if banners == "listing_updated" %}
-        <div class="alert alert-success" role="alert">
-          "Listing Updated successfully"
-        </div>
-        {% elif banners == "listing_deleted" %}
-        <div class="alert alert-success" role="alert">
-          "Listing Deleted successfully"
-        </div>
-        {% endif %}
-
-        <form action={{form_action_url}} id="listingForm" method="post" data-subac-url="{% url 'load_sub_acs' %}"
-          data-load-geographies-url="{% url 'load_geographies'}">
-          {% csrf_token %}
-          {{ form }}
-          <button type="submit" class="btn btn-outline-primary"> Submit </button>
-        </form>
-        {% if delete_url %}
-        <a href={{delete_url}}>
-          <button type="delete" class="btn btn-outline-danger"> Delete </button>
-        </a>
-        {% endif %}
-      </div>
+<div class="d-flex flex-column flex-shrink-0 p-3">
+  <div class="container">
+    <div class="row">
       <div class="col">
       </div>
+      <div class="col-9">
+        {% if listing_added %}
+        <div class="alert alert-success" role="alert">
+          "Listing Added successfully"
+        </div>
+        {% endif %}
+        <div class="col-9">
+          {% if banners == "listing_updated" %}
+          <div class="alert alert-success" role="alert">
+            "Listing Updated successfully"
+          </div>
+          {% elif banners == "listing_deleted" %}
+          <div class="alert alert-success" role="alert">
+            "Listing Deleted successfully"
+          </div>
+          {% endif %}
+
+          <form action={{form_action_url}} id="listingForm" method="post" data-subac-url="{% url 'load_sub_acs' %}"
+            data-load-geographies-url="{% url 'load_geographies'}">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn btn-outline-primary"> Submit </button>
+          </form>
+          {% if delete_url %}
+          <a href={{delete_url}}>
+            <button type="delete" class="btn btn-outline-danger"> Delete </button>
+          </a>
+          {% endif %}
+        </div>
+        <div class="col">
+        </div>
+      </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    {% if asset_class_id %}
-    <script>
-      function updateSubACOptions() {
-        var url = $("#listingForm").attr("data-subac-url");
-        var assetClassId = $(this).val();
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+{% if asset_class_id %}
+<script>
+  function updateSubACOptions() {
+    var url = $("#listingForm").attr("data-subac-url");
+    var assetClassId = $(this).val();
 
-        $.ajax({
-          url: url,
-          data: {
-            'ac_id': assetClassId
-          },
-          success: function (data) {
-            $("#id_sub_asset_class").html(data);
-          }
-        });
+    $.ajax({
+      url: url,
+      data: {
+        'ac_id': assetClassId
+      },
+      success: function (data) {
+        $("#id_sub_asset_class").html(data);
       }
-    </script>
-    <script>
-      document.getElementById("id_asset_class").value = "{{asset_class_id}}"
-      $(document).ready(function () {
-        updateSubAssetClass();
+    });
+  }
+</script>
+<script>
+  document.getElementById("id_asset_class").value = "{{asset_class_id}}"
+  $(document).ready(function () {
+    updateSubAssetClass();
 
-        function updateSubAssetClass() {
-          var url = $("#listingForm").attr("data-subac-url");
-          var assetClassId = $("#id_asset_class").val();
-          $.ajax({
-            url: url,
-            data: {
-              'ac_id': assetClassId
-            },
-            success: function (data) {
-              $("#id_sub_asset_class").html(data);
-              document.getElementById("id_sub_asset_class").value = "{{sub_asset_class_id}}"
-            }
-          });
-        }
-      });
-    </script>
-    {% endif %}
-    <script>
-      $("#id_asset_class").change(function () {
-        var url = $("#listingForm").attr("data-subac-url");
-        var assetClassId = $(this).val();
-
-        $.ajax({
-          url: url,
-          data: {
-            'ac_id': assetClassId
-          },
-          success: function (data) {
-            $("#id_sub_asset_class").html(data);
-          }
-        });
-
-      });
-    </script>
-    <script>
-
+    function updateSubAssetClass() {
+      var url = $("#listingForm").attr("data-subac-url");
+      var assetClassId = $("#id_asset_class").val();
       $.ajax({
         url: url,
+        data: {
+          'ac_id': assetClassId
+        },
         success: function (data) {
-          $("#id_geography").html(data);
+          $("#id_sub_asset_class").html(data);
+          document.getElementById("id_sub_asset_class").value = "{{sub_asset_class_id}}"
         }
       });
-    </script>
-    {% endblock %}
+    }
+  });
+</script>
+{% endif %}
+<script>
+  $("#id_asset_class").change(function () {
+    var url = $("#listingForm").attr("data-subac-url");
+    var assetClassId = $(this).val();
+
+    $.ajax({
+      url: url,
+      data: {
+        'ac_id': assetClassId
+      },
+      success: function (data) {
+        $("#id_sub_asset_class").html(data);
+      }
+    });
+
+  });
+</script>
+<script>
+
+  $.ajax({
+    url: url,
+    success: function (data) {
+      $("#id_geography").html(data);
+    }
+  });
+</script>
+
+{% endblock %}

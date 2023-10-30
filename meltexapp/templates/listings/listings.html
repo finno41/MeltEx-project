@@ -2,63 +2,74 @@
 {% block content %}
 {% include "nav.html" %}
 {% if values %}
-<form action="" method="get" onsubmit="setFormStore()">
-  <label for="ac_id">Asset Class: </label>
-  <select id="ac_id" name="ac_id">
-    {% for ac in ac_options %}
-    <option value="{{ac.id}}">{{ac.name}}</option>
-    {% endfor %}
-    <option value="all">All</option>
-  </select>
-  <input type="submit" value="OK">
-</form>
-<ul>
-  <table table class="table table-striped">
-    <colgroup>
-      {% for header in headers %}
-      <col>
+<div class="d-flex flex-column">
+  <form action="" method="get" onsubmit="setFormStore()">
+    <label for="ac_id">Asset Class: </label>
+    <select id="ac_id" name="ac_id">
+      {% for ac in ac_options %}
+      <option value="{{ac.id}}">{{ac.name}}</option>
       {% endfor %}
-    </colgroup>
-    <tr>
-      {% for header in headers %}
-      <th>{{header}}</th>
-      {% endfor %}
-    </tr>
-    {% for id, values in values %}
-    <tr>
-      {%for value in values%}
-      <td>{{value}}</td>
-      {% endfor %}
-      {% if page == "my_listings" %}
-      <td>
-        <a href="/listings/{{id}}">
+      <option value="all">All</option>
+    </select>
+    <input type="submit" value="OK">
+  </form>
+  <ul>
+    <table table class="table table-striped">
+      <colgroup>
+        {% for header in headers %}
+        <col>
+        {% endfor %}
+      </colgroup>
+      <tr>
+        {% if page == "my_listings" %}
+        <th></th>
+        {% endif %}
+        {% for header in headers %}
+        <th>{{header}}</th>
+        {% endfor %}
+      </tr>
+      {% for id, values in values %}
+      <tr>
+        {% if page == "my_listings" %}
+        <td>
+          <a href="/listings/{{id}}">
 
-          <botton class="btn btn-outline-primary" href="">Update</botton>
-        </a>
-      </td>
-      {% endif %}
-    </tr>
-    {% endfor %}
-  </table>
-  {% else %}
-  <p>No values are available.</p>
-  {% endif %}
-  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-  <script>
-    function setFormStore() {
-      localStorage.setItem("selected_ac", document.getElementById('ac_id').value);
-    };
-    $(document).ready(function () {
-      if ($('#ac_id').length) {
-        $('#ac_id').val(localStorage.getItem("selected_ac"));
-      }
-      else { $('#ac_id').val("all") }
-    });
-    window.onload = clearStorage
-    function clearStorage() {
-      if (!("{{params_present}}" === "true")) {
-        localStorage.clear()
-      }
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+              class="bi bi-pencil-square" viewBox="0 0 16 16">
+              <path
+                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+              <path fill-rule="evenodd"
+                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+            </svg>
+          </a>
+        </td>
+        {% endif %}
+        {%for value in values%}
+        <td>{{value}}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p>No values are available.</p>
+    {% endif %}
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  function setFormStore() {
+    localStorage.setItem("selected_ac", document.getElementById('ac_id').value);
+  };
+  $(document).ready(function () {
+    if ($('#ac_id').length) {
+      $('#ac_id').val(localStorage.getItem("selected_ac"));
     }
-  </script>
-  {% endblock %}
+    else { $('#ac_id').val("all") }
+  });
+  window.onload = clearStorage
+  function clearStorage() {
+    if (!("{{params_present}}" === "true")) {
+      localStorage.clear()
+    }
+  }
+</script>
+{% endblock %}

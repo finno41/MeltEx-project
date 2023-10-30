@@ -11,6 +11,7 @@ from meltexapp.data.geography import get_permitted_geographies
 from django.contrib.auth.decorators import login_required
 from meltexapp.data.listing import get_listing_by_id
 from meltexapp.helper.asset_class import get_asset_class_from_listing
+from meltexapp.config.listing import DEFAULT_LISTING_COLUMNS
 import json
 
 
@@ -38,13 +39,7 @@ def get_listings(request):
             "deleted_on",
         ],
     ).output()
-    table_variables = (
-        format_for_table(listings)
-        if listings
-        else format_for_table(
-            listings, col_headers=list(get_listing_title_map().values())
-        )
-    )
+    table_variables = format_for_table(listings, DEFAULT_LISTING_COLUMNS)
     params_present = json.dumps(bool(params))
     ac_options = get_asset_class_options(user)
     template_vars = table_variables | {
@@ -73,13 +68,7 @@ def my_listings(request):
             "deleted_on",
         ],
     ).output()
-    table_variables = (
-        format_for_table(listings)
-        if listings
-        else format_for_table(
-            listings, col_headers=list(get_listing_title_map().values())
-        )
-    )
+    table_variables = format_for_table(listings, DEFAULT_LISTING_COLUMNS)
     params_present = json.dumps(bool(params))
     ac_options = get_asset_class_options(user)
     template_vars = table_variables | {
