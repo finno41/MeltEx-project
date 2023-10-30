@@ -58,9 +58,8 @@ def get_listing_title_map():
 
 
 def get_listing_k_v_tuple(filter_list=DEFAULT_LISTING_COLUMNS):
-    return [
-        (k, v) for k, v in get_listing_title_map().items() if k in ALL_LISTING_COLUMNS
-    ]
+    listing_map = get_listing_title_map()
+    return [(col_key, listing_map[col_key]) for col_key in ALL_LISTING_COLUMNS]
 
 
 def get_column_titles():
