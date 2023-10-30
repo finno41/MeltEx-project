@@ -32,6 +32,7 @@ def get_listings(request):
     listings_data = listing_search(
         user, asset_class_name, sub_asset_class_name, geography_id, ac_id
     )
+
     listings = ListingDTOCollection(
         listings_data,
         user,
@@ -55,6 +56,7 @@ def get_listings(request):
         "params_present": params_present,
         "available_cols": available_cols,
         "page": "listings",
+        "columns": json.dumps(columns),
     }
     return render(request, "listings/listings.html", template_vars)
 
@@ -63,7 +65,14 @@ def get_listings(request):
 def my_listings(request):
     user = request.user
     params = dict(request.GET)
-    listings_data = listing_search(user, company_only=True, **params)
+    asset_class_name = params.get("asset_class_name")
+    sub_asset_class_name = params.get("sub_asset_class_name")
+    geography_id = params.get("geography_id")
+    ac_id = params.get("ac_id")
+    columns = params["columns"] if "columns" in params else DEFAULT_LISTING_COLUMNS
+    listings_data = listing_search(
+        user, asset_class_name, sub_asset_class_name, geography_id, ac_id
+    )
     listings = ListingDTOCollection(
         listings_data,
         user,
@@ -77,13 +86,17 @@ def my_listings(request):
             "deleted_on",
         ],
     ).output()
-    table_variables = format_for_table(listings, DEFAULT_LISTING_COLUMNS)
+    columns = params["columns"] if "columns" in params else DEFAULT_LISTING_COLUMNS
+    table_variables = format_for_table(listings, columns)
     params_present = json.dumps(bool(params))
     ac_options = get_asset_class_options(user)
+    available_cols = get_listing_k_v_tuple()
     template_vars = table_variables | {
         "ac_options": ac_options,
         "params_present": params_present,
+        "available_cols": available_cols,
         "page": "my_listings",
+        "columns": json.dumps(columns),
     }
     return render(request, "listings/listings.html", template_vars)
 

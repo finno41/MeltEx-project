@@ -11,6 +11,10 @@
   margin-left: 220px;
 }
 
+.navbar-pad-right {
+  margin-right: 220px;
+}
+
 * {
   font-family: 'Roboto', sans-serif;
 }
