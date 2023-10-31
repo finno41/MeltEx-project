@@ -19,8 +19,10 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.grey-text {
-  color: rgb(84, 84, 84)
+.category-text {
+  color: rgb(146, 146, 146);
+  font-style: italic;
+  text-align: center;
 }
 
 .full-page-no-sb {
