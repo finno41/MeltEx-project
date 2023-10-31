@@ -5,6 +5,7 @@ from meltexapp.config.listing import get_listing_title
 from meltexapp.helper.asset_class import get_asset_class_key_labels
 from meltexapp.data.geography import get_permitted_geographies
 from meltexapp.models import SubAssetClass
+from django.contrib.auth.forms import AuthenticationForm, UsernameField
 
 
 class ListingForm(forms.ModelForm):
@@ -82,3 +83,20 @@ class ListingForm(forms.ModelForm):
         "expr_int_ddline",
         "comments",
     ]
+
+
+class UserLoginForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+
+    username = UsernameField(
+        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": ""})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "",
+            }
+        )
+    )

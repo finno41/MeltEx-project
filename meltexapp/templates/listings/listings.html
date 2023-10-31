@@ -13,15 +13,18 @@
     <div class="card card-body">
       <form action="" class="mb-2 ms-3 form-check form-check-inline" method="get" onsubmit="setFormStore()">
         <label for="ac_id">Asset Class: </label>
-        <select id="ac_id" name="ac_id">
+        <select class="form-select" id="ac_id" name="ac_id">
+          <option selected value="all">All</option>
           {% for ac in ac_options %}
           <option value="{{ac.id}}">{{ac.name}}</option>
           {% endfor %}
-          <option value="all">All</option>
         </select>
+        <div class="mb-4"></div>
+        <hr class="dropdown-divider">
         <br>
-        Columns:
-        <br>
+        <element class="grey-text">
+          Columns
+        </element>
         {% for col_key, col_label in available_cols %}
         <div class="form-check form-check-inline">
           <input class="form-check-input mr-2" type="checkbox" id="{{col_key}}" name="columns" value="{{col_key}}">
@@ -29,8 +32,8 @@
         </div>
         {% endfor %}
         <br>
-
-        <input type="submit" value="OK">
+        <div class="mb-4"></div>
+        <button type="submit" class="btn btn-primary">Filter</button>
       </form>
     </div>
   </div>

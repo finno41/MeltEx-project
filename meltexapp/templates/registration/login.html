@@ -1,6 +1,16 @@
-<h2>Log In</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Log In</button>
-</form>
+{% extends "master.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
+<div class="full-page-no-sb">
+  <div id="login-form">
+    <form method="post" class>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="horizontal-center">
+        <button type="submit" class="btn btn-outline-dark">Log In</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
