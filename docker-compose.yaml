@@ -1,0 +1,35 @@
+services:
+  server:
+    build:
+      context: .
+    ports:
+      - 8000:8000
+    env_file:
+      - meltex/.env
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASS}
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres
+    restart: always
+    user: postgres
+    secrets:
+      - db-password
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASS}
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  db-data:
+secrets:
+  db-password:
+    file: db/password.txt
