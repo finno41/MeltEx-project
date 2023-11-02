@@ -4,10 +4,12 @@ services:
       context: .
     ports:
       - 8000:8000
-    env_file:
-      - meltex/.env
     environment:
-      - POSTGRES_PASSWORD=${DATABASE_PASS}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DB_PORT=${DB_PORT}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASS=${DATABASE_PASS}
+      - DATABASE_NAME=${DATABASE_NAME}
     depends_on:
       db:
         condition: service_healthy
@@ -15,14 +17,12 @@ services:
     image: postgres
     restart: always
     user: postgres
-    secrets:
-      - db-password
     volumes:
       - db-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=${DATABASE_PASS}
     ports:
-      - "5433:5432"
+      - "5432:5432"
     healthcheck:
       test: [ "CMD", "pg_isready" ]
       interval: 10s
@@ -30,6 +30,3 @@ services:
       retries: 5
 volumes:
   db-data:
-secrets:
-  db-password:
-    file: db/password.txt
