@@ -22,7 +22,7 @@ services:
     environment:
       - POSTGRES_PASSWORD=${DATABASE_PASS}
     ports:
-      - "5433:5432"
+      - "5432:5432"
     healthcheck:
       test: [ "CMD", "pg_isready" ]
       interval: 10s
