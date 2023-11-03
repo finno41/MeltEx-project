@@ -1,6 +1,6 @@
 ARG PYTHON_VERSION=3.9.6
-# FROM --platform=linux/amd64 python:${PYTHON_VERSION}-slim as base
-FROM python:${PYTHON_VERSION}-slim as base
+FROM --platform=linux/amd64 python:${PYTHON_VERSION}-slim as base
+# FROM python:${PYTHON_VERSION}-slim as base
 
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
