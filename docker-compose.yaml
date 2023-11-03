@@ -4,6 +4,7 @@ services:
       context: .
     ports:
       - 8000:8000
+      - 3000:3000
     environment:
       - DATABASE_HOST=${DATABASE_HOST}
       - DB_PORT=${DB_PORT}
