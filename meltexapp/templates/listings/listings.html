@@ -1,7 +1,6 @@
 {% extends "master.html" %}
 {% block content %}
 {% include "nav.html" %}
-{% if values %}
 <div class="mw-100">
   <div class="pb-5">
     <a class="btn btn-outline-dark float-end pr-5" data-bs-toggle="collapse" href="#collapseExample" role="button"
@@ -58,7 +57,8 @@
         <th>{{header}}</th>
         {% endfor %}
       </tr>
-      {% for id, values in values %}
+      {% if values %}
+      {% for id, row_values in values %}
       <tr>
         {% if page == "my_listings" %}
         <td>
@@ -74,16 +74,14 @@
           </a>
         </td>
         {% endif %}
-        {%for value in values%}
+        {% for value in row_values %}
         <td>{{value}}</td>
         {% endfor %}
       </tr>
       {% endfor %}
+      {% endif %}
     </table>
   </div>
-  {% else %}
-  <p>No values are available.</p>
-  {% endif %}
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript">
