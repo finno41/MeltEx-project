@@ -26,18 +26,16 @@ class ViewListingsTestCase(TransactionTestCase):
         asset_classes = get_permitted_asset_classes(user)
         self.asset_class_ids = [ac.pk for ac in asset_classes]
         self.column_lists = get_list_samples(ALL_LISTING_COLUMNS)
-        self.responses = self.test_response()
+        self.responses = get_responses(
+            self.asset_class_ids, self.column_lists, self.username, self.password, self.url)
         print("set up complete...")
 
 
 
     def test_response(self):
         print("starting response test")
-        responses = get_responses(
-            self.asset_class_ids, self.column_lists, self.username, self.password, self.url)
-        for r in responses:
+        for r in self.responses:
             self.assertEqual(r.status_code, 200)
-        return responses
 
 
 # check that all of these return a page
@@ -50,10 +48,10 @@ def get_responses(asset_class_ids, column_lists, username, password, base_url):
         for col_list in column_lists:
             client = Client()
             client.login(username=username, password=password)
-            url = "?" + base_url
+            url = base_url + "?"
+            url += f"ac_id={ac_id}"
             for col in col_list:
                 url += f"&columns={col}"
-            url += f"ac_id={ac_id}"
+            # /listings?ac_id=fe25d751-c75c-4468-ac0f-dc4cecfbde1d&columns=asset_class_name&columns=sub_asset_class_name
             responses.append(client.get(url))
-    breakpoint()
     return responses
