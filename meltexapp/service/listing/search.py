@@ -27,4 +27,6 @@ def listing_search(
         "sub_asset_class__in": sub_asset_class_ids,
     }
     filters = {k: v for k, v in filters.items() if v}
-    return filter_listing(user, company_only, **filters).order_by("-created_on", "-updated_on")
+    filter_listings = filter_listing(user, company_only, **filters)
+    filter_listings = filter_listings.order_by("-created_on", "id")
+    return filter_listings

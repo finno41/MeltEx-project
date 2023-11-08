@@ -34,9 +34,10 @@ def clear_data():
     Listing.objects.all().delete()
 
 
-def create_company():
+def create_company(user=False):
     """Creates an address object combining different elements from the list"""
-    user = User.objects.get(username="admin_oli")
+    if not user:
+        user = User.objects.get(username="admin_oli")
     try:
         company = Company.objects.get(name="MeltEx")
     except:
@@ -49,8 +50,9 @@ def create_company():
     return company
 
 
-def create_geographies():
-    user = User.objects.get(username="admin_oli")
+def create_geographies(user=False):
+    if not user:
+        user = User.objects.get(username="admin_oli")
     country_df = pd.read_excel(
         "meltexapp/seeding/seed_data/seed_data.xlsx", sheet_name="Geography Data"
     )
@@ -74,8 +76,9 @@ def create_geographies():
         geography.save()
 
 
-def create_asset_classes():
-    user = User.objects.get(username="admin_oli")
+def create_asset_classes(user=False):
+    if not user:
+        user = User.objects.get(username="admin_oli")
     ac_df = pd.read_excel(
         "meltexapp/seeding/seed_data/seed_data.xlsx", sheet_name="Asset Class Data"
     )
@@ -96,9 +99,10 @@ def create_asset_classes():
         sub_ac.save()
 
 
-def create_listing(i):
+def create_listing(i, user=False):
     print(f"creating listing {i+1}")
-    user = User.objects.get(username="admin_oli")
+    if not user:
+        user = User.objects.get(username="admin_oli")
     sub_asset_class = get_random_instance(SubAssetClass)
     asset_class = sub_asset_class.asset_class
     geography = get_random_instance(Geography)

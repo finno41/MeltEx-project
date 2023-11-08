@@ -1,18 +1,4 @@
 services:
-  server:
-    build:
-      context: .
-    ports:
-      - 8000:8000
-    environment:
-      - DATABASE_HOST=${DATABASE_HOST}
-      - DB_PORT=${DB_PORT}
-      - DATABASE_USER=${DATABASE_USER}
-      - DATABASE_PASS=${DATABASE_PASS}
-      - DATABASE_NAME=${DATABASE_NAME}
-    depends_on:
-      db:
-        condition: service_healthy
   db:
     image: postgres
     restart: always
@@ -28,5 +14,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  server:
+    build:
+      context: .
+    ports:
+      - 8000:8000
+      - 3000:3000
+    environment:
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DB_PORT=${DB_PORT}
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASS=${DATABASE_PASS}
+      - DATABASE_NAME=${DATABASE_NAME}
+    depends_on:
+      db:
+        condition: service_healthy
 volumes:
   db-data:

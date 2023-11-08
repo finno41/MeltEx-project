@@ -32,7 +32,6 @@ def get_listings(request):
     listings_data = listing_search(
         user, asset_class_name, sub_asset_class_name, geography_id, ac_id
     )
-
     listings = ListingDTOCollection(
         listings_data,
         user,

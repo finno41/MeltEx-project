@@ -10,7 +10,7 @@ def format_for_table(
     if not data and show_columns:
         return {
             "headers": [get_listing_title(col) for col in show_columns],
-            "values": [[]],
+            "values": [],
         }
     df = pd.DataFrame(data)
     ids = list(df["id"])
@@ -20,6 +20,4 @@ def format_for_table(
     headers = list(df.columns)
     values = [row for i, row in df.iterrows()]
     values = [(ids[i], r) for i, r in enumerate(values)]
-    if update:
-        headers.append("")
     return {"headers": headers, "values": values}
