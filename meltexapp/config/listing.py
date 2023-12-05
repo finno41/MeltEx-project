@@ -25,7 +25,6 @@ DEFAULT_LISTING_COLUMNS = [
     "nav_dis_avl",
     "expr_int_ddline",
     "targ_irr",
-    "fund_ter",
 ]
 
 
