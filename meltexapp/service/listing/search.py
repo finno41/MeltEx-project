@@ -12,7 +12,8 @@ def listing_search(
     company_only=False,
 ):
     geos = (
-        list(get_geo_children_with_parent(user, geography_id)) if geography_id else None
+        list(get_geo_children_with_parent(
+            user, geography_id)) if geography_id else None
     )
     ac_id = None if ac_id == ["all"] else ac_id
     sub_asset_class_ids = (
@@ -28,5 +29,5 @@ def listing_search(
     }
     filters = {k: v for k, v in filters.items() if v}
     filter_listings = filter_listing(user, company_only, **filters)
-    filter_listings = filter_listings.order_by("-created_on", "id")
+    filter_listings = filter_listings.order_by("expr_int_ddline", "id")
     return filter_listings
