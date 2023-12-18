@@ -14,7 +14,6 @@ WORKDIR /app
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
 ARG UID=10001
-RUN pip install -r requirements.txt
 RUN adduser \
   --disabled-password \
   --gecos "" \
@@ -37,6 +36,7 @@ USER appuser
 # Copy the source code into the container.
 COPY . .
 
+RUN pip install -r requirements.txt
 # Expose the port that the application listens on.
 EXPOSE 8000
 
