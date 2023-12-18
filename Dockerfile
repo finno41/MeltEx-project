@@ -36,7 +36,9 @@ USER appuser
 # Copy the source code into the container.
 COPY . .
 
-RUN pip install -r requirements.txt
+# install requirements
+RUN pip install --user -r requirements.txt
+
 # Expose the port that the application listens on.
 EXPOSE 8000
 
