@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:experimental
+
 ARG PYTHON_VERSION=3.9.6
 FROM --platform=linux/amd64 python:${PYTHON_VERSION}-slim as base
 # FROM python:${PYTHON_VERSION}-slim as base
