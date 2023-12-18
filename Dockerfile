@@ -23,7 +23,8 @@ RUN adduser \
   --shell "/sbin/nologin" \
   --no-create-home \
   --uid "${UID}" \
-  appuser
+  appuser \
+  && python -m pip install -r requirements.txt
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a cache mount to /root/.cache/pip to speed up subsequent builds.
@@ -31,7 +32,6 @@ RUN adduser \
 # into this layer.
 # RUN --mount=type=cache,target=/root/.cache/pip \
 #   --mount=type=bind,source=requirements.txt,target=requirements.txt \
-RUN python -m pip install -r requirements.txt
 
 # Switch to the non-privileged user to run the application.
 USER appuser
