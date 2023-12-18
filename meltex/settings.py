@@ -14,6 +14,7 @@ from pathlib import Path
 import environ
 import psycopg2
 import dj_database_url
+import os
 
 env = environ.Env()
 environ.Env.read_env()
@@ -97,7 +98,7 @@ DATABASES = {
     }
 }
 
-DATABASE_URL = env("DATABASE_URL")
+DATABASE_URL = os.environ['DATABASE_URL']
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
