@@ -1,5 +1,3 @@
-# syntax=docker/dockerfile:experimental
-
 ARG PYTHON_VERSION=3.9.6
 FROM --platform=linux/amd64 python:${PYTHON_VERSION}-slim as base
 # FROM python:${PYTHON_VERSION}-slim as base
@@ -16,6 +14,7 @@ WORKDIR /app
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
 ARG UID=10001
+RUN pip install -r requirements.txt
 RUN adduser \
   --disabled-password \
   --gecos "" \
@@ -31,7 +30,6 @@ RUN adduser \
 # into this layer.
 # RUN --mount=type=cache,target=/root/.cache/pip \
 #   --mount=type=bind,source=requirements.txt,target=requirements.txt \
-RUN pip install -r requirements.txt
 
 # Switch to the non-privileged user to run the application.
 USER appuser
