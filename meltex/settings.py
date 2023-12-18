@@ -78,31 +78,27 @@ WSGI_APPLICATION = "meltex.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
-DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.postgresql",
-    #     "NAME": env("DATABASE_NAME"),
-    #     "USER": env("DATABASE_USER"),
-    #     "PASSWORD": env("DATABASE_PASS"),
-    #     "HOST": env("DATABASE_HOST"),
-    #     "PORT": env("DB_PORT"),
-    # }
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DATABASE_NAME"),
-        "USER": env("DATABASE_USER"),
-        "PASSWORD": env("DATABASE_PASS"),
-        "HOST": env("DATABASE_HOST"),
-        "PORT": env("DB_PORT"),
-    }
-}
-
 DATABASE_URL = os.environ.get('DATABASE_URL')
+if DATABASE_URL:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": env("DATABASE_NAME"),
+            "USER": env("DATABASE_USER"),
+            "PASSWORD": env("DATABASE_PASS"),
+            "HOST": env("DATABASE_HOST"),
+            "PORT": env("DB_PORT"),
+        }
+    }
+else:
+    DATABASES = {
+        "default": {
+        }
+    }
+    db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
+    DATABASES['default'].update(db_from_env)
 
-db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
-print(f"db from env is: {db_from_env}")
-DATABASES['default'].update(db_from_env)
+
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 # DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
