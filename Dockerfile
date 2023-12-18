@@ -31,7 +31,7 @@ RUN adduser \
 # into this layer.
 # RUN --mount=type=cache,target=/root/.cache/pip \
 #   --mount=type=bind,source=requirements.txt,target=requirements.txt \
-RUN PYTHONPATH=/usr/bin/python pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Switch to the non-privileged user to run the application.
 USER appuser
