@@ -39,6 +39,7 @@ RUN pip install -r requirements.txt
 
 # Switch to the non-privileged user to run the application.
 USER appuser
+
 # Expose the port that the application listens on.
 EXPOSE 8000
 
