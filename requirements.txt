@@ -31,3 +31,4 @@ typing_extensions==4.8.0
 tzdata==2023.3
 virtualenv==20.14.1
 virtualenv-clone==0.5.7
+dj-database-url==2.1.0

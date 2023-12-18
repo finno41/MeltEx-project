@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import environ
+import psycopg2
+import dj_database_url
 
 env = environ.Env()
 environ.Env.read_env()
@@ -73,11 +75,18 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "meltex.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
+    # "default": {
+    #     "ENGINE": "django.db.backends.postgresql",
+    #     "NAME": env("DATABASE_NAME"),
+    #     "USER": env("DATABASE_USER"),
+    #     "PASSWORD": env("DATABASE_PASS"),
+    #     "HOST": env("DATABASE_HOST"),
+    #     "PORT": env("DB_PORT"),
+    # }
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": env("DATABASE_NAME"),
@@ -87,6 +96,10 @@ DATABASES = {
         "PORT": env("DB_PORT"),
     }
 }
+
+DATABASE_URL = env("DATABASE_URL")
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
 
 LOGIN_REDIRECT_URL = "/"
