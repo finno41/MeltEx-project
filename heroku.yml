@@ -5,8 +5,6 @@ setup:
 build:
   docker:
     web: Dockerfile
-  config:
-    DJANGO_SETTINGS_MODULE: Django-BaaS.settings_docker
 release:
   command:
     - python manage.py migrate
