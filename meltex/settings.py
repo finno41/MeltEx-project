@@ -82,6 +82,13 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
     DATABASES = {
         "default": {
+        }
+    }
+    db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
+    DATABASES['default'].update(db_from_env)
+else:
+    DATABASES = {
+        "default": {
             "ENGINE": "django.db.backends.postgresql",
             "NAME": env("DATABASE_NAME"),
             "USER": env("DATABASE_USER"),
@@ -90,13 +97,6 @@ if DATABASE_URL:
             "PORT": env("DB_PORT"),
         }
     }
-else:
-    DATABASES = {
-        "default": {
-        }
-    }
-    db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
-    DATABASES['default'].update(db_from_env)
 
 
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require')
