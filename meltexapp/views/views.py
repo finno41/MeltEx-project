@@ -32,7 +32,6 @@ def get_listings(request):
     listings_data = listing_search(
         user, asset_class_name, sub_asset_class_name, geography_id, ac_id
     )
-
     listings = ListingDTOCollection(
         listings_data,
         user,
@@ -172,7 +171,8 @@ def load_sub_acs(request):
     user = request.user
     sub_acs = get_sub_acs_by_ac(user, ac_id)
     return render(
-        request, "asset_class/sub_ac_dropdown_list_options.html", {"sub_acs": sub_acs}
+        request, "asset_class/sub_ac_dropdown_list_options.html", {
+            "sub_acs": sub_acs}
     )
 
 
@@ -180,5 +180,6 @@ def load_geographies(request):
     user = request.user
     geographies = get_permitted_geographies(user)
     return render(
-        request, "geography/geography_dropdown.html", {"geographies": geographies}
+        request, "geography/geography_dropdown.html", {
+            "geographies": geographies}
     )

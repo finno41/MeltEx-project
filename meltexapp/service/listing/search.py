@@ -1,6 +1,7 @@
 from meltexapp.data.listing import filter_listing
 from meltexapp.data.geography import get_geo_children_with_parent
 from meltexapp.data.sub_asset_class import get_sub_acs_by_ac, get_sub_acs_by_acs
+from datetime import datetime
 
 
 def listing_search(
@@ -10,9 +11,11 @@ def listing_search(
     geography_id=None,
     ac_id=None,
     company_only=False,
+    valid_exp_int_ddline=True,
 ):
     geos = (
-        list(get_geo_children_with_parent(user, geography_id)) if geography_id else None
+        list(get_geo_children_with_parent(
+            user, geography_id)) if geography_id else None
     )
     ac_id = None if ac_id == ["all"] else ac_id
     sub_asset_class_ids = (
@@ -27,4 +30,7 @@ def listing_search(
         "sub_asset_class__in": sub_asset_class_ids,
     }
     filters = {k: v for k, v in filters.items() if v}
-    return filter_listing(user, company_only, **filters).order_by("-created_on", "-updated_on")
+    filter_listings = filter_listing(
+        user, company_only, valid_exp_int_ddline=valid_exp_int_ddline, **filters)
+    filter_listings = filter_listings.order_by("expr_int_ddline", "id")
+    return filter_listings

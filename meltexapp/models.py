@@ -22,7 +22,8 @@ class User(AbstractUser):
 class AssetClass(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, blank=False, null=False)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=False, null=False)
 
 
 class SubAssetClass(models.Model):
@@ -31,12 +32,14 @@ class SubAssetClass(models.Model):
     asset_class = models.ForeignKey(
         AssetClass, on_delete=models.CASCADE, blank=False, null=False
     )
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=False, null=False)
 
 
 class AssetClassInterest(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=False, null=False)
     type = models.IntegerField(blank=False, null=False)
     ac_id = models.CharField(max_length=32, blank=False, null=False)
 
@@ -44,8 +47,10 @@ class AssetClassInterest(models.Model):
 class Geography(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, blank=False, null=False)
-    parent_id = models.CharField(max_length=32, blank=True, null=True, default=None)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
+    parent_id = models.CharField(
+        max_length=32, blank=True, null=True, default=None)
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=False, null=False)
 
     def __str__(self):
         return self.name
@@ -71,7 +76,8 @@ class Listing(models.Model):
     targ_irr = models.FloatField(blank=True, null=True)
     risk_prof = models.CharField(max_length=100)
     fund_ter = models.FloatField(blank=True, null=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=False, null=False)
     comments = models.TextField(max_length=1000)
     public = models.BooleanField(default=False)
     created_on = models.DateTimeField(default=datetime.now())
@@ -83,11 +89,13 @@ class Tag(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, blank=False, null=False)
     type = models.CharField(max_length=100, blank=False, null=False)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=False, null=False)
 
 
 class TagInstance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     resource_id = models.CharField(max_length=32)
     resource_type = models.CharField(max_length=100)
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, blank=False, null=False)
+    tag = models.ForeignKey(
+        Tag, on_delete=models.CASCADE, blank=False, null=False)
