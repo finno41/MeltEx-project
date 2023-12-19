@@ -38,6 +38,7 @@ def create_company(user=False):
     """Creates an address object combining different elements from the list"""
     if not user:
         user = User.objects.get(username="admin_oli")
+        stu_user = User.objects.get(username="admin_oli")
     try:
         company = Company.objects.get(name="MeltEx")
     except:
@@ -46,7 +47,9 @@ def create_company(user=False):
         company.type = "Admin"
         company.save()
         user.company = company
+        stu_user.company = company
         user.save()
+        stu_user.save()
     return company
 
 
