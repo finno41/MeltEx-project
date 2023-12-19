@@ -29,7 +29,7 @@ SECRET_KEY = "django-insecure-raa_)uczfns2bd8y&-vl5cg0gvyrk29%sy641kwem$809elt2g
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+CSRF_TRUSTED_ORIGINS = ["meltex-f60dd557bba4.herokuapp.com"]
 ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = "meltexapp.User"
