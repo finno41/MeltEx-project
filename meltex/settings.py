@@ -29,7 +29,6 @@ SECRET_KEY = "django-insecure-raa_)uczfns2bd8y&-vl5cg0gvyrk29%sy641kwem$809elt2g
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-CSRF_TRUSTED_ORIGINS = [env("DOMAIN")]
 ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = "meltexapp.User"
@@ -80,6 +79,7 @@ WSGI_APPLICATION = "meltex.wsgi.application"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
+    CSRF_TRUSTED_ORIGINS = [env("DOMAIN")]
     DATABASES = {
         "default": {
         }
