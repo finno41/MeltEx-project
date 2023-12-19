@@ -30,7 +30,7 @@ SECRET_KEY = "django-insecure-raa_)uczfns2bd8y&-vl5cg0gvyrk29%sy641kwem$809elt2g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 AUTH_USER_MODEL = "meltexapp.User"
 # Application definition
