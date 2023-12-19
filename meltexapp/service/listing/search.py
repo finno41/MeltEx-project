@@ -31,6 +31,6 @@ def listing_search(
     }
     filters = {k: v for k, v in filters.items() if v}
     filter_listings = filter_listing(
-        user, company_only, valid_exp_int_ddline=valid_exp_int_ddline, **filters)
+        user, valid_exp_int_ddline=valid_exp_int_ddline, company_only=company_only **filters)
     filter_listings = filter_listings.order_by("expr_int_ddline", "id")
     return filter_listings
