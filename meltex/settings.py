@@ -81,7 +81,7 @@ DATABASE_URL = os.environ.get('DATABASE_URL')
 if DATABASE_URL:
     CSRF_TRUSTED_ORIGINS = [env("DOMAIN")]
     DATABASES = {
-        "default": dj_database_url.config(default=DATABASE_URL, conn_max_age=600, ssl_require=True)
+        "default": dj_database_url.config(default=DATABASE_URL, ssl_require=True)
     }
 else:
     DATABASES = {
