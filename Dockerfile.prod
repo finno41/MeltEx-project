@@ -1,6 +1,6 @@
 ARG PYTHON_VERSION=3.9.6
-# FROM --platform=linux/amd64 python:${PYTHON_VERSION}-slim as base
-FROM python:${PYTHON_VERSION}-slim as base
+FROM --platform=linux/amd64 python:${PYTHON_VERSION}-slim as base
+# FROM python:${PYTHON_VERSION}-slim as base
 
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -33,9 +33,9 @@ RUN adduser \
 COPY . .
 
 # install requirements
-RUN --mount=type=cache,target=/root/.cache/pip \
-  --mount=type=bind,source=requirements.txt,target=requirements.txt
-# RUN pip install -r requirements.txt
+# RUN --mount=type=cache,target=/root/.cache/pip \
+#   --mount=type=bind,source=requirements.txt,target=requirements.txt
+RUN pip install -r requirements.txt
 
 # Switch to the non-privileged user to run the application.
 USER appuser
