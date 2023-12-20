@@ -38,6 +38,7 @@ def create_company(user=False):
     """Creates an address object combining different elements from the list"""
     if not user:
         user = User.objects.get(username="admin_oli")
+        stu_user = User.objects.get(username="admin_oli")
     try:
         company = Company.objects.get(name="MeltEx")
     except:
@@ -46,7 +47,9 @@ def create_company(user=False):
         company.type = "Admin"
         company.save()
         user.company = company
+        stu_user.company = company
         user.save()
+        stu_user.save()
     return company
 
 
@@ -117,7 +120,7 @@ def create_listing(i, user=False):
     listing.fund_vehi_type = "test fund vehi type"
     listing.nav = round(random.uniform(0.00, 30.00), 2)
     listing.nav_dis_avl = round(random.uniform(0.00, 30.00), 2)
-    listing.expr_int_ddline = "2022-02-02"
+    listing.expr_int_ddline = "2024-02-02"
     listing.targ_irr = round(random.uniform(0.00, 30.00), 2)
     listing.risk_prof = "test risk prof"
     listing.fund_ter = round(random.uniform(0.00, 30.00), 2)
