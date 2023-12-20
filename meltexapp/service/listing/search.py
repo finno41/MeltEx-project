@@ -1,5 +1,5 @@
 from meltexapp.data.listing import filter_listing
-from meltexapp.data.geography import get_geo_children_with_parent
+from meltexapp.data.geography import get_geo_children_with_parents
 from meltexapp.data.sub_asset_class import get_sub_acs_by_ac, get_sub_acs_by_acs
 from datetime import datetime
 
@@ -8,14 +8,14 @@ def listing_search(
     user,
     asset_class_name=None,
     sub_asset_class_name=None,
-    geography_id=None,
+    geography_ids=None,
     ac_id=None,
     company_only=False,
     valid_exp_int_ddline=True,
 ):
     geos = (
-        list(get_geo_children_with_parent(
-            user, geography_id)) if geography_id else None
+        list(get_geo_children_with_parents(
+            user, geography_ids)) if geography_ids else None
     )
     ac_id = None if ac_id == ["all"] else ac_id
     sub_asset_class_ids = (
