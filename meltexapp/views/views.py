@@ -11,6 +11,7 @@ from meltexapp.data.geography import get_permitted_geographies
 from django.contrib.auth.decorators import login_required
 from meltexapp.data.listing import get_listing_by_id
 from meltexapp.helper.asset_class import get_asset_class_from_listing
+from meltexapp.helper.geography import get_continents_countries
 from meltexapp.config.listing import DEFAULT_LISTING_COLUMNS, get_listing_k_v_tuple
 import json
 
@@ -32,6 +33,7 @@ def get_listings(request):
     listings_data = listing_search(
         user, asset_class_name, sub_asset_class_name, geography_id, ac_id
     )
+    continents, countries = get_continents_countries(user)
     listings = ListingDTOCollection(
         listings_data,
         user,
