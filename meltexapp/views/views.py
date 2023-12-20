@@ -58,6 +58,8 @@ def get_listings(request):
         "available_cols": available_cols,
         "page": "listings",
         "columns": json.dumps(columns),
+        "continents": continents,
+        "countries": countries
     }
     return render(request, "listings/listings.html", template_vars)
 
