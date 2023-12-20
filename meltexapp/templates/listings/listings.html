@@ -36,19 +36,17 @@
           <label class="form-check-label" for="{{col_key}}">{{col_label}}</label><br>
         </div>
         {% endfor %}
+        <div class="mb-4"></div>
         <br>
         <element class="category-text">
           CONTINENTS <div class="mb-3"></div>
         </element>
         {% for continent in continents %}
-        {{continent}}
-        {% endfor %}
-        <br>
-        <element class="category-text">
-          COUNTRIES <div class="mb-3"></div>
-        </element>
-        {% for country in countries %}
-        {{country}}
+        <div class="form-check form-check-inline">
+          <input class="form-check-input mr-2" type="checkbox" id="{{continent.id}}" name="continents"
+            value="{{continent.id}}">
+          <label class="form-check-label" for="{{continent.id}}">{{continent.name}}</label><br>
+        </div>
         {% endfor %}
         <div class="mb-4"></div>
         <button type="submit" class="btn btn-primary">Filter</button>
@@ -106,6 +104,11 @@
   for (col of {{ columns | safe }}) {
     check(col);
   }
+  }
+</script>
+<script>
+  for (col of {{ selected_continents | safe }}) {
+    check(col);
   }
 </script>
 <script>
