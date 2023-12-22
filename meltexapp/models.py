@@ -21,12 +21,18 @@ class User(AbstractUser):
     )
     subscriber = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.username
+
 
 class AssetClass(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=100, blank=False, null=False)
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=False, null=False)
+
+    def __str__(self):
+        return self.name
 
 
 class SubAssetClass(models.Model):
@@ -37,6 +43,9 @@ class SubAssetClass(models.Model):
     )
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=False, null=False)
+
+    def __str__(self):
+        return self.name
 
 
 class AssetClassInterest(models.Model):
