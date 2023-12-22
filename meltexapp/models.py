@@ -7,12 +7,12 @@ from datetime import datetime
 
 class Company(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.TextField(max_length=50, blank=False, null=False)
-    type = models.TextField(max_length=50, blank=False, null=False)
+    name = models.CharField(max_length=50, blank=False, null=False)
+    type = models.CharField(max_length=50, blank=False, null=False)
 
 
 class User(AbstractUser):
-    phone_number = models.TextField(max_length=20, blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
     company = models.ForeignKey(
         Company, on_delete=models.CASCADE, blank=True, null=True
     )
