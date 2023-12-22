@@ -10,6 +10,9 @@ class Company(models.Model):
     name = models.CharField(max_length=50, blank=False, null=False)
     type = models.CharField(max_length=50, blank=False, null=False)
 
+    def __str__(self):
+        return self.name
+
 
 class User(AbstractUser):
     phone_number = models.CharField(max_length=20, blank=True, null=True)
