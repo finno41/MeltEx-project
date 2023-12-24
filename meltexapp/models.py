@@ -7,16 +7,22 @@ from datetime import datetime
 
 class Company(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.TextField(max_length=50, blank=False, null=False)
-    type = models.TextField(max_length=50, blank=False, null=False)
+    name = models.CharField(max_length=50, blank=False, null=False)
+    type = models.CharField(max_length=50, blank=False, null=False)
+
+    def __str__(self):
+        return self.name
 
 
 class User(AbstractUser):
-    phone_number = models.TextField(max_length=20, blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
     company = models.ForeignKey(
         Company, on_delete=models.CASCADE, blank=True, null=True
     )
     subscriber = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.username
 
 
 class AssetClass(models.Model):
@@ -24,6 +30,9 @@ class AssetClass(models.Model):
     name = models.CharField(max_length=100, blank=False, null=False)
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=False, null=False)
+
+    def __str__(self):
+        return self.name
 
 
 class SubAssetClass(models.Model):
@@ -34,6 +43,9 @@ class SubAssetClass(models.Model):
     )
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=False, null=False)
+
+    def __str__(self):
+        return self.name
 
 
 class AssetClassInterest(models.Model):
@@ -80,8 +92,8 @@ class Listing(models.Model):
         User, on_delete=models.CASCADE, blank=False, null=False)
     comments = models.TextField(max_length=1000)
     public = models.BooleanField(default=False)
-    created_on = models.DateTimeField(default=datetime.now())
-    updated_on = models.DateTimeField(default=datetime.now())
+    created_on = models.DateTimeField(default=datetime.now)
+    updated_on = models.DateTimeField(default=datetime.now)
     deleted_on = models.DateTimeField(blank=True, null=True)
 
 

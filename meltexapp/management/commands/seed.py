@@ -38,10 +38,12 @@ def create_company(user=False):
     """Creates an address object combining different elements from the list"""
     if not user:
         user = User.objects.get(username="admin_oli")
-        stu_user = User.objects.get(username="admin_oli")
+        stu_user = User.objects.get(username="admin_stu")
     try:
         company = Company.objects.get(name="MeltEx")
+        print("company MeltEx exists")
     except:
+        print("creating MeltEx")
         company = Company()
         company.name = "MeltEx"
         company.type = "Admin"
@@ -138,6 +140,7 @@ def run_seed(self, mode):
     """
     # Clear data from tables
     clear_data()
+    create_company()
     create_geographies()
     create_asset_classes()
 
