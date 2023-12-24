@@ -7,7 +7,6 @@ build:
     web: Dockerfile.prod
 release:
   command:
-    - python manage.py makemigrations
     - python manage.py migrate
   image: web
 run:
