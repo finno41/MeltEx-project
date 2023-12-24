@@ -17,6 +17,8 @@ services:
   server:
     build:
       context: .
+    volumes:
+      - ./meltexapp:/app/meltexapp
     ports:
       - 8000:8000
       - 3000:3000
