@@ -3,12 +3,13 @@ from django.db.models import Q
 from meltexapp.helper.user import get_company_users
 from django.http import HttpResponseNotFound
 from datetime import date
+from meltexapp.global_variables import MASTER_USER_ID
 
 
 def get_permitted_listings(user, valid_exp_int_ddline=True):
     company_users = get_company_users(user)
     listings = Listing.objects.filter(
-        Q(public=True) | Q(owner__in=company_users))
+        Q(public=True) | (Q(owner__in=company_users)|Q(owner=MASTER_USER_ID)))
     if valid_exp_int_ddline:
         listings = listings.filter(expr_int_ddline__gte=date.today())
     return listings
