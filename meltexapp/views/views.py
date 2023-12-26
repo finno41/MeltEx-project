@@ -59,7 +59,7 @@ def get_listings(request):
         "page": "listings",
         "columns": json.dumps(columns),
         "continents": continents,
-        "selected_continents": selected_continents,
+        "selected_continents": json.dumps(selected_continents),
         "countries": countries
     }
     return render(request, "listings/listings.html", template_vars)

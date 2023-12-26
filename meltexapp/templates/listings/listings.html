@@ -1,6 +1,7 @@
 {% extends "master.html" %}
 {% block content %}
 {% include "nav.html" %}
+{% load static %}
 <div class="mw-100">
   <div class="pb-5">
     <a class="btn btn-outline-dark float-end pr-5" data-bs-toggle="collapse" href="#collapseExample" role="button"
@@ -95,21 +96,12 @@
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script type="text/javascript">
-  function check(form_id) {
-    document.getElementById(form_id).checked = true;
-  }
-  if ("{{columns}}") {
-    console.log({{ columns| safe}})
-  for (col of {{ columns | safe }}) {
-    check(col);
-  }
-  }
-</script>
+<script src="{% static 'listings/check_filters.js' %}"></script>
 <script>
-  for (col of {{ selected_continents | safe }}) {
-    check(col);
-  }
+  columns = JSON.parse('{{columns|safe}}')
+  continents = JSON.parse('{{selected_continents|safe}}')
+  console.log(continents)
+  check_all_lists(columns, continents);
 </script>
 <script>
   function setFormStore() {
