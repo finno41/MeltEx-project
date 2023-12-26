@@ -16,15 +16,13 @@
   <div class="collapse" id="collapseExample">
     <div class="card card-body">
       <form action="" class="mb-2 ms-3 form-check form-check-inline" method="get" onsubmit="setFormStore()">
-        <label for="ac_id" class="category-text mb-2">ASSET CLASS</label>
-        <div style="max-width: 300px">
-          <select class="form-select" id="ac_id" name="ac_id">
-            <option selected value="all">All</option>
-            {% for ac in ac_options %}
-            <option value="{{ac.id}}">{{ac.name}}</option>
-            {% endfor %}
-          </select>
+        <label for="ac_id" class="category-text mb-2">ASSET CLASS</label></br>
+        {% for ac in ac_options %}
+        <div class="form-check form-check-inline">
+          <input class="form-check-input mr-2" type="checkbox" id="{{ac.id}}" name="ac_id" value="{{ac.id}}">
+          <label class="form-check-label" for="{{ac.id}}">{{ac.name}}</label><br>
         </div>
+        {% endfor %}
         <div class="mb-4"></div>
         <hr class="dropdown-divider">
         <div class="mb-3"></div>
@@ -98,10 +96,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="{% static 'listings/check_filters.js' %}"></script>
 <script>
-  columns = JSON.parse('{{columns|safe}}')
-  continents = JSON.parse('{{selected_continents|safe}}')
-  console.log(continents)
-  check_all_lists(columns, continents);
+  selected_form_ids = JSON.parse('{{selected_filters|safe}}')
+  check_all_lists(selected_form_ids);
 </script>
 <script>
   function setFormStore() {

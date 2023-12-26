@@ -14,9 +14,8 @@ function check_all(form_ids) {
 //   }
 // }
 
-function check_all_lists(...args) {
-  var form_id_lists = Array.from(args)
-  for (form_ids of form_id_lists) {
+function check_all_lists(list_of_ids) {
+  for (form_ids of list_of_ids) {
     for (form_id of form_ids) {
       document.getElementById(form_id).checked = true;
     }

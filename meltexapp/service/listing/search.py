@@ -9,7 +9,7 @@ def listing_search(
     asset_class_name=None,
     sub_asset_class_name=None,
     geography_ids=None,
-    ac_id=None,
+    ac_ids=None,
     company_only=False,
     valid_exp_int_ddline=True,
 ):
@@ -17,10 +17,9 @@ def listing_search(
         list(get_geo_children_with_parents(
             user, geography_ids)) if geography_ids else None
     )
-    ac_id = None if ac_id == ["all"] else ac_id
     sub_asset_class_ids = (
-        list(get_sub_acs_by_acs(user, ac_id).values_list("id", flat=True))
-        if ac_id
+        list(get_sub_acs_by_acs(user, ac_ids).values_list("id", flat=True))
+        if ac_ids
         else None
     )
     filters = {

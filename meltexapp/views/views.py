@@ -10,7 +10,7 @@ from meltexapp.data.sub_asset_class import get_sub_acs_by_ac
 from meltexapp.data.geography import get_permitted_geographies
 from django.contrib.auth.decorators import login_required
 from meltexapp.data.listing import get_listing_by_id
-from meltexapp.helper.asset_class import get_asset_class_from_listing
+from meltexapp.helper.asset_class import get_asset_class_from_listing, get_available_ac_ids
 from meltexapp.helper.geography import get_continents_countries
 from meltexapp.config.listing import DEFAULT_LISTING_COLUMNS, get_listing_k_v_tuple
 import json
@@ -28,11 +28,12 @@ def get_listings(request):
     params = dict(request.GET)
     asset_class_name = params.get("asset_class_name")
     sub_asset_class_name = params.get("sub_asset_class_name")
-    ac_id = params.get("ac_id")
+    avaliable_ac_ids = get_available_ac_ids(user)
+    ac_ids = params.get("ac_id", avaliable_ac_ids)
     selected_continents = params.get("continents", [c["id"] for c in continents])
     columns = params["columns"] if "columns" in params else DEFAULT_LISTING_COLUMNS
     listings_data = listing_search(
-        user, asset_class_name, sub_asset_class_name, selected_continents, ac_id
+        user, asset_class_name, sub_asset_class_name, selected_continents, ac_ids
     )
     listings = ListingDTOCollection(
         listings_data,
@@ -57,9 +58,8 @@ def get_listings(request):
         "params_present": params_present,
         "available_cols": available_cols,
         "page": "listings",
-        "columns": json.dumps(columns),
         "continents": continents,
-        "selected_continents": json.dumps(selected_continents),
+        "selected_filters": json.dumps([selected_continents, columns, ac_ids]),
         "countries": countries
     }
     return render(request, "listings/listings.html", template_vars)
