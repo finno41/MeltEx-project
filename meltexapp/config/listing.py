@@ -49,10 +49,13 @@ def get_listing_title_map():
         "sub_asset_class": "Sub Asset Class",
     }
 
-
 def get_listing_k_v_tuple(filter_list=DEFAULT_LISTING_COLUMNS):
     listing_map = get_listing_title_map()
     return [(col_key, listing_map[col_key]) for col_key in ALL_LISTING_COLUMNS]
+
+def column_ids_names(filter_list=DEFAULT_LISTING_COLUMNS):
+    listing_map = get_listing_title_map()
+    return [{"id": col_key, "name": listing_map[col_key]} for col_key in ALL_LISTING_COLUMNS]
 
 
 def get_column_titles():

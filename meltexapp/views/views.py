@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from meltexapp.data.listing import get_listing_by_id
 from meltexapp.helper.asset_class import get_asset_class_from_listing, get_available_ac_ids
 from meltexapp.helper.geography import get_continents_countries
-from meltexapp.config.listing import DEFAULT_LISTING_COLUMNS, get_listing_k_v_tuple
+from meltexapp.config.listing import DEFAULT_LISTING_COLUMNS, get_listing_k_v_tuple, column_ids_names
 import json
 
 
@@ -31,7 +31,7 @@ def get_listings(request):
     avaliable_ac_ids = get_available_ac_ids(user)
     ac_ids = params.get("ac_id", avaliable_ac_ids)
     selected_continents = params.get("continents", [c["id"] for c in continents])
-    columns = params["columns"] if "columns" in params else DEFAULT_LISTING_COLUMNS
+    columns = params.get("columns", DEFAULT_LISTING_COLUMNS)
     listings_data = listing_search(
         user, asset_class_name, sub_asset_class_name, selected_continents, ac_ids
     )
@@ -49,16 +49,19 @@ def get_listings(request):
             "deleted_on",
         ],
     ).output()
-    available_cols = get_listing_k_v_tuple()
+    available_cols = column_ids_names()
     table_variables = format_for_table(listings, columns)
     params_present = json.dumps(bool(params))
     ac_options = get_asset_class_options(user)
+    tickbox_form_config = [
+        {"title": "ASSET CLASS", "options": ac_options, "param": "ac_id"},
+        {"title": "COLUMNS", "options": available_cols, "param": "columns"},
+        {"title": "CONTINENTS", "options": continents, "param": "continents"}
+    ]
     template_vars = table_variables | {
-        "ac_options": ac_options,
         "params_present": params_present,
-        "available_cols": available_cols,
+        "tickbox": tickbox_form_config,
         "page": "listings",
-        "continents": continents,
         "selected_filters": json.dumps([selected_continents, columns, ac_ids]),
         "countries": countries
     }
@@ -69,11 +72,15 @@ def get_listings(request):
 def my_listings(request):
     user = request.user
     params = dict(request.GET)
+    continents, countries = get_continents_countries(user)
+    avaliable_ac_ids = get_available_ac_ids(user)
+    ac_ids = params.get("ac_id", avaliable_ac_ids)
     asset_class_name = params.get("asset_class_name")
     sub_asset_class_name = params.get("sub_asset_class_name")
     geography_id = params.get("geography_id")
     ac_id = params.get("ac_id")
     columns = params["columns"] if "columns" in params else DEFAULT_LISTING_COLUMNS
+    selected_continents = params.get("continents", [c["id"] for c in continents])
     listings_data = listing_search(
         user, asset_class_name, sub_asset_class_name, geography_id, ac_id
     )
@@ -91,16 +98,21 @@ def my_listings(request):
         ],
     ).output()
     columns = params["columns"] if "columns" in params else DEFAULT_LISTING_COLUMNS
+    available_cols = column_ids_names()
     table_variables = format_for_table(listings, columns)
     params_present = json.dumps(bool(params))
     ac_options = get_asset_class_options(user)
-    available_cols = get_listing_k_v_tuple()
+    tickbox_form_config = [
+        {"title": "ASSET CLASS", "options": ac_options, "param": "ac_id"},
+        {"title": "COLUMNS", "options": available_cols, "param": "columns"},
+        {"title": "CONTINENTS", "options": continents, "param": "continents"}
+    ]
     template_vars = table_variables | {
-        "ac_options": ac_options,
         "params_present": params_present,
-        "available_cols": available_cols,
+        "tickbox": tickbox_form_config,
         "page": "my_listings",
-        "columns": json.dumps(columns),
+        "selected_filters": json.dumps([selected_continents, columns, ac_ids]),
+        "countries": countries
     }
     return render(request, "listings/listings.html", template_vars)
 

@@ -16,17 +16,20 @@
   <div class="collapse" id="collapseExample">
     <div class="card card-body">
       <form action="" class="mb-2 ms-3 form-check form-check-inline" method="get" onsubmit="setFormStore()">
-        <label for="ac_id" class="category-text mb-2">ASSET CLASS</label></br>
-        {% for ac in ac_options %}
+        {% for tb_settings in tickbox %}
+        <label for="{{tb_settings.param}}" class="category-text mb-2">{{tb_settings.title}}</label></br>
+        {% for option in tb_settings.options %}
         <div class="form-check form-check-inline">
-          <input class="form-check-input mr-2" type="checkbox" id="{{ac.id}}" name="ac_id" value="{{ac.id}}">
-          <label class="form-check-label" for="{{ac.id}}">{{ac.name}}</label><br>
+          <input class="form-check-input mr-2" type="checkbox" id="{{option.id}}" name="{{tb_settings.param}}"
+            value="{{option.id}}">
+          <label class="form-check-label" for="{{option.id}}">{{option.name}}</label><br>
         </div>
         {% endfor %}
         <div class="mb-4"></div>
-        <hr class="dropdown-divider">
         <div class="mb-3"></div>
-        <element class="category-text">
+        <hr class="dropdown-divider">
+        {% endfor %}
+        <!-- <element class="category-text">
           COLUMNS <div class="mb-3"></div>
         </element>
         {% for col_key, col_label in available_cols %}
@@ -34,8 +37,8 @@
           <input class="form-check-input mr-2" type="checkbox" id="{{col_key}}" name="columns" value="{{col_key}}">
           <label class="form-check-label" for="{{col_key}}">{{col_label}}</label><br>
         </div>
-        {% endfor %}
-        <div class="mb-4"></div>
+        {% endfor %} -->
+        <!-- <div class="mb-4"></div>
         <br>
         <element class="category-text">
           CONTINENTS <div class="mb-3"></div>
@@ -47,7 +50,7 @@
           <label class="form-check-label" for="{{continent.id}}">{{continent.name}}</label><br>
         </div>
         {% endfor %}
-        <div class="mb-4"></div>
+        <div class="mb-4"></div> -->
         <button type="submit" class="btn btn-primary">Filter</button>
       </form>
     </div>
