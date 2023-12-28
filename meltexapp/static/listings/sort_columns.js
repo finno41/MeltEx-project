@@ -1,5 +1,7 @@
 var counter = 0;
 var prev_column = null;
+var baseUrl = window.location.origin + "/";
+console.log(baseUrl)
 
 document.addEventListener('DOMContentLoaded', function () {
   var sortableColumns = document.querySelectorAll('.sortable_column');
@@ -33,8 +35,8 @@ document.addEventListener('DOMContentLoaded', function () {
       column.addEventListener('click', function () {
         var listingsTable = document.getElementById('listings-table');
         var queryString = buildQueryString();
-        var url = "listings/load_listings_table?" + queryString;
-
+        var url = baseUrl + "listings/load_listings_table?" + queryString;
+        console.log(url)
         fetch(url)
           .then(response => response.text())
           .then(data => {
