@@ -183,3 +183,36 @@ def load_geographies(request):
     return render(
         request, "geography/geography_dropdown.html", {"geographies": geographies}
     )
+
+
+@login_required
+def load_listings_table(request):
+    user = request.user
+    params = dict(request.GET)
+    (
+        continents,
+        countries,
+        ac_ids,
+        columns,
+        selected_continents,
+        listings_data,
+        available_cols,
+        ac_options,
+    ) = get_listing_view_data(user, params)
+    listings = ListingDTOCollection(
+        listings_data,
+        user,
+        hide_keys=HIDDEN_LISTING_FIELDS,
+    ).output()
+    template_vars = get_listing_template_variables(
+        listings,
+        params,
+        ac_options,
+        available_cols,
+        continents,
+        selected_continents,
+        columns,
+        ac_ids,
+        countries,
+    )
+    return render(request, "listings/listings_table.html", template_vars)
