@@ -4,15 +4,27 @@ from meltexapp.dto.listing import ListingDTOCollection
 from meltexapp.data_format.table import format_for_table
 from meltexapp.helper.asset_class import get_asset_class_options
 from django.shortcuts import render
-from meltexapp.config.listing import get_listing_title_map
+from meltexapp.config.listing import (
+    get_listing_title_map,
+    SORTABLE_LISTING_HEADERS,
+    HIDDEN_LISTING_FIELDS,
+)
 from meltexapp.forms import ListingForm
 from meltexapp.data.sub_asset_class import get_sub_acs_by_ac
 from meltexapp.data.geography import get_permitted_geographies
 from django.contrib.auth.decorators import login_required
 from meltexapp.data.listing import get_listing_by_id
-from meltexapp.helper.asset_class import get_asset_class_from_listing, get_available_ac_ids
+from meltexapp.helper.asset_class import (
+    get_asset_class_from_listing,
+    get_available_ac_ids,
+)
 from meltexapp.helper.geography import get_continents_countries
-from meltexapp.config.listing import DEFAULT_LISTING_COLUMNS, get_listing_k_v_tuple, column_ids_names
+from meltexapp.config.listing import (
+    DEFAULT_LISTING_COLUMNS,
+    get_listing_k_v_tuple,
+    column_ids_names,
+)
+from meltexapp.helper.listing import get_listing_view_data, listing_template_variables
 import json
 
 
@@ -24,47 +36,33 @@ def index(request):
 @login_required
 def get_listings(request):
     user = request.user
-    continents, countries = get_continents_countries(user)
     params = dict(request.GET)
-    asset_class_name = params.get("asset_class_name")
-    sub_asset_class_name = params.get("sub_asset_class_name")
-    avaliable_ac_ids = get_available_ac_ids(user)
-    ac_ids = params.get("ac_id", avaliable_ac_ids)
-    selected_continents = params.get("continents", [c["id"] for c in continents])
-    columns = params.get("columns", DEFAULT_LISTING_COLUMNS)
-    listings_data = listing_search(
-        user, asset_class_name, sub_asset_class_name, selected_continents, ac_ids
-    )
+    (
+        continents,
+        countries,
+        ac_ids,
+        columns,
+        selected_continents,
+        listings_data,
+        available_cols,
+        ac_options,
+    ) = get_listing_view_data(user, params)
     listings = ListingDTOCollection(
         listings_data,
         user,
-        hide_keys=[
-            "geography_id",
-            "owner_id",
-            "public",
-            "asset_class_id",
-            "sub_asset_class_id",
-            "created_on",
-            "updated_on",
-            "deleted_on",
-        ],
+        hide_keys=HIDDEN_LISTING_FIELDS,
     ).output()
-    available_cols = column_ids_names()
-    table_variables = format_for_table(listings, columns)
-    params_present = json.dumps(bool(params))
-    ac_options = get_asset_class_options(user)
-    tickbox_form_config = [
-        {"title": "ASSET CLASS", "options": ac_options, "param": "ac_id"},
-        {"title": "COLUMNS", "options": available_cols, "param": "columns"},
-        {"title": "CONTINENTS", "options": continents, "param": "continents"}
-    ]
-    template_vars = table_variables | {
-        "params_present": params_present,
-        "tickbox": tickbox_form_config,
-        "page": "listings",
-        "selected_filters": json.dumps([selected_continents, columns, ac_ids]),
-        "countries": countries
-    }
+    template_vars = listing_template_variables(
+        listings,
+        params,
+        ac_options,
+        available_cols,
+        continents,
+        selected_continents,
+        columns,
+        ac_ids,
+        countries,
+    )
     return render(request, "listings/listings.html", template_vars)
 
 
@@ -72,48 +70,32 @@ def get_listings(request):
 def my_listings(request):
     user = request.user
     params = dict(request.GET)
-    continents, countries = get_continents_countries(user)
-    avaliable_ac_ids = get_available_ac_ids(user)
-    ac_ids = params.get("ac_id", avaliable_ac_ids)
-    asset_class_name = params.get("asset_class_name")
-    sub_asset_class_name = params.get("sub_asset_class_name")
-    geography_id = params.get("geography_id")
-    ac_id = params.get("ac_id")
-    columns = params["columns"] if "columns" in params else DEFAULT_LISTING_COLUMNS
-    selected_continents = params.get("continents", [c["id"] for c in continents])
-    listings_data = listing_search(
-        user, asset_class_name, sub_asset_class_name, geography_id, ac_id
-    )
+    (
+        continents,
+        countries,
+        ac_ids,
+        columns,
+        selected_continents,
+        listings_data,
+        available_cols,
+        ac_options,
+    ) = get_listing_view_data(user, params)
     listings = ListingDTOCollection(
         listings_data,
         user,
-        hide_keys=[
-            "geography_id",
-            "owner_id",
-            "asset_class_id",
-            "sub_asset_class_id",
-            "created_on",
-            "updated_on",
-            "deleted_on",
-        ],
+        hide_keys=HIDDEN_LISTING_FIELDS,
     ).output()
-    columns = params["columns"] if "columns" in params else DEFAULT_LISTING_COLUMNS
-    available_cols = column_ids_names()
-    table_variables = format_for_table(listings, columns)
-    params_present = json.dumps(bool(params))
-    ac_options = get_asset_class_options(user)
-    tickbox_form_config = [
-        {"title": "ASSET CLASS", "options": ac_options, "param": "ac_id"},
-        {"title": "COLUMNS", "options": available_cols, "param": "columns"},
-        {"title": "CONTINENTS", "options": continents, "param": "continents"}
-    ]
-    template_vars = table_variables | {
-        "params_present": params_present,
-        "tickbox": tickbox_form_config,
-        "page": "my_listings",
-        "selected_filters": json.dumps([selected_continents, columns, ac_ids]),
-        "countries": countries
-    }
+    template_vars = listing_template_variables(
+        listings,
+        params,
+        ac_options,
+        available_cols,
+        continents,
+        selected_continents,
+        columns,
+        ac_ids,
+        countries,
+    )
     return render(request, "listings/listings.html", template_vars)
 
 
@@ -188,8 +170,7 @@ def load_sub_acs(request):
     user = request.user
     sub_acs = get_sub_acs_by_ac(user, ac_id)
     return render(
-        request, "asset_class/sub_ac_dropdown_list_options.html", {
-            "sub_acs": sub_acs}
+        request, "asset_class/sub_ac_dropdown_list_options.html", {"sub_acs": sub_acs}
     )
 
 
@@ -197,6 +178,5 @@ def load_geographies(request):
     user = request.user
     geographies = get_permitted_geographies(user)
     return render(
-        request, "geography/geography_dropdown.html", {
-            "geographies": geographies}
+        request, "geography/geography_dropdown.html", {"geographies": geographies}
     )

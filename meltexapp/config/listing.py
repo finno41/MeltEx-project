@@ -27,6 +27,17 @@ DEFAULT_LISTING_COLUMNS = [
     "targ_irr",
 ]
 
+HIDDEN_LISTING_FIELDS = [
+    "geography_id",
+    "owner_id",
+    "public",
+    "asset_class_id",
+    "sub_asset_class_id",
+    "created_on",
+    "updated_on",
+    "deleted_on",
+]
+
 
 def get_listing_title_map():
     return {
@@ -49,13 +60,17 @@ def get_listing_title_map():
         "sub_asset_class": "Sub Asset Class",
     }
 
+
 def get_listing_k_v_tuple(filter_list=DEFAULT_LISTING_COLUMNS):
     listing_map = get_listing_title_map()
     return [(col_key, listing_map[col_key]) for col_key in ALL_LISTING_COLUMNS]
 
+
 def column_ids_names(filter_list=DEFAULT_LISTING_COLUMNS):
     listing_map = get_listing_title_map()
-    return [{"id": col_key, "name": listing_map[col_key]} for col_key in ALL_LISTING_COLUMNS]
+    return [
+        {"id": col_key, "name": listing_map[col_key]} for col_key in ALL_LISTING_COLUMNS
+    ]
 
 
 def get_column_titles():
@@ -69,6 +84,7 @@ def get_listing_title(listing_key):
 
 LISTING_REQUIRED_FIELDS = ["geography", "sub_asset_class"]
 
+SORTABLE_LISTING_HEADERS = ["nav"]
 
 EDITABLE_LISTING_ATTRS = [
     "geography",
