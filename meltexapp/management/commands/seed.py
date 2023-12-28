@@ -144,6 +144,6 @@ def run_seed(self, mode):
     create_geographies()
     create_asset_classes()
 
-    # Creating 15 addresses
-    for i in range(15):
+    # Creating listings
+    for i in range(200):
         create_listing(i)

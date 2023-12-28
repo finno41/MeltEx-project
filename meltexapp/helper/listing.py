@@ -1,6 +1,17 @@
-from meltexapp.models import Listing
+from meltexapp.models import Listing, User
 from meltexapp.data.geography import get_geography_by_id
 from meltexapp.data.sub_asset_class import get_sub_asset_by_id
+from meltexapp.service.listing.search import listing_search
+from meltexapp.helper.asset_class import get_available_ac_ids, get_asset_class_options
+from meltexapp.helper.geography import get_continents_countries
+from meltexapp.config.listing import DEFAULT_LISTING_COLUMNS
+from meltexapp.config.listing import (
+    DEFAULT_LISTING_COLUMNS,
+    SORTABLE_LISTING_HEADERS,
+    column_ids_names,
+)
+from meltexapp.data_format.table import format_for_table
+import json
 
 
 def create_listing(
@@ -45,3 +56,68 @@ def create_listing(
     listing.public = public
     listing.save()
     return listing
+
+
+def get_listing_view_data(user: User, params: dict) -> tuple:
+    continents, countries = get_continents_countries(user)
+    avaliable_ac_ids = get_available_ac_ids(user)
+    ac_ids = params.get("ac_id", avaliable_ac_ids)
+    asset_class_name = params.get("asset_class_name")
+    sub_asset_class_name = params.get("sub_asset_class_name")
+    geography_id = params.get("geography_id")
+    ac_id = params.get("ac_id")
+    columns = params.get("columns", DEFAULT_LISTING_COLUMNS)
+    selected_continents = params.get("continents", [c["id"] for c in continents])
+    sort_columns = params.get("sort", ["expr_int_ddline"])
+    ascending = params.get("ascending", [False])
+    listings_data = listing_search(
+        user,
+        asset_class_name,
+        sub_asset_class_name,
+        geography_id,
+        ac_id,
+        sort_columns=sort_columns,
+        ascending=ascending,
+    )
+    available_cols = column_ids_names()
+    ac_options = get_asset_class_options(user)
+
+    return (
+        continents,
+        countries,
+        ac_ids,
+        columns,
+        selected_continents,
+        listings_data,
+        available_cols,
+        ac_options,
+    )
+
+
+def get_listing_template_variables(
+    listings,
+    params,
+    ac_options,
+    available_cols,
+    continents,
+    selected_continents,
+    columns,
+    ac_ids,
+    countries,
+):
+    table_variables = format_for_table(listings, columns)
+    params_present = json.dumps(params)
+    tickbox_form_config = [
+        {"title": "ASSET CLASS", "options": ac_options, "param": "ac_id"},
+        {"title": "COLUMNS", "options": available_cols, "param": "columns"},
+        {"title": "CONTINENTS", "options": continents, "param": "continents"},
+    ]
+    return table_variables | {
+        "params_present": params_present,
+        "json_params": json.dumps(params_present),
+        "tickbox": tickbox_form_config,
+        "page": "listings",
+        "selected_filters": json.dumps([selected_continents, columns, ac_ids]),
+        "countries": countries,
+        "sortable_headers": SORTABLE_LISTING_HEADERS,
+    }

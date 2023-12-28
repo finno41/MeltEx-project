@@ -7,17 +7,16 @@ def format_for_table(
     show_columns,
     update=False,
 ):
+    headers = [{"label": get_listing_title(col), "key": col} for col in show_columns]
     if not data and show_columns:
         return {
-            "headers": [get_listing_title(col) for col in show_columns],
+            "headers": headers,
             "values": [],
         }
     df = pd.DataFrame(data)
     ids = list(df["id"])
     df = df.drop("id", axis=1)
     df = df[show_columns]
-    df.columns = [get_listing_title(col) for col in df.columns]
-    headers = list(df.columns)
     values = [row for i, row in df.iterrows()]
     values = [(ids[i], r) for i, r in enumerate(values)]
     return {"headers": headers, "values": values}
