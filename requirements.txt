@@ -1,6 +1,6 @@
 asgiref==3.5.2
 beautifulsoup4==4.12.2
-black==23.9.1
+black==23.11.0
 certifi==2022.9.24
 click==8.1.7
 distlib==0.3.4
