@@ -66,7 +66,7 @@ def get_listing_view_data(user: User, params: dict) -> tuple:
     sub_asset_class_name = params.get("sub_asset_class_name")
     geography_id = params.get("geography_id")
     ac_id = params.get("ac_id")
-    columns = params["columns"] if "columns" in params else DEFAULT_LISTING_COLUMNS
+    columns = params.get("columns", DEFAULT_LISTING_COLUMNS)
     selected_continents = params.get("continents", [c["id"] for c in continents])
     listings_data = listing_search(
         user, asset_class_name, sub_asset_class_name, geography_id, ac_id
@@ -86,7 +86,7 @@ def get_listing_view_data(user: User, params: dict) -> tuple:
     )
 
 
-def listing_template_variables(
+def get_listing_template_variables(
     listings,
     params,
     ac_options,

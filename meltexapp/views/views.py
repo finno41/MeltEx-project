@@ -24,7 +24,10 @@ from meltexapp.config.listing import (
     get_listing_k_v_tuple,
     column_ids_names,
 )
-from meltexapp.helper.listing import get_listing_view_data, listing_template_variables
+from meltexapp.helper.listing import (
+    get_listing_view_data,
+    get_listing_template_variables,
+)
 import json
 
 
@@ -52,7 +55,7 @@ def get_listings(request):
         user,
         hide_keys=HIDDEN_LISTING_FIELDS,
     ).output()
-    template_vars = listing_template_variables(
+    template_vars = get_listing_template_variables(
         listings,
         params,
         ac_options,
@@ -85,7 +88,7 @@ def my_listings(request):
         user,
         hide_keys=HIDDEN_LISTING_FIELDS,
     ).output()
-    template_vars = listing_template_variables(
+    template_vars = get_listing_template_variables(
         listings,
         params,
         ac_options,
