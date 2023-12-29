@@ -1,10 +1,16 @@
 var counter = 0;
 var prev_column = null;
 var baseUrl = window.location.origin + "/";
-console.log(baseUrl)
 
 document.addEventListener('DOMContentLoaded', function () {
   var sortableColumns = document.querySelectorAll('.sortable_column');
+  addColumnsEventListener(sortableColumns)
+})
+
+
+
+function addColumnsEventListener(sortableColumns) {
+
 
   sortableColumns.forEach(function (column) {
     var columnId = column.id;
@@ -31,21 +37,19 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function addEventListeners() {
-      console.log("Event listeners added")
       column.addEventListener('click', function () {
         var listingsTable = document.getElementById('listings-table');
         var queryString = buildQueryString();
         var url = baseUrl + "listings/load_listings_table?" + queryString;
-        console.log(url)
         fetch(url)
           .then(response => response.text())
           .then(data => {
             listingsTable.innerHTML = data;
-            addEventListeners();
+            var sortableColumns = document.querySelectorAll('.sortable_column');
+            addColumnsEventListener(sortableColumns)
           });
       });
     }
-
     addEventListeners();
   });
-});
+};
