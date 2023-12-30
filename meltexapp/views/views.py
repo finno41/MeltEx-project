@@ -6,7 +6,7 @@ from meltexapp.helper.asset_class import get_asset_class_options
 from django.shortcuts import render
 from meltexapp.config.listing import (
     get_listing_title_map,
-    SORTABLE_LISTING_HEADERS,
+    SORTABLE_LISTING_HEADERS_LOOKUP,
     HIDDEN_LISTING_FIELDS,
 )
 from meltexapp.forms import ListingForm

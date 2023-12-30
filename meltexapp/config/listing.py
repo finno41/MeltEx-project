@@ -84,7 +84,23 @@ def get_listing_title(listing_key):
 
 LISTING_REQUIRED_FIELDS = ["geography", "sub_asset_class"]
 
-SORTABLE_LISTING_HEADERS = ["nav"]
+SORTABLE_LISTING_HEADERS_LOOKUP = {
+    "asset_class_name": "sub_asset_class__asset_class__name",
+    "sub_asset_class_name": "sub_asset_class__name",
+    "geography": "geography__name",
+    "impl_approach": "impl_approach",
+    "fund_levr": "fund_levr",
+    "fund_struc": "fund_struc",
+    "fund_inc_year": "fund_inc_year",
+    "fund_targ_clos_yr": "fund_targ_clos_yr",
+    "fund_vehi_type": "fund_vehi_type",
+    "nav": "nav",
+    "nav_dis_avl": "nav_dis_avl",
+    "expr_int_ddline": "expr_int_ddline",
+    "targ_irr": "targ_irr",
+    "risk_prof": "risk_prof",
+    "fund_ter": "fund_ter",
+}
 
 EDITABLE_LISTING_ATTRS = [
     "geography",
