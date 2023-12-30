@@ -9,7 +9,7 @@
   {% endif %}
   {% for header in headers %}
   {% if header.key in sortable_headers %}
-  <th id="{{header.key}}" class="sortable_column">{{header.label}} sortable</th>
+  <th id="{{header.key}}" class="sortable_column">{{header.label}}</th>
   {% else %}
   <th>{{header.label}}</th>
   {% endif %}
