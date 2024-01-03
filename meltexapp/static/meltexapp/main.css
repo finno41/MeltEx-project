@@ -58,3 +58,7 @@
   height: 300px;
   width: 400px;
 }
+
+.sortable_column {
+  cursor: pointer;
+}
