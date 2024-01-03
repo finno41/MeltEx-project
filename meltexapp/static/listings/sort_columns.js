@@ -39,10 +39,15 @@ function addColumnsEventListener(sortableColumns) {
 
       if (counter % 3 !== 2) {
         queryString += "&" + encodeURIComponent("sort") + "=" + encodeURIComponent(columnId);
+        sortIcon = '<i class="fa-solid fa-sort-down"></i>'
       }
 
       if (counter % 3 === 0) {
         queryString += "&" + encodeURIComponent("ascending") + "=" + encodeURIComponent("true");
+        sortIcon = '<i class="fa-solid fa-sort-up"></i>';
+      }
+      if (counter % 3 === 2) {
+        sortIcon = '';
       }
 
       return queryString;
@@ -58,8 +63,10 @@ function addColumnsEventListener(sortableColumns) {
           .then(data => {
             listingsTable.innerHTML = data;
             var sortableColumns = document.querySelectorAll('.sortable_column');
-            addColumnsEventListener(sortableColumns)
-          });
+            addColumnsEventListener(sortableColumns);
+            var sortedColumn = document.querySelector(`.sortable_column#${columnId}`);
+            sortedColumn.innerHTML += ` ${sortIcon}`;
+          })
       });
     }
     addEventListeners();
