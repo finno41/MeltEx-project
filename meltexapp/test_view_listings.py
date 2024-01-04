@@ -1,4 +1,4 @@
-from meltexapp.config.listing import ALL_LISTING_COLUMNS
+from meltexapp.config.listing import get_all_listing_columns
 from meltexapp.global_variables import MASTER_USER_ID
 from meltexapp.data.asset_class import get_permitted_asset_classes
 from meltexapp.data.sub_asset_class import get_permitted_sub_asset_classes
@@ -26,7 +26,7 @@ class ViewListingsTestCase(TransactionTestCase):
             create_listing(i, user)
         asset_classes = get_permitted_asset_classes(user)
         self.asset_class_ids = [ac.pk for ac in asset_classes]
-        self.column_lists = get_list_samples(ALL_LISTING_COLUMNS)
+        self.column_lists = get_list_samples(get_all_listing_columns())
         print("setup complete.")
         print("testing responses...")
         self.responses = self.test_get_responses()

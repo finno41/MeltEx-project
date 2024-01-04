@@ -1,31 +1,105 @@
-ALL_LISTING_COLUMNS = [
-    "asset_class_name",
-    "sub_asset_class_name",
-    "geography",
-    "impl_approach",
-    "fund_levr",
-    "fund_struc",
-    "fund_inc_year",
-    "fund_targ_clos_yr",
-    "fund_vehi_type",
-    "nav",
-    "nav_dis_avl",
-    "expr_int_ddline",
-    "targ_irr",
-    "risk_prof",
-    "fund_ter",
-]
 # This also dictates the order of the columns
-DEFAULT_LISTING_COLUMNS = [
-    "asset_class_name",
-    "sub_asset_class_name",
-    "geography",
-    "impl_approach",
-    "nav",
-    "nav_dis_avl",
-    "expr_int_ddline",
-    "targ_irr",
+LISTING_CONFIG = [
+    {
+        "key": "asset_class_name",
+        "name": "Asset Class Name",
+        "formatting": None,
+        "show": True,
+        "default": True,
+    },
+    {
+        "key": "sub_asset_class_name",
+        "name": "Sub Asset Class Name",
+        "formatting": None,
+        "show": True,
+        "default": True,
+    },
+    {
+        "key": "geography",
+        "name": "Geography",
+        "formatting": None,
+        "show": True,
+        "default": True,
+    },
+    {
+        "key": "impl_approach",
+        "name": "Implementation Approach",
+        "formatting": None,
+        "show": True,
+        "default": True,
+    },
+    {
+        "key": "fund_levr",
+        "name": "Fund Leverage",
+        "formatting": "percentage",
+        "show": True,
+    },
+    {"key": "fund_struc", "name": "Fund Structure", "formatting": None, "show": True},
+    {
+        "key": "fund_inc_year",
+        "name": "Fund Inception Year",
+        "formatting": None,
+        "show": True,
+    },
+    {
+        "key": "fund_targ_clos_yr",
+        "name": "Fund Target Closing Year",
+        "formatting": None,
+        "show": True,
+    },
+    {
+        "key": "fund_vehi_type",
+        "name": "Fund Vehicle Type",
+        "formatting": None,
+        "show": True,
+    },
+    {
+        "key": "nav",
+        "name": "Nav (£m)",
+        "formatting": None,
+        "show": True,
+        "default": True,
+    },
+    {
+        "key": "nav_dis_avl",
+        "name": "Nav Discount Available",
+        "formatting": "percentage",
+        "show": True,
+        "default": True,
+    },
+    {
+        "key": "expr_int_ddline",
+        "name": "Expression of Interest Deadline",
+        "formatting": None,
+        "show": True,
+        "default": True,
+    },
+    {
+        "key": "targ_irr",
+        "name": "Targ IRR p/a",
+        "formatting": "percentage",
+        "show": True,
+        "default": True,
+    },
+    {"key": "risk_prof", "name": "Risk Profile", "formatting": None, "show": True},
+    {"key": "fund_ter", "name": "Fund TER", "formatting": None, "show": True},
+    {"key": "comments", "name": "Comments", "formatting": None, "show": True},
+    {
+        "key": "sub_asset_class",
+        "name": "Sub Asset Class",
+        "formatting": None,
+        "show": False,
+    },
 ]
+
+
+def get_all_listing_columns():
+    return [lc["key"] for lc in LISTING_CONFIG if lc["show"]]
+
+
+def get_default_listing_columns():
+    return [lc["key"] for lc in LISTING_CONFIG if lc.get("default")]
+
 
 HIDDEN_LISTING_FIELDS = [
     "geography_id",
@@ -40,41 +114,24 @@ HIDDEN_LISTING_FIELDS = [
 
 
 def get_listing_title_map():
-    return {
-        "impl_approach": "Implementation Approach",
-        "fund_levr": "Fund Leverage",
-        "fund_struc": "Fund Structure",
-        "fund_inc_year": "Fund Inception Year",
-        "fund_targ_clos_yr": "Fund Target Closing Year",
-        "fund_vehi_type": "Fund Vehicle Type",
-        "nav": "Nav (£m)",
-        "nav_dis_avl": "Nav Discount Available",
-        "expr_int_ddline": "Expression of Interest Deadline",
-        "targ_irr": "Targ IRR p/a",
-        "risk_prof": "Risk Profile",
-        "fund_ter": "Fund TER",
-        "comments": "Comments",
-        "geography": "Geography",
-        "asset_class_name": "Asset Class Name",
-        "sub_asset_class_name": "Sub Asset Class Name",
-        "sub_asset_class": "Sub Asset Class",
-    }
+    return {lc["key"]: lc["name"] for lc in LISTING_CONFIG}
 
 
-def get_listing_k_v_tuple(filter_list=DEFAULT_LISTING_COLUMNS):
+def get_listing_k_v_tuple(filter_list=get_default_listing_columns()):
     listing_map = get_listing_title_map()
-    return [(col_key, listing_map[col_key]) for col_key in ALL_LISTING_COLUMNS]
+    return [(col_key, listing_map[col_key]) for col_key in get_all_listing_columns()]
 
 
-def column_ids_names(filter_list=DEFAULT_LISTING_COLUMNS):
+def column_ids_names(filter_list=get_default_listing_columns()):
     listing_map = get_listing_title_map()
     return [
-        {"id": col_key, "name": listing_map[col_key]} for col_key in ALL_LISTING_COLUMNS
+        {"id": col_key, "name": listing_map[col_key]}
+        for col_key in get_all_listing_columns()
     ]
 
 
 def get_column_titles():
-    return list(get_listing_title_map().values())
+    return [lc["name"] for lc in LISTING_CONFIG]
 
 
 def get_listing_title(listing_key):
@@ -83,6 +140,8 @@ def get_listing_title(listing_key):
 
 
 LISTING_REQUIRED_FIELDS = ["geography", "sub_asset_class"]
+
+COLUMN_FORMATTING = {}
 
 SORTABLE_LISTING_HEADERS_LOOKUP = {
     "asset_class_name": "sub_asset_class__asset_class__name",
@@ -120,3 +179,5 @@ EDITABLE_LISTING_ATTRS = [
     "comments",
     "public",
 ]
+
+FORMATTING_OPTIONS = [{"name": "Percentage", "key": "percentage", "int": 0}]
