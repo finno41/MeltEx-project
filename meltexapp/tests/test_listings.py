@@ -65,7 +65,6 @@ class APITests(TestCase):
         request.user = self.user
         response = get_listings(request)
         print(f"running test {name}")
-        print(response)
 
         self.assertEqual(
             response.status_code,
