@@ -13,3 +13,8 @@ def get_continents_countries(user, continents_only=False):
     if continents_only:
         return continents
     return continents, countries
+
+
+def get_continent_ids(user):
+    continents = get_continents_countries(user, continents_only=True)
+    return [c["id"] for c in continents]

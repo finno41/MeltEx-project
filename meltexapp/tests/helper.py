@@ -14,3 +14,10 @@ def get_all_combinations(lst: list) -> list:
         for subset in combinations(lst, r):
             all_combinations.append(list(subset))
     return all_combinations
+
+
+def get_sample_of_combinations(lst: list) -> list:
+    list_len = len(lst)
+    singular_list = [l for l in lst]
+    sample_list = [random.sample(lst, i) for i in range(list_len)]
+    return singular_list + sample_list
