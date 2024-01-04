@@ -20,7 +20,7 @@ from meltexapp.helper.asset_class import (
 )
 from meltexapp.helper.geography import get_continents_countries
 from meltexapp.config.listing import (
-    DEFAULT_LISTING_COLUMNS,
+    get_default_listing_columns,
     get_listing_k_v_tuple,
     column_ids_names,
 )

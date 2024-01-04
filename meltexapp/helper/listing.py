@@ -4,9 +4,8 @@ from meltexapp.data.sub_asset_class import get_sub_asset_by_id
 from meltexapp.service.listing.search import listing_search
 from meltexapp.helper.asset_class import get_available_ac_ids, get_asset_class_options
 from meltexapp.helper.geography import get_continents_countries
-from meltexapp.config.listing import DEFAULT_LISTING_COLUMNS
 from meltexapp.config.listing import (
-    DEFAULT_LISTING_COLUMNS,
+    get_default_listing_columns,
     SORTABLE_LISTING_HEADERS_LOOKUP,
     column_ids_names,
 )
@@ -65,7 +64,7 @@ def get_listing_view_data(user: User, params: dict) -> tuple:
     asset_class_name = params.get("asset_class_name")
     sub_asset_class_name = params.get("sub_asset_class_name")
     geography_ids = params.get("continents")
-    columns = params.get("columns", DEFAULT_LISTING_COLUMNS)
+    columns = params.get("columns", get_default_listing_columns())
     selected_continents = params.get("continents", [c["id"] for c in continents])
     sort_columns = params.get("sort", ["expr_int_ddline"])
     ascending = params.get("ascending", [False])
