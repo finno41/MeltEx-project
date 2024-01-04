@@ -48,7 +48,7 @@ class APITests(TestCase):
         )
         return [
             (
-                f"listing_API_test_{i}",
+                f"listing_API_test_{i+1}",
                 {
                     param_setting["param_name"]: param_setting["params"][
                         i % len(param_setting["params"])
