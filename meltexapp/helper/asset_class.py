@@ -17,6 +17,7 @@ def get_asset_class_key_labels(user, format):
 def get_asset_class_from_listing(listing):
     return listing.sub_asset_class.asset_class
 
+
 def get_available_ac_ids(user):
     acs = get_permitted_asset_classes(user)
     ac_ids = acs.values_list("id", flat=True)

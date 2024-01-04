@@ -37,17 +37,25 @@ def clear_data():
 def create_company(user=False):
     """Creates an address object combining different elements from the list"""
     if not user:
-        user = User.objects.get(username="admin_oli")
-        stu_user = User.objects.get(username="admin_stu")
-    try:
-        company = Company.objects.get(name="MeltEx")
-        print("company MeltEx exists")
-    except:
-        print("creating MeltEx")
-        company = Company()
-        company.name = "MeltEx"
-        company.type = "Admin"
-        company.save()
+        try:
+            company = Company.objects.get(name="MeltEx")
+            print("company MeltEx exists")
+        except:
+            print("creating MeltEx")
+            company = Company()
+            company.name = "MeltEx"
+            company.type = "Admin"
+            company.save()
+        try:
+            user = User.objects.get(username="admin_oli")
+        except:
+            user = User.objects.create_superuser("admin_oli", "oli@test.com", "oli123")
+        try:
+            stu_user = User.objects.get(username="admin_stu")
+        except:
+            stu_user = User.objects.create_superuser(
+                "admin_stu", "stu@test.com", "stu123"
+            )
         user.company = company
         stu_user.company = company
         user.save()

@@ -15,15 +15,15 @@ class ListingDTO(BaseDTO):
             geog_df = pd.DataFrame(geographies).set_index("id")
             geog_df = pd.DataFrame(geographies).set_index("id")
         geog_info = geog_df.loc[[geog_id]]
-        self.geography = geog_info["name"][0]
+        self.geography = geog_info["name"].iloc[0]
         if ac_df.empty:
             sub_acs = get_sub_assets_by_ids(user, [sub_ac_id]).values(
                 "id", "name", "asset_class__name"
             )
             ac_df = pd.DataFrame(sub_acs).set_index("id")
         ac_info = ac_df.loc[[sub_ac_id]]
-        self.asset_class_name = ac_info["asset_class__name"][0]
-        self.sub_asset_class_name = ac_info["name"][0]
+        self.asset_class_name = ac_info["asset_class__name"].iloc[0]
+        self.sub_asset_class_name = ac_info["name"].iloc[0]
 
         super().__init__(
             data,
