@@ -36,14 +36,15 @@
   <div class="w-100">
     <table table class="table table-striped" id="listings-table">
       {% include 'listings/listings_table.html' %}
-      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-      <script src="{% static 'listings/check_filters.js' %}"></script>
-      <script src="{% static 'listings/sort_columns.js' %}"></script>
       <script>
         selected_form_ids = JSON.parse('{{selected_filters|safe}}')
         params = JSON.parse('{{json_params|safe}}')
+        listingsType = "{{page}}"
         check_all_lists(selected_form_ids);
       </script>
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      <script src="{% static 'listings/check_filters.js' %}"></script>
+      <script src="{% static 'listings/sort_columns.js' %}"></script>
       <script>
         function setFormStore() {
           localStorage.setItem("selected_ac", document.getElementById('ac_id').value);

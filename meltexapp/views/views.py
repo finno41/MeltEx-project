@@ -76,7 +76,7 @@ def add_listing(request):
     form = ListingForm(user, request.POST)
     listing_added = request.GET.get("listing_added", False)
     missing_fields = request.GET.get("missing_fields", False)
-    form_action_url = "/listings/create"
+    form_action_url = "/listing/create"
     return render(
         request,
         "listings/add_listing.html",
@@ -96,8 +96,8 @@ def view_listing(request, listing_id):
     if isinstance(listing, HttpResponseNotFound):
         return listing
     form = ListingForm(request.user, instance=listing)
-    form_action_url = f"/listings/{listing.pk}/update"
-    delete_url = f"/listings/{listing.pk}/delete"
+    form_action_url = f"/listing/{listing.pk}/update"
+    delete_url = f"/listing/{listing.pk}/delete"
     asset_class_id = get_asset_class_from_listing(listing).pk
     sub_asset_class_id = listing.sub_asset_class.pk
 
@@ -154,7 +154,7 @@ def load_geographies(request):
 
 
 @login_required
-def load_listings_table(request):
+def load_listings_table(request, listings_type):
     user = request.user
     params = dict(request.GET)
     (
@@ -182,5 +182,6 @@ def load_listings_table(request):
         columns,
         ac_ids,
         countries,
+        listings_type,
     )
     return render(request, "listings/listings_table.html", template_vars)

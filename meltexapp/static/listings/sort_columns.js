@@ -1,6 +1,6 @@
 var counter = 0;
 var prev_column = null;
-var baseUrl = window.location.origin + "/";
+var baseUrl = window.location.origin + "/"
 var params = new URLSearchParams(window.location.search);
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -24,7 +24,6 @@ function addColumnsEventListener(sortableColumns) {
       else {
         counter = 0
       }
-      console.log(params)
       prev_column = columnId
       var queryString = Object.keys(params)
         .map(key => {
@@ -57,7 +56,7 @@ function addColumnsEventListener(sortableColumns) {
       column.addEventListener('click', function () {
         var listingsTable = document.getElementById('listings-table');
         var queryString = buildQueryString();
-        var url = baseUrl + "listings/load_listings_table?" + queryString;
+        var url = baseUrl + `listings/load_listings_table/${listingsType}?${queryString}`;
         fetch(url)
           .then(response => response.text())
           .then(data => {
