@@ -8,12 +8,6 @@ function check_all(form_ids) {
   }
 }
 
-// function exampleFunction(...args) {
-//   for (var i = 0; i < args.length; i++) {
-//     console.log(args[i]);
-//   }
-// }
-
 function check_all_lists(list_of_ids) {
   for (form_ids of list_of_ids) {
     for (form_id of form_ids) {
