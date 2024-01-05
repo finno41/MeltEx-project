@@ -37,7 +37,7 @@ def index(request):
 
 
 @login_required
-def get_listings(request):
+def get_listings(request, listings_type):
     user = request.user
     params = dict(request.GET)
     (
@@ -65,39 +65,7 @@ def get_listings(request):
         columns,
         ac_ids,
         countries,
-    )
-    return render(request, "listings/listings.html", template_vars)
-
-
-@login_required
-def my_listings(request):
-    user = request.user
-    params = dict(request.GET)
-    (
-        continents,
-        countries,
-        ac_ids,
-        columns,
-        selected_continents,
-        listings_data,
-        available_cols,
-        ac_options,
-    ) = get_listing_view_data(user, params)
-    listings = ListingDTOCollection(
-        listings_data,
-        user,
-        hide_keys=HIDDEN_LISTING_FIELDS,
-    ).output()
-    template_vars = get_listing_template_variables(
-        listings,
-        params,
-        ac_options,
-        available_cols,
-        continents,
-        selected_continents,
-        columns,
-        ac_ids,
-        countries,
+        listings_type,
     )
     return render(request, "listings/listings.html", template_vars)
 
