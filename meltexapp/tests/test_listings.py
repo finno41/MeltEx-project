@@ -1,5 +1,5 @@
 from django.test import TestCase, RequestFactory
-from meltexapp.tests.helper import get_sample_of_combinations
+from meltexapp.tests.helper import generate_test_cases
 from meltexapp.config.listing import (
     get_all_listing_columns,
     get_default_listing_columns,
@@ -20,51 +20,34 @@ class APITests(TestCase):
         self.user = User.objects.get(id=MASTER_USER_ID)
         self.factory = RequestFactory()
 
-    def generate_test_cases():
-        user = User.objects.get(id=MASTER_USER_ID)
-        all_columns = get_all_listing_columns()
-        default_listing_columns = get_default_listing_columns()
-        column_selections = get_sample_of_combinations(all_columns)
-        all_continents = get_continent_ids(user)
-        continents_selection = get_sample_of_combinations(all_continents)
-        all_asset_classes = get_available_ac_ids(user)
-        asset_class_selection = get_sample_of_combinations(all_asset_classes)
-        param_settings = [
-            {
-                "param_name": "ac_id",
-                "params": asset_class_selection,
-            },
-            {
-                "param_name": "continents",
-                "params": continents_selection,
-            },
-            {
-                "param_name": "columns",
-                "params": column_selections,
-            },
-        ]
-        param_settings = sorted(
-            param_settings, key=lambda x: len(x["params"]), reverse=True
-        )
-        return [
-            (
-                f"listing_API_test_{i+1}",
-                {
-                    param_setting["param_name"]: param_setting["params"][
-                        i % len(param_setting["params"])
-                    ]
-                    for param_setting in param_settings
-                },
-            )
-            for i in range(len(param_settings[0]["params"]))
-        ]
+    user = User.objects.get(id=MASTER_USER_ID)
+    all_columns = get_all_listing_columns()
+    default_listing_columns = get_default_listing_columns()
+    all_continents = get_continent_ids(user)
+    all_asset_classes = get_available_ac_ids(user)
+    url_variables = ["all_listings", "my_listings"]
+    params_data = [
+        {
+            "key": "ac_id",
+            "param_values": all_asset_classes,
+        },
+        {
+            "key": "continents",
+            "param_values": all_continents,
+        },
+        {
+            "key": "columns",
+            "param_values": all_columns,
+        },
+    ]
+    test_data = generate_test_cases(user, params_data, url_variables)
 
-    @parameterized.expand(generate_test_cases)
-    def test_listing_connects(self, name, params):
-        request = self.factory.get("/listings", params)
+    @parameterized.expand(test_data)
+    def test_listing_connects(self, name, params, url_variable):
+        request = self.factory.get(f"/listings/{url_variable}", params)
         request.user = self.user
-        response = get_listings(request)
-        print(f"running test {name}")
+        response = get_listings(request, url_variable)
+        print(f"running test {name} at /listings/{url_variable}")
 
         self.assertEqual(
             response.status_code,
