@@ -102,6 +102,7 @@ def get_listing_template_variables(
     columns,
     ac_ids,
     countries,
+    listings_type,
 ):
     table_variables = format_for_table(listings, columns)
     tickbox_form_config = [
@@ -113,7 +114,7 @@ def get_listing_template_variables(
         "params_present": params,
         "json_params": json.dumps(params),
         "tickbox": tickbox_form_config,
-        "page": "listings",
+        "page": listings_type,
         "selected_filters": json.dumps([selected_continents, columns, ac_ids]),
         "countries": countries,
         "sortable_headers": list(SORTABLE_LISTING_HEADERS_LOOKUP.keys()),
