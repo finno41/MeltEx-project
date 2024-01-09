@@ -10,7 +10,9 @@ from parameterized import parameterized
 from meltexapp.global_variables import MASTER_USER_ID
 from meltexapp.helper.geography import get_continent_ids
 from meltexapp.helper.asset_class import get_available_ac_ids
-from meltexapp.views.views import get_listings
+from meltexapp.views.views import get_listings, load_listings_table
+from meltexapp.config.listing import get_listing_title_map, get_default_listing_columns
+from bs4 import BeautifulSoup
 
 
 class APITests(TestCase):
@@ -43,14 +45,57 @@ class APITests(TestCase):
     test_data = generate_test_cases(user, params_data, url_variables)
 
     @parameterized.expand(test_data)
-    def test_listing_connects(self, name, params, url_variable):
+    def test_listing_connects(self, i, params, url_variable):
+        test_name = f"listing_api_test_{i}"
         request = self.factory.get(f"/listings/{url_variable}", params)
         request.user = self.user
         response = get_listings(request, url_variable)
-        print(f"running test {name} at /listings/{url_variable}")
+        print(f"running {test_name} at /listings/{url_variable}")
 
         self.assertEqual(
             response.status_code,
             200,
-            f"Test case '{name}' with params: 'f{params}' failed.",
+            f"Test case '{test_name}' with params: 'f{params}' failed.",
+        )
+
+    @parameterized.expand(test_data)
+    def test_reload_table_api(self, i, params, url_variable):
+        test_name = f"API_table_reload_test_{i}"
+        request = self.factory.get(
+            f"/listings/load_listings_table/{url_variable}", params
+        )
+        print(f"running {test_name} at /listings/load_listings_table/{url_variable}")
+        request.user = self.user
+        response = load_listings_table(request, url_variable)
+        self.assertEqual(
+            response.status_code,
+            200,
+            f"Test case '{test_name}' with params: 'f{params}' failed.",
+        )
+        html_content = response.content.decode("utf-8")
+        starting_table_element = "<colgroup>"
+        self.assertTrue(html_content.startswith(starting_table_element))
+
+    @parameterized.expand(test_data)
+    def test_listing_filters(self, i, params, url_variable):
+        test_name = f"listing_filter_test_{i}"
+        print(f"running {test_name} at /listings/{url_variable}")
+        request = self.factory.get(f"/listings/{url_variable}", params)
+        request.user = self.user
+        listing_title_lookup = get_listing_title_map()
+        response = get_listings(request, url_variable)
+        html_content = response.content.decode("utf-8")
+        soup = BeautifulSoup(html_content, "html.parser")
+        columns = soup.find_all(class_="listing-column")
+        columns = [column.get_text() for column in columns]
+        expected_column_keys = (
+            params["columns"]
+            if params.get("columns")
+            else get_default_listing_columns()
+        )
+        expected_columns = [
+            listing_title_lookup[column_key] for column_key in expected_column_keys
+        ]
+        self.assertListEqual(
+            columns, expected_columns, "Columns aren't filtering correctly"
         )
