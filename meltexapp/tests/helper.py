@@ -27,7 +27,7 @@ def get_all_combinations(lst: list) -> list:
 
 def get_sample_of_combinations(lst: list) -> list:
     list_len = len(lst)
-    singular_list = [l for l in lst]
+    singular_list = [[l] for l in lst]
     sample_list = [random.sample(lst, i) for i in range(list_len)]
     return singular_list + sample_list
 
@@ -46,7 +46,7 @@ def generate_test_cases(user, params_data: list, url_variables: list):
     longest_params_len = len(param_settings[0]["params"])
     return [
         (
-            f"listing_API_test_{i+1}",
+            i + 1,
             {
                 param_setting["param_name"]: param_setting["params"][
                     i % len(param_setting["params"])
