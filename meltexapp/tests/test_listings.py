@@ -79,20 +79,21 @@ class APITests(TestCase):
     @parameterized.expand(test_data)
     def test_listing_filters(self, i, params, url_variable):
         test_name = f"listing_filter_test_{i}"
-        print(f"running {test_name} at /listings/{url_variable}")
         request = self.factory.get(f"/listings/{url_variable}", params)
+        print(f"running {test_name} at /listings/{url_variable}")
         request.user = self.user
-        listing_title_lookup = get_listing_title_map()
         response = get_listings(request, url_variable)
         html_content = response.content.decode("utf-8")
         soup = BeautifulSoup(html_content, "html.parser")
-        columns = soup.find_all(class_="listing-column")
-        columns = [column.get_text() for column in columns]
+        columns = [
+            column.get_text() for column in soup.find_all(class_="listing-column")
+        ]
         expected_column_keys = (
             params["columns"]
             if params.get("columns")
             else get_default_listing_columns()
         )
+        listing_title_lookup = get_listing_title_map()
         expected_columns = [
             listing_title_lookup[column_key] for column_key in expected_column_keys
         ]
