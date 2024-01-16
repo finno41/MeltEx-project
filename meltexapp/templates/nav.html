@@ -64,6 +64,7 @@
           </li>
         </ul>
         <hr>
+        {% if user.is_authenticated %}
         <div class="dropdown">
           <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -78,9 +79,17 @@
             <li><a class="dropdown-item" href="/accounts/logout/">Sign out</a></li>
           </ul>
         </div>
+        {% else %}
+        <a href="/accounts/login/" class="nav-link text-white">
+          <svg class="bi me-2" width="16" height="16">
+            <use xlink:href="#speedometer2"></use>
+          </svg>
+          Log in
+        </a>
+        {% endif %}
       </div>
     </div>
-    <div class="p-2 navbar-pad">
+    <div class="p-0 navbar-pad">
       <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>

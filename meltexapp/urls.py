@@ -12,12 +12,12 @@ urlpatterns = [
         views.load_listings_table,
         name="load_listings_table",
     ),
-    path("listings/<str:listings_type>", views.get_listings, name="get_listings"),
     path(
         "listings/add_listing",
         views.add_listing,
         name="add_listing",
     ),
+    path("listings/<str:listings_type>", views.get_listings, name="get_listings"),
     path("ajax/load-subacs/", views.load_sub_acs, name="load_sub_acs"),
     path("load-geographies", views.load_geographies, name="load_geographies"),
     path("listing/create", create_listing, name="create_listing"),

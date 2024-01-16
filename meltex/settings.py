@@ -29,7 +29,7 @@ SECRET_KEY = "django-insecure-raa_)uczfns2bd8y&-vl5cg0gvyrk29%sy641kwem$809elt2g
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 AUTH_USER_MODEL = "meltexapp.User"
 # Application definition
@@ -77,7 +77,7 @@ WSGI_APPLICATION = "meltex.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-DATABASE_URL = os.environ.get('DATABASE_URL')
+DATABASE_URL = os.environ.get("DATABASE_URL")
 if DATABASE_URL:
     CSRF_TRUSTED_ORIGINS = [env("DOMAIN")]
     DATABASES = {
@@ -99,7 +99,7 @@ else:
 # conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 # DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
 
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "listings/all_listings"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

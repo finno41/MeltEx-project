@@ -1,9 +1,10 @@
 from django.http import HttpResponseNotFound
+from django.urls import reverse
 from meltexapp.service.listing.search import listing_search
 from meltexapp.dto.listing import ListingDTOCollection
 from meltexapp.data_format.table import format_for_table
 from meltexapp.helper.asset_class import get_asset_class_options
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from meltexapp.config.listing import (
     get_listing_title_map,
     SORTABLE_LISTING_HEADERS_LOOKUP,
@@ -28,17 +29,19 @@ from meltexapp.helper.listing import (
     get_listing_view_data,
     get_listing_template_variables,
 )
+from meltex.settings import LOGIN_REDIRECT_URL
 import json
 
 
-@login_required
 def index(request):
-    return render(request, "home.html")
+    return render(request, "home.html", {"user": request.user})
 
 
-@login_required
 def get_listings(request, listings_type):
     user = request.user
+    if not request.user.is_authenticated and listings_type == "my_listings":
+        login_url = reverse("login")
+        return redirect(login_url)
     params = dict(request.GET)
     (
         continents,
@@ -66,6 +69,7 @@ def get_listings(request, listings_type):
         ac_ids,
         countries,
         listings_type,
+        user,
     )
     return render(request, "listings/listings.html", template_vars)
 
@@ -85,6 +89,7 @@ def add_listing(request):
             "listing_added": listing_added,
             "missing_fields": missing_fields,
             "form_action_url": form_action_url,
+            "user": user,
         },
     )
 
@@ -111,6 +116,7 @@ def view_listing(request, listing_id):
             "delete_url": delete_url,
             "asset_class_id": asset_class_id,
             "sub_asset_class_id": sub_asset_class_id,
+            "user": user,
         },
     )
 
@@ -131,6 +137,7 @@ def delete_listing(request, listing_id):
             "method": "delete",
             "form_action_url": form_action_url,
             "banners": "listing_deleted",
+            "user": user,
         },
     )
 
@@ -153,7 +160,6 @@ def load_geographies(request):
     )
 
 
-@login_required
 def load_listings_table(request, listings_type):
     user = request.user
     params = dict(request.GET)
@@ -183,5 +189,6 @@ def load_listings_table(request, listings_type):
         ac_ids,
         countries,
         listings_type,
+        user,
     )
     return render(request, "listings/listings_table.html", template_vars)
