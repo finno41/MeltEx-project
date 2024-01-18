@@ -1,0 +1,7 @@
+{% if request.GET.alert_type == "danger" %}
+<div class="alert alert-danger" role="alert">
+  {% elif request.GET.alert_type == "success" %}
+  <div class="alert alert-success" role="alert">
+    {% endif %}
+    {{request.GET.alert_message}}
+  </div>
