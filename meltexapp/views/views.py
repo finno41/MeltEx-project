@@ -1,5 +1,6 @@
 from django.http import HttpResponseNotFound
 from django.urls import reverse
+from meltex.messages import LOG_IN_PROTECT_MESSAGE
 from meltexapp.service.listing.search import listing_search
 from meltexapp.dto.listing import ListingDTOCollection
 from meltexapp.data_format.table import format_for_table
@@ -10,6 +11,7 @@ from meltexapp.config.listing import (
     SORTABLE_LISTING_HEADERS_LOOKUP,
     HIDDEN_LISTING_FIELDS,
 )
+from meltexapp.helper.redirects import login_redirect_url
 from meltexapp.forms import ListingForm
 from meltexapp.data.sub_asset_class import get_sub_acs_by_ac
 from meltexapp.data.geography import get_permitted_geographies
@@ -29,18 +31,19 @@ from meltexapp.helper.listing import (
     get_listing_view_data,
     get_listing_template_variables,
 )
-from meltex.settings import LOGIN_REDIRECT_URL
 import json
 
 
 def index(request):
-    return render(request, "home.html", {"user": request.user})
+    return render(request, "listings/listings.html", {"user": request.user})
 
 
 def get_listings(request, listings_type):
     user = request.user
     if not request.user.is_authenticated and listings_type == "my_listings":
-        login_url = reverse("login")
+        login_url = login_redirect_url(
+            {"alert_type": "danger", "alert_message": LOG_IN_PROTECT_MESSAGE}
+        )
         return redirect(login_url)
     params = dict(request.GET)
     (
@@ -74,10 +77,14 @@ def get_listings(request, listings_type):
     return render(request, "listings/listings.html", template_vars)
 
 
-@login_required
 def add_listing(request):
     user = request.user
     form = ListingForm(user, request.POST)
+    if not request.user.is_authenticated:
+        login_url = login_redirect_url(
+            {"alert_type": "danger", "alert_message": LOG_IN_PROTECT_MESSAGE}
+        )
+        return redirect(login_url)
     listing_added = request.GET.get("listing_added", False)
     missing_fields = request.GET.get("missing_fields", False)
     form_action_url = "/listing/create"
