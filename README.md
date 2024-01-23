@@ -1,15 +1,28 @@
 # Meltex
 
-## Running locally
-
+## What is Meltex?
 ```
-docker-compose up
-
-run in server container:
-python3 manage.py migrate
-python3 manage.py createsuperuser - Create a super user with the name admin_oli
-python3 manage.py seed
-
-You should now be able to log in and view the site
+Meltex is a full stack application I'm coding as part of a brief from my business partner who works in the Private Equities sector. It is build using Python, Django, Docker, HTML, CSS, Javascript and PostGres
 ```
 
+## What functionality is available?
+```
+Currently a user can:
+- View available private equity listings
+- Filter listings by user preference
+- Sort listings by clicking a column
+- View listings that belong to them
+- Add a listing
+- Edit/ Delete a listing that belongs to them
+```
+
+## How do I view the website?
+https://meltex-f60dd557bba4.herokuapp.com/
+
+If you would like to log in please use
+U: test_user
+P: testUser123
+
+Please note that any listings you add will be deleted at 00:00 GMT
+
+If you spot any bugs please message me oliver.james.finn@gmail.com
