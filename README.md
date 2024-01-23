@@ -19,6 +19,4 @@ If you would like to log in please use
 U: test_user
 P: testUser123
 
-Please note that any listings you add will be deleted at 00:00 GMT
-
 If you spot any bugs please message me oliver.james.finn@gmail.com
