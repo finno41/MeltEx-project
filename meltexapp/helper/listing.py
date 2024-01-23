@@ -57,7 +57,7 @@ def create_listing(
     return listing
 
 
-def get_listing_view_data(user: User, params: dict) -> tuple:
+def get_listing_view_data(user: User, listings_type: str, params: dict) -> tuple:
     continents, countries = get_continents_countries(user)
     avaliable_ac_ids = get_available_ac_ids(user)
     ac_ids = params.get("ac_id", avaliable_ac_ids)
@@ -70,6 +70,7 @@ def get_listing_view_data(user: User, params: dict) -> tuple:
     ascending = params.get("ascending", [False])
     listings_data = listing_search(
         user,
+        listings_type,
         asset_class_name,
         sub_asset_class_name,
         geography_ids,

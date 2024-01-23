@@ -7,11 +7,11 @@ from datetime import datetime
 
 def listing_search(
     user,
+    listings_type,
     asset_class_name=None,
     sub_asset_class_name=None,
     geography_ids=None,
     ac_ids=None,
-    company_only=False,
     valid_exp_int_ddline=True,
     sort_columns=["expr_int_ddline"],
     ascending=[False],
@@ -33,6 +33,7 @@ def listing_search(
         "sub_asset_class__in": sub_asset_class_ids,
     }
     filters = {k: v for k, v in filters.items() if v}
+    company_only = listings_type == "my_listings"
     filter_listings = filter_listing(
         user,
         valid_exp_int_ddline=valid_exp_int_ddline,
