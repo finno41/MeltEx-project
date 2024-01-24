@@ -2,6 +2,7 @@ from meltexapp.data.listing import filter_listing
 from meltexapp.data.geography import get_geo_children_with_parents
 from meltexapp.data.sub_asset_class import get_sub_acs_by_ac, get_sub_acs_by_acs
 from meltexapp.config.listing import SORTABLE_LISTING_HEADERS_LOOKUP
+import xlsxwriter
 from datetime import datetime
 
 
