@@ -48,6 +48,7 @@ def update_listing(request, listing_id):
 
 
 def get_excel_listing_template(request):
+    user = request.user
     listing_template_df = get_listing_import_df()
-    response = get_listing_import_response(listing_template_df)
+    response = get_listing_import_response(user, listing_template_df)
     return response
