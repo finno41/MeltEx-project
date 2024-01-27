@@ -179,7 +179,7 @@ def load_listings_table(request, listings_type):
         listings_data,
         available_cols,
         ac_options,
-    ) = get_listing_view_data(user, params)
+    ) = get_listing_view_data(user, listings_type, params)
     listings = ListingDTOCollection(
         listings_data,
         user,

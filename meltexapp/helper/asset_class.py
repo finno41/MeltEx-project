@@ -14,6 +14,11 @@ def get_asset_class_key_labels(user, format):
         return tuple((ac["id"], ac["name"]) for ac in acs)
 
 
+def get_asset_class_names(user):
+    acs = get_permitted_asset_classes(user)
+    return list(acs.values_list("name", flat=True))
+
+
 def get_asset_class_from_listing(listing):
     return listing.sub_asset_class.asset_class
 

@@ -18,3 +18,8 @@ def get_continents_countries(user, continents_only=False):
 def get_continent_ids(user):
     continents = get_continents_countries(user, continents_only=True)
     return [c["id"] for c in continents]
+
+
+def get_geography_names(user):
+    geographies = get_permitted_geographies(user)
+    return list(geographies.values_list("name", flat=True))
