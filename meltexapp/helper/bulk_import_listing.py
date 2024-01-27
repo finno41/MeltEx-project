@@ -82,3 +82,5 @@ def add_data_val_to_worksheet(user, worksheet, df, writer):
                 "source": f"='{valid_options_sheet_name}'!${validation['validation_column']}$1:${validation['validation_column']}${validation['bottom_row']}"
             },
         )
+    worksheet.activate()
+    val_worksheet.hide()
