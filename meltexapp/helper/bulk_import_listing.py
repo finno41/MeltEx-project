@@ -45,8 +45,8 @@ def add_data_val_to_worksheet(user, worksheet, df, writer):
     first_validation_row = 1
     validation_criteria = {
         "validate": "list",
-        "input_message": "Pick from the dropdown list",
-        "error_message": "Invalid selection. Please choose from the dropdown list.",
+        # "input_message": "Pick from the dropdown list",
+        # "error_message": "Invalid selection. Please choose from the dropdown list.",
     }
     validation_index_sets = [
         {
@@ -79,6 +79,8 @@ def add_data_val_to_worksheet(user, worksheet, df, writer):
             validation["index"],
             validation_criteria
             | {
-                "source": f"={valid_options_sheet_name}!${validation['validation_column']}$2:${validation['validation_column']}${validation['bottom_row']}"
+                "source": f"='{valid_options_sheet_name}'!${validation['validation_column']}$1:${validation['validation_column']}${validation['bottom_row']}"
             },
         )
+    worksheet.activate()
+    val_worksheet.hide()
