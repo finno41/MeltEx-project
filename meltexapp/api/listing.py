@@ -6,6 +6,10 @@ from meltexapp.views.views import add_listing
 from meltexapp.models import Listing
 from django.shortcuts import render
 from meltexapp.forms import ListingForm
+from meltexapp.helper.bulk_import_listing import (
+    get_listing_import_df,
+    get_listing_import_response,
+)
 
 
 def create_listing(request):
@@ -41,3 +45,10 @@ def update_listing(request, listing_id):
             "sub_asset_class_id": sub_asset_class_id,
         },
     )
+
+
+def get_excel_listing_template(request):
+    user = request.user
+    listing_template_df = get_listing_import_df()
+    response = get_listing_import_response(user, listing_template_df)
+    return response
