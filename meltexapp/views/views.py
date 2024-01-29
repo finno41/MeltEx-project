@@ -12,7 +12,7 @@ from meltexapp.config.listing import (
     HIDDEN_LISTING_FIELDS,
 )
 from meltexapp.helper.redirects import login_redirect_url
-from meltexapp.forms import ListingForm
+from meltexapp.forms import ListingForm, ExcelListingUploadForm
 from meltexapp.data.sub_asset_class import get_sub_acs_by_ac
 from meltexapp.data.geography import get_permitted_geographies
 from django.contrib.auth.decorators import login_required
@@ -80,6 +80,7 @@ def get_listings(request, listings_type):
 def add_listing(request):
     user = request.user
     form = ListingForm(user, request.POST)
+    excel_form = ExcelListingUploadForm(user, request.POST)
     if not request.user.is_authenticated:
         login_url = login_redirect_url(
             {"alert_type": "danger", "alert_message": LOG_IN_PROTECT_MESSAGE}
@@ -92,7 +93,8 @@ def add_listing(request):
         request,
         "listings/add_listing.html",
         {
-            "form": form,
+            "add_listing_form": form,
+            "upload_excel_form": excel_form,
             "listing_added": listing_added,
             "missing_fields": missing_fields,
             "form_action_url": form_action_url,
