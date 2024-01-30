@@ -29,7 +29,7 @@
             CSV BULK UPLOAD ACTIONS
           </div>
           <div class="equal-spacing-container pb-3 border-bottom mb-3">
-            <a href=/listings/import/template>
+            <a href="/listings/import/excel/template">
               <button type="button" class="btn btn-outline-secondary">Download Template</button>
             </a>
             <a href="#" id="popup-link">
@@ -56,7 +56,13 @@
   <!-- Excel upload pop-up window -->
   <div id="popup-window">
     <div class="close-button"><i class="fa-solid fa-xmark"></i></div>
-    {{ upload_excel_form }}
+    <form action="/listings/import/excel" id="listings-upload-form" method="post" , enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ upload_excel_form }}
+      <div class="container d-flex align-items-center justify-content-center mt-3">
+        <button type="submit" class="btn btn-outline-primary"> Upload </button>
+      </div>
+    </form>
   </div>
 </div>
 <!--  -->

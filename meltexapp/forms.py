@@ -105,5 +105,12 @@ class UserLoginForm(AuthenticationForm):
 class ExcelListingUploadForm(forms.Form):
     excel_file = forms.FileField(
         required=False,
-        widget=forms.FileInput(attrs={"class": "form-control", "required": "True"}),
+        widget=forms.FileInput(
+            attrs={
+                "label": "",
+                "class": "form-control",
+                "required": "True",
+                "accept": ".xlsx, .xls",
+            }
+        ),
     )
