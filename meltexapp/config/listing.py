@@ -6,6 +6,7 @@ LISTING_CONFIG = [
         "formatting": None,
         "show": True,
         "default": True,
+        "model_key": False,
     },
     {
         "key": "sub_asset_class_name",
@@ -13,6 +14,7 @@ LISTING_CONFIG = [
         "formatting": None,
         "show": True,
         "default": True,
+        "model_key": False,
     },
     {
         "key": "geography",
@@ -20,6 +22,7 @@ LISTING_CONFIG = [
         "formatting": None,
         "show": True,
         "default": True,
+        "model_key": False,
     },
     {
         "key": "impl_approach",
@@ -117,6 +120,10 @@ def get_listing_title_map():
     return {lc["key"]: lc["name"] for lc in LISTING_CONFIG}
 
 
+def get_title_listing_map():
+    return {lc["name"]: lc["key"] for lc in LISTING_CONFIG}
+
+
 def get_listing_k_v_tuple(filter_list=get_default_listing_columns()):
     listing_map = get_listing_title_map()
     return [(col_key, listing_map[col_key]) for col_key in get_all_listing_columns()]
@@ -181,3 +188,7 @@ EDITABLE_LISTING_ATTRS = [
 ]
 
 FORMATTING_OPTIONS = [{"name": "Percentage", "key": "percentage", "int": 0}]
+
+
+def get_config_by_key(key):
+    return next(lc for lc in LISTING_CONFIG if lc["key"] == key)

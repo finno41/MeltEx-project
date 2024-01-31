@@ -5,6 +5,7 @@ from meltexapp.api.listing import (
     create_listing,
     update_listing,
     get_excel_listing_template,
+    upload_excel_listings,
 )
 from django.contrib.auth import views as auth_views
 from meltexapp.forms import UserLoginForm
@@ -38,8 +39,13 @@ urlpatterns = [
         name="login",
     ),
     path(
-        "listings/import/template",
+        "listings/import/excel/template",
         get_excel_listing_template,
         name="excel_listing_template",
+    ),
+    path(
+        "listings/import/excel",
+        upload_excel_listings,
+        name="upload_excel_listings",
     ),
 ]
