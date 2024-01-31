@@ -16,6 +16,7 @@
         </div>
         {% endif %}
         <div class="col-9">
+          <div id="banner-placement"></div>
           {% if banners == "listing_updated" %}
           <div class="alert alert-success" role="alert">
             "Listing Updated successfully"
@@ -56,18 +57,25 @@
   <!-- Excel upload pop-up window -->
   <div id="popup-window">
     <div class="close-button"><i class="fa-solid fa-xmark"></i></div>
-    <form action="/listings/import/excel" id="listings-upload-form" method="post" , enctype="multipart/form-data">
+    <form id="listings-upload-form" method="post" , enctype="multipart/form-data">
       {% csrf_token %}
       {{ upload_excel_form }}
       <div class="container d-flex align-items-center justify-content-center mt-3">
-        <button type="submit" class="btn btn-outline-primary"> Upload </button>
+        <!-- loading spinner -->
+        <div id="upload-loading-spinner" class="spinner-border" role="status" hidden>
+          <span class="sr-only">Loading...</span>
+        </div>
+        <!--  -->
+        <button type="submit" id="listings-upload-submit" class="btn btn-outline-primary"> Upload </button>
       </div>
     </form>
   </div>
 </div>
 <!--  -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="{% static 'javascript/pop-up.js' %}"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="{% static 'javascript/listingUpload.js' %}"></script>
+
 {% if asset_class_id %}
 <script>
   function updateSubACOptions() {
