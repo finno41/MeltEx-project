@@ -10,6 +10,7 @@ Currently a user can:
 - Sort listings by clicking a column
 - View listings that belong to them
 - Add a listing
+- Upload multiple listings by downloading an excel template and uploading it
 - Edit/ Delete a listing that belongs to them
 
 ## How do I view the website?
