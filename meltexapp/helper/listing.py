@@ -1,16 +1,26 @@
 from meltexapp.models import Listing, User
 from meltexapp.data.geography import get_geography_by_id
-from meltexapp.data.sub_asset_class import get_sub_asset_by_id
+from meltexapp.data.sub_asset_class import (
+    get_sub_asset_by_id,
+    get_permitted_sub_asset_classes,
+)
 from meltexapp.service.listing.search import listing_search
 from meltexapp.helper.asset_class import get_available_ac_ids, get_asset_class_options
-from meltexapp.helper.geography import get_continents_countries
+from meltexapp.helper.geography import (
+    get_continents_countries,
+    get_permitted_geographies,
+)
 from meltexapp.config.listing import (
+    get_config_by_key,
+    get_title_listing_map,
     get_default_listing_columns,
     SORTABLE_LISTING_HEADERS_LOOKUP,
     column_ids_names,
 )
 from meltexapp.data_format.table import format_for_table
+from meltexapp.data.asset_class import get_permitted_asset_classes
 import json
+import pandas as pd
 
 
 def create_listing(
@@ -122,3 +132,41 @@ def get_listing_template_variables(
         "sortable_headers": list(SORTABLE_LISTING_HEADERS_LOOKUP.keys()),
         "user": user,
     }
+
+
+def bulk_create_listing(user, df: pd.DataFrame):
+    title_listing_map = get_title_listing_map()
+    df.columns = [title_listing_map[col] for col in df.columns]
+    sub_asset_classes = get_permitted_sub_asset_classes(user)
+    sub_asset_class_map = [
+        {
+            "asset_class_name": sub_ac.asset_class.name,
+            "sub_asset_class_name": sub_ac.name,
+            "sub_asset_class": sub_ac,
+        }
+        for sub_ac in sub_asset_classes
+    ]
+    geographies = get_permitted_geographies(user)
+    geography_map = {geography.name: geography for geography in geographies}
+    listings = []
+    for _, row in df.iterrows():
+        model_dict = {
+            k: v
+            for k, v in dict(row).items()
+            if get_config_by_key(k).get("model_key", True)
+        }
+        sub_asset_class = next(
+            sub_ac_data["sub_asset_class"]
+            for sub_ac_data in sub_asset_class_map
+            if sub_ac_data["asset_class_name"] == row["asset_class_name"]
+            and sub_ac_data["sub_asset_class_name"] == row["sub_asset_class_name"]
+        )
+        geography = geography_map[row["geography"]]
+        model_dict |= {
+            "sub_asset_class": sub_asset_class,
+            "geography": geography,
+            "owner": user,
+        }
+        listings.append(Listing(**model_dict))
+    listings = Listing.objects.bulk_create(listings)
+    return listings

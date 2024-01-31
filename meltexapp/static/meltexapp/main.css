@@ -71,3 +71,10 @@
   display: flex;
   justify-content: space-evenly;
 }
+
+.close-button {
+  position: absolute;
+  cursor: pointer;
+  right: 5px;
+  top: 2px;
+}

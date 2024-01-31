@@ -1,7 +1,9 @@
 {% extends "master.html" %}
 {% block content %}
 {% include "nav.html" %}
+{% load static %}
 </div>
+<link rel="stylesheet" href="{% static 'meltexapp/popup.css' %}">
 <div class="d-flex flex-column flex-shrink-0 p-3">
   <div class="container">
     <div class="row">
@@ -14,6 +16,7 @@
         </div>
         {% endif %}
         <div class="col-9">
+          <div id="banner-placement"></div>
           {% if banners == "listing_updated" %}
           <div class="alert alert-success" role="alert">
             "Listing Updated successfully"
@@ -27,17 +30,17 @@
             CSV BULK UPLOAD ACTIONS
           </div>
           <div class="equal-spacing-container pb-3 border-bottom mb-3">
-            <a href=/listings/import/template>
+            <a href="/listings/import/excel/template">
               <button type="button" class="btn btn-outline-secondary">Download Template</button>
             </a>
-            <a href="#">
+            <a href="#" id="popup-link">
               <button type="button" class="btn btn-outline-success">Upload Listings</button>
             </a>
           </div>
           <form action={{form_action_url}} id="listingForm" method="post" data-subac-url="{% url 'load_sub_acs' %}"
             data-load-geographies-url="{% url 'load_geographies'}">
             {% csrf_token %}
-            {{ form }}
+            {{ add_listing_form }}
             <button type="submit" class="btn btn-outline-primary"> Submit </button>
           </form>
           {% if delete_url %}
@@ -51,8 +54,28 @@
       </div>
     </div>
   </div>
+  <!-- Excel upload pop-up window -->
+  <div id="popup-window">
+    <div class="close-button"><i class="fa-solid fa-xmark"></i></div>
+    <form id="listings-upload-form" method="post" , enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ upload_excel_form }}
+      <div class="container d-flex align-items-center justify-content-center mt-3">
+        <!-- loading spinner -->
+        <div id="upload-loading-spinner" class="spinner-border" role="status" hidden>
+          <span class="sr-only">Loading...</span>
+        </div>
+        <!--  -->
+        <button type="submit" id="listings-upload-submit" class="btn btn-outline-primary"> Upload </button>
+      </div>
+    </form>
+  </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!--  -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="{% static 'javascript/pop-up.js' %}"></script>
+<script src="{% static 'javascript/listingUpload.js' %}"></script>
+
 {% if asset_class_id %}
 <script>
   function updateSubACOptions() {
@@ -118,5 +141,4 @@
     }
   });
 </script>
-
 {% endblock %}

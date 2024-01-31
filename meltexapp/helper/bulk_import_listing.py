@@ -10,7 +10,7 @@ import pandas as pd
 
 
 def get_listing_import_df():
-    column_titles = [lc["name"] for lc in LISTING_CONFIG]
+    column_titles = [lc["name"] for lc in LISTING_CONFIG if lc.get("show")]
     df = pd.DataFrame(columns=column_titles)
     return df
 

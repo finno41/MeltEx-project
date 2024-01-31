@@ -102,5 +102,15 @@ class UserLoginForm(AuthenticationForm):
     )
 
 
-class CSVListingUploadForm(forms.Form):
-    csv_file = forms.FileField(label="Select a CSV file")
+class ExcelListingUploadForm(forms.Form):
+    excel_file = forms.FileField(
+        required=False,
+        widget=forms.FileInput(
+            attrs={
+                "label": "",
+                "class": "form-control",
+                "required": "True",
+                "accept": ".xlsx, .xls",
+            }
+        ),
+    )
