@@ -1,3 +1,11 @@
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: inherit;
+}
+
 .page-wrap {
   position: relative;
 }
