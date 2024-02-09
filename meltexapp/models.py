@@ -5,14 +5,20 @@ from meltexapp.config.general import (
     permissions_key_value_tuples,
     DEFAULT_PERMISSION_KEY,
 )
-from meltexapp.config.messaging import message_options_tuple, DEFAULT_MESSAGE_KEY
+from meltexapp.config.messaging import (
+    DEFAULT_INTEREST_STATUS_KEY,
+    interest_status_options_tuple,
+)
 
 
-class BaseModel(models.model):
+class BaseModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     deleted_on = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        abstract = True
 
 
 class Company(BaseModel):
@@ -69,7 +75,10 @@ class Geography(BaseModel):
 
 
 class Listing(BaseModel):
-    geography = models.ForeignKey(Geography, on_delete=models.PROTECT)
+    geography = models.ForeignKey(
+        Geography,
+        on_delete=models.PROTECT,
+    )
     sub_asset_class = models.ForeignKey(SubAssetClass, on_delete=models.PROTECT)
     impl_approach = models.CharField(max_length=100)
     fund_levr = models.FloatField(blank=True, null=True)
@@ -102,8 +111,12 @@ class TagInstance(BaseModel):
 
 
 class RegisterInterest(BaseModel):
-    buyer_user = models.ForeignKey(User, on_delete=models.PROTECT)
-    seller_user = models.ForeignKey(User, on_delete=models.PROTECT)
+    buyer_user = models.ForeignKey(
+        User, related_name="buyer_user", on_delete=models.PROTECT
+    )
+    seller_user = models.ForeignKey(
+        User, related_name="seller_user", on_delete=models.PROTECT
+    )
     listing = models.ForeignKey(User, on_delete=models.CASCADE)
     PERMISSION_OPTIONS = permissions_key_value_tuples()
     buyer_message_permissions = models.CharField(
@@ -112,14 +125,13 @@ class RegisterInterest(BaseModel):
     seller_message_permissions = models.CharField(
         max_length=30, choices=PERMISSION_OPTIONS, default=DEFAULT_PERMISSION_KEY
     )
-    STATUS_OPTIONS = message_options_tuple()
+    STATUS_OPTIONS = interest_status_options_tuple()
     status = models.CharField(
-        max_length=30, choices=STATUS_OPTIONS, default=DEFAULT_MESSAGE_KEY
+        max_length=30, choices=STATUS_OPTIONS, default=DEFAULT_INTEREST_STATUS_KEY
     )
 
 
 class Message(BaseModel):
     message = models.TextField(max_length=1000)
-    register_interest = models.ForeignKey(User, on_delete=models.CASCADE)
+    register_interest = models.ForeignKey(RegisterInterest, on_delete=models.CASCADE)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
-    last_edited_on = models.DateTimeField(blank=True, null=True, default=None)
