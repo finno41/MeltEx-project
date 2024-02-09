@@ -35,7 +35,7 @@ import json
 
 
 def index(request):
-    return render(request, "listings/listings.html", {"user": request.user})
+    return render(request, "home.html", {"user": request.user})
 
 
 def get_listings(request, listings_type):

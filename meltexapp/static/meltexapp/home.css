@@ -1,0 +1,24 @@
+#buy-sell-container {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 40vh 0;
+}
+
+.buy-sell-button {
+  text-align: center;
+  padding: 50px 80px;
+  background-color: lightgrey;
+  color: grey;
+  box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
+  cursor: pointer;
+}
+
+.buy-sell-button:hover {
+  border: 1px solid grey;
+  padding: 49px 79px;
+  color: rgb(78, 78, 78);
+}
+
+.buy-sell-button i {
+  font-size: 30px;
+}
