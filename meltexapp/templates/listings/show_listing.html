@@ -1,0 +1,43 @@
+{% extends "master.html" %}
+{% block content %}
+{% include "nav.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
+<div class="show-listing-container">
+  <div class="asset-class-bubble">Asset Class</div>
+  <div class="sub-asset-class-bubble">Sub Asset Class</div>
+  <div class="top-centre-box">
+    <div class="top-centre-box-title">
+      EoID
+    </div>
+    <div class="top-centre-box-info">
+      2026/10/11
+    </div>
+  </div>
+  <div class="main-listing-info-container">
+    <div class="main-listing-info country-flag"><img src="meltexapp/images/uk flag icon.png" alt="UK Flag">
+    </div>
+    <div class="main-listing-info"></div>
+    <div class="main-listing-info"></div>
+    <div class="main-listing-info"></div>
+    <div class="main-listing-info"></div>
+  </div>
+  <div class="main-listing-fund-container">
+    <div class="main-listing-fund-container-title"></div>
+    <table class="light-table"></table>
+  </div>
+  <div class="listing-info-bubble">
+    <div class="listing-info-bubble-title"></div>
+    <div class="listing-info-bubble-value"></div>
+  </div>
+  <div class="listing-info-bubble">
+    <div class="listing-info-bubble-title"></div>
+    <div class="listing-info-bubble-value"></div>
+  </div>
+  <div class="listing-info-large-bubble">
+    <div class="listing-info-large-title"></div>
+    <div class="listing-info-large-value"></div>
+  </div>
+  <button class="confirm-button"></button>
+</div>
+{% endblock %}

@@ -201,3 +201,7 @@ def load_listings_table(request, listings_type):
         user,
     )
     return render(request, "listings/listings_table.html", template_vars)
+
+
+def show_listing(request, listing_id):
+    return render(request, "listings/show_listing.html")
