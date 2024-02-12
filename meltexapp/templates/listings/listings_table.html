@@ -27,7 +27,7 @@
   {% for value in row_values %}
   <td class="listing_value">
     {% if forloop.counter == 1 %}
-    <i class="fa-solid fa-circle-info info-button popup-link" font-size="10"></i>
+    <i class="fa-solid fa-circle-info info-button popup-link" font-size="10" id="{{id}}"></i>
     {% endif %}
     {{value}}
   </td>
@@ -36,3 +36,4 @@
 {% endfor %}
 {% endif %}
 <script src="{% static 'javascript/multi-pop-up.js' %}"></script>
+<script src="{% static 'javascript/view-listing.js' %}"></script>

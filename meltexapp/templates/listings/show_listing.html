@@ -1,9 +1,9 @@
 {% extends "master.html" %}
 {% block content %}
-{% include "nav.html" %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
 <div class="show-listing-container">
+  {{listing_id }}
   <div class="asset-class-bubble">Asset Class</div>
   <div class="sub-asset-class-bubble">Sub Asset Class</div>
   <div class="top-centre-box">
