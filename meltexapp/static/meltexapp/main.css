@@ -12,7 +12,8 @@ a:hover {
 }
 
 .info-button {
-  color: rgb(51, 49, 87)
+  color: rgb(51, 49, 87);
+  cursor: pointer;
 }
 
 #sidebar {
