@@ -1,5 +1,21 @@
 var popupLinks = document.querySelectorAll(".popup-link");
+var closeButtons = document.querySelectorAll(".close-button");
+var popupWindow = document.getElementById("popup-window");
+var popUpContent = document.getElementById("view-listing-content")
 
+popupLinks.forEach(function (popupLink) {
+  popupLink.addEventListener("click", function (event) {
+    event.preventDefault();
+    popupWindow.style.display = "block";
+  });
+})
+
+closeButtons.forEach(function (closeButton) {
+  closeButton.addEventListener("click", function () {
+    popupWindow.style.display = "none";
+    popUpContent.innerHTML = "";
+  });
+});
 
 popupLinks.forEach(popupLink => {
   console.log(popupLink)
@@ -10,7 +26,7 @@ popupLinks.forEach(popupLink => {
     fetch(url)
       .then(response => response.text())
       .then(html => {
-        document.getElementById("view-listing-content").innerHTML = html
+        popUpContent.innerHTML = html
       })
       .catch(error => {
         console.error('Error fetching HTML:', error);
