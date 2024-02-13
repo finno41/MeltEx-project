@@ -1,12 +1,20 @@
 from meltexapp.helper.base_dto import BaseDTOCollection, BaseDTO
 from meltexapp.data.geography import get_geographies_by_ids, get_geography_by_id
 from meltexapp.data.sub_asset_class import get_sub_assets_by_ids
+from meltexapp.config.listing import (
+    HIDDEN_LISTING_FIELDS,
+)
 import pandas as pd
 
 
 class ListingDTO(BaseDTO):
     def __init__(
-        self, data, user, hide_keys=[], geog_df=pd.DataFrame(), ac_df=pd.DataFrame()
+        self,
+        data,
+        user,
+        hide_keys=HIDDEN_LISTING_FIELDS,
+        geog_df=pd.DataFrame(),
+        ac_df=pd.DataFrame(),
     ):
         if not isinstance(data, dict):
             data = data.__dict__
@@ -18,7 +26,8 @@ class ListingDTO(BaseDTO):
             geographies = get_geographies_by_ids(user, all_geography_ids).values()
             geog_df = pd.DataFrame(geographies).set_index("id")
             self.geography_info = {
-                geography["type"]: geography["name"] for geography in geographies
+                geography["type"].capitalize(): geography["name"]
+                for geography in geographies
             }
         else:
             geog_info = geog_df.loc[[geog_id]]
@@ -40,7 +49,7 @@ class ListingDTO(BaseDTO):
 
 
 class ListingDTOCollection(BaseDTOCollection):
-    def __init__(self, data, user, hide_keys=[]):
+    def __init__(self, data, user, hide_keys=HIDDEN_LISTING_FIELDS):
         if not isinstance(data, list):
             data = list(data.values())
         if not data:
