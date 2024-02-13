@@ -25,22 +25,13 @@ function addColumnsEventListener(sortableColumns) {
         counter = 0
       }
       prev_column = columnId
-      var queryString = Object.keys(params)
-        .map(key => {
-          if (Array.isArray(params[key])) {
-            return params[key].map(value => encodeURIComponent(key) + '=' + encodeURIComponent(value));
-          } else {
-            return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
-          }
-        })
-        .flat()
-        .join('&');
-
+      urlString = window.location.href;
+      url = new URL(urlString);
+      queryString = new URLSearchParams(url.search);
       if (counter % 3 !== 2) {
         queryString += "&" + encodeURIComponent("sort") + "=" + encodeURIComponent(columnId);
         sortIcon = '<i class="fa-solid fa-sort-down"></i>'
       }
-
       if (counter % 3 === 0) {
         queryString += "&" + encodeURIComponent("ascending") + "=" + encodeURIComponent("true");
         sortIcon = '<i class="fa-solid fa-sort-up"></i>';
@@ -48,7 +39,6 @@ function addColumnsEventListener(sortableColumns) {
       if (counter % 3 === 2) {
         sortIcon = '';
       }
-
       return queryString;
     }
 

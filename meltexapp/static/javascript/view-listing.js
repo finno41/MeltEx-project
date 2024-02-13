@@ -18,7 +18,6 @@ closeButtons.forEach(function (closeButton) {
 });
 
 popupLinks.forEach(popupLink => {
-  console.log(popupLink)
   const listingId = popupLink.id;
   popupLink.addEventListener("click", function (event) {
     event.preventDefault();

@@ -67,19 +67,38 @@ class AssetClassInterest(BaseModel):
 
 class Geography(BaseModel):
     name = models.CharField(max_length=100, blank=False, null=False)
-    parent_id = models.CharField(max_length=32, blank=True, null=True, default=None)
+    type = models.CharField(max_length=100, blank=False, null=False)
+    parent = models.ForeignKey(
+        "self", on_delete=models.CASCADE, blank=True, null=True, related_name="children"
+    )
     owner = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False)
 
     def __str__(self):
         return self.name
 
+    def get_ancestors(self):
+        current_geography = self
+        ancestors = [current_geography]
+        while current_geography.parent:
+            ancestors.insert(0, current_geography.parent)
+            current_geography = current_geography.parent
+        return ancestors
+
+    def get_ancestor_ids(self):
+        ids = [self.pk.hex]
+        current_geography = self
+        while current_geography.parent:
+            ids.insert(0, current_geography.parent.pk.hex)
+            current_geography = current_geography.parent
+        return ids
+
 
 class Listing(BaseModel):
     geography = models.ForeignKey(
         Geography,
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
     )
-    sub_asset_class = models.ForeignKey(SubAssetClass, on_delete=models.PROTECT)
+    sub_asset_class = models.ForeignKey(SubAssetClass, on_delete=models.CASCADE)
     impl_approach = models.CharField(max_length=100)
     fund_levr = models.FloatField(blank=True, null=True)
     fund_struc = models.CharField(max_length=100, blank=True, null=True)
@@ -92,7 +111,7 @@ class Listing(BaseModel):
     targ_irr = models.FloatField(blank=True, null=True)
     risk_prof = models.CharField(max_length=100)
     fund_ter = models.FloatField(blank=True, null=True)
-    owner = models.ForeignKey(User, on_delete=models.PROTECT)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     comments = models.TextField(max_length=1000)
     public = models.BooleanField(default=False)
     sold = models.BooleanField(default=False)
@@ -112,10 +131,10 @@ class TagInstance(BaseModel):
 
 class RegisterInterest(BaseModel):
     buyer_user = models.ForeignKey(
-        User, related_name="buyer_user", on_delete=models.PROTECT
+        User, related_name="buyer_user", on_delete=models.CASCADE
     )
     seller_user = models.ForeignKey(
-        User, related_name="seller_user", on_delete=models.PROTECT
+        User, related_name="seller_user", on_delete=models.CASCADE
     )
     listing = models.ForeignKey(User, on_delete=models.CASCADE)
     PERMISSION_OPTIONS = permissions_key_value_tuples()

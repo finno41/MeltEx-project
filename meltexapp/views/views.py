@@ -204,5 +204,7 @@ def load_listings_table(request, listings_type):
 
 
 def show_listing(request, listing_id):
+    user = request.user
+    listing = get_listing_by_id(user, listing_id)
     template_variables = {"listing_id": listing_id}
     return render(request, "listings/show_listing.html", template_variables)
