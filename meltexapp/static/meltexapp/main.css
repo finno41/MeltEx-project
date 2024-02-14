@@ -92,3 +92,12 @@ a:hover {
   right: 5px;
   top: 2px;
 }
+
+.text-small {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.text-large {
+  font-size: 20px;
+}

@@ -21,47 +21,47 @@
   </div>
   <div class="dashed-line"></div>
   <div class="main-listing-info">
-    <div class="title">NAV</div>
-    <div class="value">{{ listing_data.nav }}</div>
+    <div class="title text-small">NAV</div>
+    <div class="value text-large">{{ listing_data.nav }}</div>
   </div>
   <div class="dashed-line"></div>
   <div class="main-listing-info">
-    <div class="title">ND</div>
-    <div class="value">{{ listing_data.nav_dis_avl }}</div>
+    <div class="title text-small">ND</div>
+    <div class="value text-large">{{ listing_data.nav_dis_avl }}</div>
   </div>
   <div class="dashed-line"></div>
   <div class="main-listing-info">
-    <div class="title">TIR</div>
-    <div class="value">{{ listing_data.targ_irr }}</div>
+    <div class="title text-small">TIR</div>
+    <div class="value text-large">{{ listing_data.targ_irr }}</div>
   </div>
 </div>
 <div class="dashed-line"></div>
 <div class="main-listing-fund-container">
-  <div class="fund-table-title">FUND INFORMATION</div>
+  <div class="fund-table-title category-text">FUND INFORMATION</div>
   <table class="fund-table light-table">
     <tr>
-      <td>Structure</td>
+      <td class="light-table-key">Structure</td>
       <td>{{ listing_data.fund_struc }}</td>
     </tr>
     <tr>
-      <td>Leverage</td>
-      <td>{{ listing_data.fund_levr }}</td>
+      <td class="light-table-key">Leverage</td>
+      <td class="light-table-value">{{ listing_data.fund_levr }}</td>
     </tr>
     <tr>
-      <td>Inclusion Year</td>
-      <td>{{ listing_data.fund_inc_year }}</td>
+      <td class="light-table-key">Inclusion Year</td>
+      <td class="light-table-value">{{ listing_data.fund_inc_year }}</td>
     </tr>
     <tr>
-      <td>Vehicle Type</td>
-      <td>{{ listing_data.fund_vehi_type }}</td>
+      <td class="light-table-key">Vehicle Type</td>
+      <td class="light-table-value">{{ listing_data.fund_vehi_type }}</td>
     </tr>
     <tr>
-      <td>Target Close Year</td>
-      <td>{{ listing_data.fund_targ_clos_yr }}</td>
+      <td class="light-table-key">Target Close Year</td>
+      <td class="light-table-value">{{ listing_data.fund_targ_clos_yr }}</td>
     </tr>
     <tr>
-      <td>Total Expense Ratio</td>
-      <td>{{ listing_data.fund_ter }}</td>
+      <td class="light-table-key">Total Expense Ratio</td>
+      <td class="light-table-value">{{ listing_data.fund_ter }}</td>
     </tr>
   </table>
 </div>
