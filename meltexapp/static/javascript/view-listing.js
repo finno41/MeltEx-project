@@ -10,18 +10,9 @@ closeButtons.forEach(function (closeButton) {
     popUpContent.innerHTML = "";
   });
 });
-// displayPopUpEventListener()
+
 addPopUpEventListener()
 
-// function displayPopUpEventListener() {
-//   var popupLinks = document.querySelectorAll(".popup-link");
-//   popupLinks.forEach(function (popupLink) {
-//     popupLink.addEventListener("click", function (event) {
-//       event.preventDefault();
-//       popupWindow.style.display = "block";
-//     });
-//   })
-// }
 function addPopUpEventListener() {
   var popupLinks = document.querySelectorAll(".popup-link");
   popupLinks.forEach(popupLink => {
@@ -32,9 +23,9 @@ function addPopUpEventListener() {
       fetch(url)
         .then(response => response.text())
         .then(html => {
-          popUpContent.innerHTML = html
+          popUpContent.innerHTML = html;
+          popupWindow.style.display = "block"
         })
-        .then(popupWindow.style.display = "block")
         .catch(error => {
           console.error('Error fetching HTML:', error);
         });
