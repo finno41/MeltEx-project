@@ -67,14 +67,17 @@ class APITests(TestCase):
         print(f"running {test_name} at /listings/load_listings_table/{url_variable}")
         request.user = self.user
         response = load_listings_table(request, url_variable)
-        self.assertEqual(
-            response.status_code,
-            200,
-            f"Test case '{test_name}' with params: 'f{params}' failed.",
-        )
-        html_content = response.content.decode("utf-8")
-        starting_table_element = "<colgroup>"
-        self.assertTrue(html_content.startswith(starting_table_element))
+        with self.subTest(
+            test_name=test_name, params=params, url_variable=url_variable
+        ):
+            self.assertEqual(
+                response.status_code,
+                200,
+                f"Test case '{test_name}' with params: 'f{params}' failed.",
+            )
+            html_content = response.content.decode("utf-8")
+            starting_table_element = "<colgroup>"
+            self.assertTrue(html_content.startswith(starting_table_element))
 
     @parameterized.expand(test_data)
     def test_listing_filters(self, i, params, url_variable):

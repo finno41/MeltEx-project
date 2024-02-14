@@ -92,3 +92,9 @@ a:hover {
   right: 5px;
   top: 2px;
 }
+
+.light-table {
+  border: 1px;
+  border-style: dashed;
+  border-color: #BBBBBB;
+}

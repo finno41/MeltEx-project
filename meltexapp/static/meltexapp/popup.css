@@ -1,15 +1,18 @@
-#popup-window {
-  position: fixed;
-  width: 500px;
-  height: 200px;
+.popup-window {
   background: white;
   border: 1px solid black;
   padding: 10px;
+  display: none;
+}
+
+#upload-popup-window {
+  position: fixed;
+  width: 500px;
+  height: 200px;
   margin: auto;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: 10;
-  display: none;
 }

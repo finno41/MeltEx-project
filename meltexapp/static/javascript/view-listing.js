@@ -1,6 +1,6 @@
 var popupLinks = document.querySelectorAll(".popup-link");
 var closeButtons = document.querySelectorAll(".close-button");
-var popupWindow = document.getElementById("popup-window");
+var popupWindow = document.querySelector(".popup-window");
 var popUpContent = document.getElementById("view-listing-content")
 
 popupLinks.forEach(function (popupLink) {
