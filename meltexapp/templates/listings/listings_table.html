@@ -4,14 +4,6 @@
   {% endfor %}
 </colgroup>
 {% load static %}
-
-<link rel="stylesheet" href="{% static 'meltexapp/popup.css' %}">
-<!-- listing info pop-up -->
-<div class="popup-window" id="show-listing-pop-up">
-  <div class="close-button"><i class="fa-solid fa-xmark"></i></div>
-  <div id="view-listing-content"></div>
-</div>
-<!--  -->
 <tr>
   {% for header in headers %}
   {% if header.key in sortable_headers %}

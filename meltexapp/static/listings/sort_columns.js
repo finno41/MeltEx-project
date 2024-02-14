@@ -55,6 +55,8 @@ function addColumnsEventListener(sortableColumns) {
             addColumnsEventListener(sortableColumns);
             var sortedColumn = document.querySelector(`.sortable_column#${columnId}`);
             sortedColumn.innerHTML += ` ${sortIcon}`;
+            displayPopUpEventListener();
+            addPopUpEventListener();
           })
       });
     }

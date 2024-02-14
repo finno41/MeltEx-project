@@ -3,81 +3,79 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
 <link rel="stylesheet" href="{% static 'meltexapp/show-listing.css' %}">
-<div class="show-listing-container">
-  {{listing_id }}
-  <div class="show-listing-type-bubbles">
-    <div class="asset-class-bubble">{{ listing_data.asset_class_name }}</div>
-    <div class="sub-asset-class-bubble">{{ listing_data.sub_asset_class_name }}</div>
+{{listing_id }}
+<div class="show-listing-type-bubbles">
+  <div class="asset-class-bubble">{{ listing_data.asset_class_name }}</div>
+  <div class="sub-asset-class-bubble">{{ listing_data.sub_asset_class_name }}</div>
+</div>
+<div class="top-centre-box">
+  <div class="top-centre-box-title">
+    EoID
   </div>
-  <div class="top-centre-box">
-    <div class="top-centre-box-title">
-      EoID
-    </div>
-    <div class="top-centre-box-info">
-      {{ listing_data.expr_int_ddline }}
-    </div>
+  <div class="top-centre-box-info">
+    {{ listing_data.expr_int_ddline }}
   </div>
-  <div class="main-listing-info-container">
-    <div class="main-listing-info country-flag"><img src="{% static 'images/uk flag icon.png' %}" alt="UK Flag">
-    </div>
-    <div class="dashed-line"></div>
-    <div class="main-listing-info">
-      <div class="title">NAV</div>
-      <div class="value">{{ listing_data.nav }}</div>
-    </div>
-    <div class="dashed-line"></div>
-    <div class="main-listing-info">
-      <div class="title">ND</div>
-      <div class="value">{{ listing_data.nav_dis_avl }}</div>
-    </div>
-    <div class="dashed-line"></div>
-    <div class="main-listing-info">
-      <div class="title">TIR</div>
-      <div class="value">{{ listing_data.targ_irr }}</div>
-    </div>
+</div>
+<div class="main-listing-info-container">
+  <div class="main-listing-info country-flag"><img src="{% static 'images/uk flag icon.png' %}" alt="UK Flag">
   </div>
   <div class="dashed-line"></div>
-  <div class="main-listing-fund-container">
-    <div class="fund-table-title">FUND INFORMATION</div>
-    <table class="fund-table light-table">
-      <tr>
-        <td>Structure</td>
-        <td>{{ listing_data.fund_struc }}</td>
-      </tr>
-      <tr>
-        <td>Leverage</td>
-        <td>{{ listing_data.fund_levr }}</td>
-      </tr>
-      <tr>
-        <td>Inclusion Year</td>
-        <td>{{ listing_data.fund_inc_year }}</td>
-      </tr>
-      <tr>
-        <td>Vehicle Type</td>
-        <td>{{ listing_data.fund_vehi_type }}</td>
-      </tr>
-      <tr>
-        <td>Target Close Year</td>
-        <td>{{ listing_data.fund_targ_clos_yr }}</td>
-      </tr>
-      <tr>
-        <td>Total Expense Ratio</td>
-        <td>{{ listing_data.fund_ter }}</td>
-      </tr>
-    </table>
+  <div class="main-listing-info">
+    <div class="title">NAV</div>
+    <div class="value">{{ listing_data.nav }}</div>
   </div>
-  <div class="listing-info-bubble">
-    <div class="key">Implementation Approach</div>
-    <div class="value">{{ listing_data.impl_approach }}</div>
+  <div class="dashed-line"></div>
+  <div class="main-listing-info">
+    <div class="title">ND</div>
+    <div class="value">{{ listing_data.nav_dis_avl }}</div>
   </div>
-  <div class="listing-info-bubble">
-    <div class="key">Risk Profile</div>
-    <div class="value">{{ listing_data.risk_prof }}</div>
+  <div class="dashed-line"></div>
+  <div class="main-listing-info">
+    <div class="title">TIR</div>
+    <div class="value">{{ listing_data.targ_irr }}</div>
   </div>
-  <div class="listing-info-large-bubble">
-    <div class="key">Comments</div>
-    <div class="value">{{ listing_data.comments }}</div>
-  </div>
-  <button class="confirm-button"></button>
 </div>
+<div class="dashed-line"></div>
+<div class="main-listing-fund-container">
+  <div class="fund-table-title">FUND INFORMATION</div>
+  <table class="fund-table light-table">
+    <tr>
+      <td>Structure</td>
+      <td>{{ listing_data.fund_struc }}</td>
+    </tr>
+    <tr>
+      <td>Leverage</td>
+      <td>{{ listing_data.fund_levr }}</td>
+    </tr>
+    <tr>
+      <td>Inclusion Year</td>
+      <td>{{ listing_data.fund_inc_year }}</td>
+    </tr>
+    <tr>
+      <td>Vehicle Type</td>
+      <td>{{ listing_data.fund_vehi_type }}</td>
+    </tr>
+    <tr>
+      <td>Target Close Year</td>
+      <td>{{ listing_data.fund_targ_clos_yr }}</td>
+    </tr>
+    <tr>
+      <td>Total Expense Ratio</td>
+      <td>{{ listing_data.fund_ter }}</td>
+    </tr>
+  </table>
+</div>
+<div class="listing-info-bubble">
+  <div class="key">Implementation Approach</div>
+  <div class="value">{{ listing_data.impl_approach }}</div>
+</div>
+<div class="listing-info-bubble">
+  <div class="key">Risk Profile</div>
+  <div class="value">{{ listing_data.risk_prof }}</div>
+</div>
+<div class="listing-info-large-bubble">
+  <div class="key">Comments</div>
+  <div class="value">{{ listing_data.comments }}</div>
+</div>
+<button class="confirm-button"></button>
 {% endblock %}
