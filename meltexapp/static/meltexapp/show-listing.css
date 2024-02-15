@@ -22,13 +22,13 @@
 }
 
 .show-listing-type-bubbles>.asset-class-bubble {
-  background-color: red;
+  background-color: #333157;
   margin-right: -30px;
   z-index: 1;
 }
 
 .show-listing-type-bubbles>.sub-asset-class-bubble {
-  background-color: blue;
+  background-color: #262A10;
   z-index: 0;
 }
 
