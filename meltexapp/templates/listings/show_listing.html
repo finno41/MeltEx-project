@@ -3,6 +3,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
 <link rel="stylesheet" href="{% static 'meltexapp/show-listing.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
 {{listing_id }}
 <div class="show-listing-type-bubbles">
   <div class="asset-class-bubble">{{ listing_data.asset_class_name }}</div>
@@ -17,9 +18,10 @@
   </div>
 </div>
 <div class="main-listing-info-container">
-  <div class="main-listing-info country-flag"><img src="{% static 'images/uk flag icon.png' %}" alt="UK Flag">
-  </div>
+  {% if listing_data.country_code %}
+  <div class="main-listing-info country-flag"><span class="fi fi-{{ listing_data.country_code }}"></span></div>
   <div class="dashed-line"></div>
+  {% endif %}
   <div class="main-listing-info">
     <div class="title text-small">NAV</div>
     <div class="value text-large">{{ listing_data.nav }}</div>
