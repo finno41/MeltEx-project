@@ -105,6 +105,7 @@ def get_default_listing_columns():
 
 
 HIDDEN_LISTING_FIELDS = [
+    "_state",
     "geography_id",
     "owner_id",
     "public",

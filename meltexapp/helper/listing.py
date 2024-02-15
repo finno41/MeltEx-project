@@ -168,5 +168,5 @@ def bulk_create_listing(user, df: pd.DataFrame):
             "owner": user,
         }
         listings.append(Listing(**model_dict))
-    listings = Listing.objects.bulk_create(listings)
+    Listing.objects.bulk_create(listings)
     return listings

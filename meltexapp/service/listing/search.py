@@ -1,7 +1,9 @@
 from meltexapp.data.listing import filter_listing
 from meltexapp.data.geography import get_geo_children_with_parents
 from meltexapp.data.sub_asset_class import get_sub_acs_by_ac, get_sub_acs_by_acs
+from meltexapp.helper.geography import get_all_geography_children
 from meltexapp.config.listing import SORTABLE_LISTING_HEADERS_LOOKUP
+from uuid import UUID
 import xlsxwriter
 from datetime import datetime
 
@@ -18,9 +20,7 @@ def listing_search(
     ascending=[False],
 ):
     geos = (
-        list(get_geo_children_with_parents(user, geography_ids))
-        if geography_ids
-        else None
+        list(get_all_geography_children(user, geography_ids)) if geography_ids else None
     )
     sub_asset_class_ids = (
         list(get_sub_acs_by_acs(user, ac_ids).values_list("id", flat=True))

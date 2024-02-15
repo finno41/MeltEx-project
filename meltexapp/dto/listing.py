@@ -1,21 +1,37 @@
 from meltexapp.helper.base_dto import BaseDTOCollection, BaseDTO
-from meltexapp.data.geography import get_geographies_by_ids
+from meltexapp.data.geography import get_geographies_by_ids, get_geography_by_id
 from meltexapp.data.sub_asset_class import get_sub_assets_by_ids
+from meltexapp.config.listing import (
+    HIDDEN_LISTING_FIELDS,
+)
 import pandas as pd
 
 
 class ListingDTO(BaseDTO):
     def __init__(
-        self, data, user, hide_keys=[], geog_df=pd.DataFrame(), ac_df=pd.DataFrame()
+        self,
+        data,
+        user,
+        hide_keys=HIDDEN_LISTING_FIELDS,
+        geog_df=pd.DataFrame(),
+        ac_df=pd.DataFrame(),
     ):
+        if not isinstance(data, dict):
+            data = data.__dict__
         geog_id = data["geography_id"]
         sub_ac_id = data["sub_asset_class_id"]
         if geog_df.empty:
-            geographies = get_geographies_by_ids(user, [geog_id]).values()
+            geography = get_geography_by_id(user, geog_id)
+            all_geography_ids = geography.get_ancestor_ids()
+            geographies = get_geographies_by_ids(user, all_geography_ids).values()
             geog_df = pd.DataFrame(geographies).set_index("id")
-            geog_df = pd.DataFrame(geographies).set_index("id")
-        geog_info = geog_df.loc[[geog_id]]
-        self.geography = geog_info["name"].iloc[0]
+            self.geography_info = {
+                geography["type"].capitalize(): geography["name"]
+                for geography in geographies
+            }
+        else:
+            geog_info = geog_df.loc[[geog_id]]
+            self.geography = geog_info["name"].iloc[0]
         if ac_df.empty:
             sub_acs = get_sub_assets_by_ids(user, [sub_ac_id]).values(
                 "id", "name", "asset_class__name"
@@ -33,7 +49,7 @@ class ListingDTO(BaseDTO):
 
 
 class ListingDTOCollection(BaseDTOCollection):
-    def __init__(self, data, user, hide_keys=[]):
+    def __init__(self, data, user, hide_keys=HIDDEN_LISTING_FIELDS):
         if not isinstance(data, list):
             data = list(data.values())
         if not data:

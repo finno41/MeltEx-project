@@ -2,7 +2,7 @@ from django.http import HttpResponseNotFound
 from django.urls import reverse
 from meltex.messages import LOG_IN_PROTECT_MESSAGE
 from meltexapp.service.listing.search import listing_search
-from meltexapp.dto.listing import ListingDTOCollection
+from meltexapp.dto.listing import ListingDTOCollection, ListingDTO
 from meltexapp.data_format.table import format_for_table
 from meltexapp.helper.asset_class import get_asset_class_options
 from django.shortcuts import render, redirect
@@ -35,7 +35,7 @@ import json
 
 
 def index(request):
-    return render(request, "listings/listings.html", {"user": request.user})
+    return render(request, "home.html", {"user": request.user})
 
 
 def get_listings(request, listings_type):
@@ -201,3 +201,11 @@ def load_listings_table(request, listings_type):
         user,
     )
     return render(request, "listings/listings_table.html", template_vars)
+
+
+def show_listing(request, listing_id):
+    user = request.user
+    listing = get_listing_by_id(user, listing_id)
+    listing_data = ListingDTO(listing, user).output()
+    template_variables = {"listing_data": listing_data}
+    return render(request, "listings/show_listing.html", template_variables)

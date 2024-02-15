@@ -1,5 +1,11 @@
-from meltexapp.data.geography import get_permitted_geographies
+from meltexapp.data.geography import (
+    get_permitted_geographies,
+    get_geographies_by_ids,
+    get_geographies_by_parents,
+)
+from meltexapp.helper.general import convert_strings_to_uuids
 import pandas as pd
+from uuid import UUID
 
 
 def get_continents_countries(user, continents_only=False):
@@ -23,3 +29,12 @@ def get_continent_ids(user):
 def get_geography_names(user):
     geographies = get_permitted_geographies(user)
     return list(geographies.values_list("name", flat=True))
+
+
+def get_all_geography_children(user, ids):
+    current_geographies = get_geographies_by_ids(user, ids)
+    all_geographies = current_geographies
+    while current_geographies:
+        current_geographies = get_geographies_by_parents(user, current_geographies)
+        all_geographies |= current_geographies
+    return all_geographies
