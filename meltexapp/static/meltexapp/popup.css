@@ -1,8 +1,8 @@
 .popup-window {
   background: white;
-  border: 1px solid black;
   padding: 10px;
   display: none;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
 #upload-popup-window {

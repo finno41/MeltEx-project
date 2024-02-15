@@ -101,3 +101,16 @@ a:hover {
 .text-large {
   font-size: 20px;
 }
+
+.confirm-button {
+  padding: 5px 40px;
+  background-color: rgb(51, 49, 87);
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.center-children-horizontal {
+  display: flex;
+  justify-content: center;
+}
