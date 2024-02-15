@@ -1,14 +1,12 @@
 #show-listing-pop-up {
   position: fixed;
-  margin: auto;
   z-index: 10;
-  top: 10;
-  right: 0;
-  bottom: 5;
-  left: 0;
   width: 600px;
   overflow: auto;
   background-color: #B1B2D6;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .show-listing-type-bubbles {
@@ -65,6 +63,13 @@
   height: 50px;
 }
 
+.dashed-line-small {
+  border-right: 1px;
+  border-right-style: dashed;
+  border-right-color: #BBBBBB;
+  height: 25px;
+}
+
 .main-listing-fund-container {
   display: flex;
   justify-content: center;
@@ -112,6 +117,7 @@
   width: 100%;
   padding: 5px 50px 5px 20px;
   margin-bottom: 10px;
+  align-items: center;
 }
 
 .listing-info-large-bubble {
@@ -128,4 +134,17 @@
 .listing-info-large-bubble div {
   width: 100%;
   text-align: center;
+  font-size: 14px;
+}
+
+.listing-info-bubble>.key {
+  width: 40%;
+  text-align: center;
+  font-size: 14px;
+}
+
+.listing-info-bubble>.value {
+  width: 60%;
+  text-align: center;
+  font-size: 14px;
 }
