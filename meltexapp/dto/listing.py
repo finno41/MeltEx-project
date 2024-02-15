@@ -4,6 +4,7 @@ from meltexapp.data.sub_asset_class import get_sub_assets_by_ids
 from meltexapp.config.listing import (
     HIDDEN_LISTING_FIELDS,
 )
+from meltexapp.config.geography import COUNTRY_CODE_LOOKUP
 import pandas as pd
 
 
@@ -29,6 +30,7 @@ class ListingDTO(BaseDTO):
                 geography["type"].capitalize(): geography["name"]
                 for geography in geographies
             }
+            self.country_code = COUNTRY_CODE_LOOKUP.get(geography.name, None)
         else:
             geog_info = geog_df.loc[[geog_id]]
             self.geography = geog_info["name"].iloc[0]
