@@ -105,6 +105,7 @@ def get_default_listing_columns():
 
 
 HIDDEN_LISTING_FIELDS = [
+    "_state",
     "geography_id",
     "owner_id",
     "public",
@@ -192,9 +193,3 @@ FORMATTING_OPTIONS = [{"name": "Percentage", "key": "percentage", "int": 0}]
 
 def get_config_by_key(key):
     return next(lc for lc in LISTING_CONFIG if lc["key"] == key)
-
-
-PERMISSION_OPTIONS = [
-    {"name": "Private", "key": "user", "int": 0},
-    {"name": "Company", "key": "company", "int": 1},
-]

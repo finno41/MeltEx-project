@@ -73,18 +73,18 @@ def create_geographies(user=False):
     for continent in continents:
         print(f"creating {continent}")
         geography = Geography()
+        geography.type = "continent"
         geography.name = continent
         geography.owner = user
         geography.save()
-    geo_mapper = list(
-        Geography.objects.filter(parent_id__isnull=True).values("name", "id")
-    )
-    geo_mapper = {gm["name"]: gm["id"].hex for gm in geo_mapper}
+    geo_mapper = Geography.objects.filter(parent_id__isnull=True)
+    geo_mapper = {gm.name: gm for gm in geo_mapper}
     for i, row in country_df.iterrows():
         print(f"creating {row['Country']}")
         geography = Geography()
         geography.name = row["Country"]
-        geography.parent_id = geo_mapper[row["Continent"]]
+        geography.type = "country"
+        geography.parent = geo_mapper[row["Continent"]]
         geography.owner = user
         geography.save()
 

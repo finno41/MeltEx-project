@@ -1,5 +1,5 @@
 var popupLink = document.getElementById("popup-link");
-var popupWindow = document.getElementById("popup-window");
+var popupWindow = document.querySelector(".popup-window");
 var closeButtons = document.querySelectorAll(".close-button");
 
 popupLink.addEventListener("click", function (event) {

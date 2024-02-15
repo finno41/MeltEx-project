@@ -1,5 +1,6 @@
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 a:hover {
@@ -8,6 +9,11 @@ a:hover {
 
 .page-wrap {
   position: relative;
+}
+
+.info-button {
+  color: rgb(51, 49, 87);
+  cursor: pointer;
 }
 
 #sidebar {
@@ -85,4 +91,26 @@ a:hover {
   cursor: pointer;
   right: 5px;
   top: 2px;
+}
+
+.text-small {
+  font-size: 12px;
+  font-weight: 300;
+}
+
+.text-large {
+  font-size: 20px;
+}
+
+.confirm-button {
+  padding: 5px 40px;
+  background-color: rgb(51, 49, 87);
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.center-children-horizontal {
+  display: flex;
+  justify-content: center;
 }

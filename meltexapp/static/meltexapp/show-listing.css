@@ -1,0 +1,150 @@
+#show-listing-pop-up {
+  position: fixed;
+  z-index: 10;
+  width: 600px;
+  overflow: auto;
+  background-color: #B1B2D6;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.show-listing-type-bubbles {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.show-listing-type-bubbles>div {
+  width: fit-content;
+  padding: 5px 40px;
+  border-radius: 20px;
+  color: white
+}
+
+.show-listing-type-bubbles>.asset-class-bubble {
+  background-color: red;
+  margin-right: -30px;
+  z-index: 1;
+}
+
+.show-listing-type-bubbles>.sub-asset-class-bubble {
+  background-color: blue;
+  z-index: 0;
+}
+
+.top-centre-box {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.top-centre-box div {
+  width: 100%;
+  text-align: center;
+}
+
+.main-listing-info-container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  text-align: center;
+  background-color: white;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.dashed-line {
+  border-right: 1px;
+  border-right-style: dashed;
+  border-right-color: #BBBBBB;
+  height: 50px;
+}
+
+.dashed-line-small {
+  border-right: 1px;
+  border-right-style: dashed;
+  border-right-color: #BBBBBB;
+  height: 25px;
+}
+
+.main-listing-fund-container {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.main-listing-fund-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.main-listing-fund-container>.fund-table-title {
+  width: 100%;
+  text-align: center;
+}
+
+.main-listing-fund-container>.fund-table {
+  margin: 10px 20px;
+  max-width: 100%;
+}
+
+.light-table>tbody,
+.light-table>tbody>tr,
+.light-table>tbody>tr>td {
+  border: 1px;
+  border-style: dashed;
+  border-color: #BBBBBB;
+  padding: 10px 100px 10px 10px;
+  font-size: 14px;
+}
+
+.light-table-key {
+  font-weight: 300;
+}
+
+.listing-info-bubble {
+  display: flex;
+  justify-content: left;
+  background-color: white;
+  border-radius: 20px;
+  width: 100%;
+  padding: 5px 50px 5px 20px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.listing-info-large-bubble {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: white;
+  border-radius: 20px;
+  width: 100%;
+  padding: 5px 50px 5px 20px;
+  margin-bottom: 10px;
+}
+
+.listing-info-large-bubble div {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+}
+
+.listing-info-bubble>.key {
+  width: 40%;
+  text-align: center;
+  font-size: 14px;
+}
+
+.listing-info-bubble>.value {
+  width: 60%;
+  text-align: center;
+  font-size: 14px;
+}
