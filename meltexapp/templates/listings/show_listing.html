@@ -19,7 +19,16 @@
 </div>
 <div class="main-listing-info-container">
   {% if listing_data.country_code %}
-  <div class="main-listing-info country-flag"><span class="fi fi-{{ listing_data.country_code }}"></span></div>
+  <div class="main-listing-info country-flag tool-tip"><span class="fi fi-{{ listing_data.country_code }}"></span>
+    <span class="tool-tip-text">
+      {% for key, value in listing_data.geography_info.items %}
+      <div>
+        {{value}}{% if forloop.counter != listing_data.geography_info_length %},{% endif %}
+        </tabl>
+      </div>
+      {% endfor %}
+    </span>
+  </div>
   <div class="dashed-line"></div>
   {% endif %}
   <div class="main-listing-info">

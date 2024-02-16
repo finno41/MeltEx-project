@@ -121,3 +121,29 @@ a:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 0px;
 }
+
+.tool-tip {
+  display: inline-block;
+}
+
+.tool-tip>.tool-tip-text {
+  visibility: hidden;
+  width: max-content;
+  background-color: rgb(231, 216, 149);
+  color: #000000;
+  text-align: center;
+  padding: 5px 20px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 11;
+  margin-left: -100px;
+  transform: translate(0%, 50%);
+  font-weight: 300;
+  font-size: 12px;
+  margin-top: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tool-tip:hover .tool-tip-text {
+  visibility: visible;
+}
