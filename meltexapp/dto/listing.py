@@ -22,14 +22,14 @@ class ListingDTO(BaseDTO):
         geog_id = data["geography_id"]
         sub_ac_id = data["sub_asset_class_id"]
         if geog_df.empty:
-            geography = get_geography_by_id(user, geog_id)
-            all_geography_ids = geography.get_ancestor_ids()
-            geographies = get_geographies_by_ids(user, all_geography_ids).values()
-            geog_df = pd.DataFrame(geographies).set_index("id")
+            geography_queryset = get_geography_by_id(user, geog_id, type="queryset")
+            geography = geography_queryset.first()
+            all_geographies = geography.get_ancestors()
+            geog_df = pd.DataFrame(geography_queryset.values()).set_index("id")
             self.geography_info = {
-                geography["type"].capitalize(): geography["name"]
-                for geography in geographies
+                geography.type: geography.name for geography in all_geographies
             }
+            self.geography_info_length = len(self.geography_info)
             self.country_code = COUNTRY_CODE_LOOKUP.get(geography.name, None)
         else:
             geog_info = geog_df.loc[[geog_id]]

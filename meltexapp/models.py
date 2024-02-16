@@ -80,7 +80,7 @@ class Geography(BaseModel):
         current_geography = self
         ancestors = [current_geography]
         while current_geography.parent:
-            ancestors.insert(0, current_geography.parent)
+            ancestors.append(current_geography.parent)
             current_geography = current_geography.parent
         return ancestors
 
