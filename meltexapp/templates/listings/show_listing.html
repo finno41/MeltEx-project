@@ -20,11 +20,10 @@
 <div class="main-listing-info-container">
   {% if listing_data.country_code %}
   <div class="main-listing-info country-flag tool-tip"><span class="fi fi-{{ listing_data.country_code }}"></span>
-    <span class="tool-tip-text">
+    <span class="tool-tip-text mt-4">
       {% for key, value in listing_data.geography_info.items %}
       <div>
         {{value}}{% if forloop.counter != listing_data.geography_info_length %},{% endif %}
-        </tabl>
       </div>
       {% endfor %}
     </span>
@@ -32,17 +31,36 @@
   <div class="dashed-line"></div>
   {% endif %}
   <div class="main-listing-info">
-    <div class="title text-small">NAV</div>
-    <div class="value text-large">{{ listing_data.nav }}</div>
+    <div class="title text-small tool-tip">NAV
+      <span class="tool-tip-text mt-3">
+        <div>
+          Net Asset Value
+        </div>
+      </span>
+    </div>
+    <div class="value text-large">{{ listing_data.nav }}
+    </div>
   </div>
   <div class="dashed-line"></div>
   <div class="main-listing-info">
-    <div class="title text-small">ND</div>
+    <div class="title text-small tool-tip">ND
+      <span class="tool-tip-text mt-3">
+        <div>
+          Nav Discount Available
+        </div>
+      </span>
+    </div>
     <div class="value text-large">{{ listing_data.nav_dis_avl }}</div>
   </div>
   <div class="dashed-line"></div>
   <div class="main-listing-info">
-    <div class="title text-small">TIR</div>
+    <div class="title text-small tool-tip">TIR
+      <span class="tool-tip-text mt-3">
+        <div>
+          Target internal rate of return (IRR)
+        </div>
+      </span>
+    </div>
     <div class="value text-large">{{ listing_data.targ_irr }}</div>
   </div>
 </div>

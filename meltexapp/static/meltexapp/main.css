@@ -124,12 +124,14 @@ a:hover {
 
 .tool-tip {
   display: inline-block;
+  cursor: pointer;
 }
 
 .tool-tip>.tool-tip-text {
   visibility: hidden;
   width: max-content;
   background-color: rgb(231, 216, 149);
+  inline-size: 150px;
   color: #000000;
   text-align: center;
   padding: 5px 20px;
@@ -137,11 +139,11 @@ a:hover {
   position: absolute;
   z-index: 11;
   margin-left: -100px;
-  transform: translate(0%, 50%);
   font-weight: 300;
   font-size: 12px;
   margin-top: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0.95;
 }
 
 .tool-tip:hover .tool-tip-text {
