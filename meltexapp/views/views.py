@@ -94,7 +94,7 @@ def add_listing(request):
         request,
         "listings/add_listing.html",
         {
-            "add_listing_form": form,
+            "listing_form": form,
             "upload_excel_form": excel_form,
             "listing_added": listing_added,
             "missing_fields": missing_fields,
@@ -120,7 +120,7 @@ def view_listing(request, listing_id):
         request,
         "listings/add_listing.html",
         {
-            "form": form,
+            "listing_form": form,
             "method": "update",
             "form_action_url": form_action_url,
             "delete_url": delete_url,

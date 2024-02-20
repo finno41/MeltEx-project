@@ -109,7 +109,9 @@
 </div>
 <div class="center-children-horizontal">
   {% if can_edit %}
-  <div class="edit-button">Edit Listing</div>
+  <a href="/listing/{{ listing_data.id }}">
+    <div class="edit-button">Edit Listing</div>
+  </a>
   {% else %}
   <div class="confirm-button">Register Interest</div>
   {% endif %}
