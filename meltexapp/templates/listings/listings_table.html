@@ -2,9 +2,11 @@
   {% for header in headers %}
   <col>
   {% endfor %}
+  <col>
 </colgroup>
 {% load static %}
 <tr>
+  <th class="listing-column"></th>
   {% for header in headers %}
   {% if header.key in sortable_headers %}
   <th id="{{header.key}}" class="sortable_column listing-column">{{header.label}}</th>
@@ -16,11 +18,11 @@
 {% if values %}
 {% for id, row_values in values %}
 <tr>
+  <td class="listing_value">
+    <i class="fa-solid fa-circle-info info-button popup-link" font-size="10" id="{{id}}"></i>
+  </td>
   {% for value in row_values %}
   <td class="listing_value">
-    {% if forloop.counter == 1 %}
-    <i class="fa-solid fa-circle-info info-button popup-link" font-size="10" id="{{id}}"></i>
-    {% endif %}
     {{value}}
   </td>
   {% endfor %}
