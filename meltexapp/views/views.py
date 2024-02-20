@@ -30,6 +30,7 @@ from meltexapp.config.listing import (
 from meltexapp.helper.listing import (
     get_listing_view_data,
     get_listing_template_variables,
+    can_edit_listing,
 )
 import json
 
@@ -93,7 +94,7 @@ def add_listing(request):
         request,
         "listings/add_listing.html",
         {
-            "add_listing_form": form,
+            "listing_form": form,
             "upload_excel_form": excel_form,
             "listing_added": listing_added,
             "missing_fields": missing_fields,
@@ -119,7 +120,7 @@ def view_listing(request, listing_id):
         request,
         "listings/add_listing.html",
         {
-            "form": form,
+            "listing_form": form,
             "method": "update",
             "form_action_url": form_action_url,
             "delete_url": delete_url,
@@ -206,6 +207,7 @@ def load_listings_table(request, listings_type):
 def show_listing(request, listing_id):
     user = request.user
     listing = get_listing_by_id(user, listing_id)
+    can_edit = can_edit_listing(user, listing)
     listing_data = ListingDTO(listing, user).output()
-    template_variables = {"listing_data": listing_data}
+    template_variables = {"listing_data": listing_data, "can_edit": can_edit}
     return render(request, "listings/show_listing.html", template_variables)

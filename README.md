@@ -8,7 +8,7 @@ Currently a user can:
 - View available private equity listings
 - Filter listings by user preference
 - Sort listings by clicking a column
-- View listings that belong to them
+- View further details of a listing
 - Add a listing
 - Upload multiple listings by downloading an excel template and uploading it
 - Edit/ Delete a listing that belongs to them

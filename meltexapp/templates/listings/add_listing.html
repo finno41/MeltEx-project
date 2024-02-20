@@ -26,6 +26,7 @@
             "Listing Deleted successfully"
           </div>
           {% endif %}
+          {% if not method == "update" %}
           <div class="equal-spacing-container category-text pb-2 pt-2 border-top border-right">
             CSV BULK UPLOAD ACTIONS
           </div>
@@ -37,10 +38,11 @@
               <button type="button" class="btn btn-outline-success">Upload Listings</button>
             </a>
           </div>
+          {% endif %}
           <form action={{form_action_url}} id="listingForm" method="post" data-subac-url="{% url 'load_sub_acs' %}"
             data-load-geographies-url="{% url 'load_geographies'}">
             {% csrf_token %}
-            {{ add_listing_form }}
+            {{ listing_form }}
             <button type="submit" class="btn btn-outline-primary"> Submit </button>
           </form>
           {% if delete_url %}
