@@ -146,6 +146,10 @@ a:hover {
   opacity: 0.95;
 }
 
+.underline-hover:hover {
+  border-bottom: solid;
+}
+
 .tool-tip:hover .tool-tip-text {
   visibility: visible;
 }
