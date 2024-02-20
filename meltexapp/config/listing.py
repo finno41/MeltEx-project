@@ -5,7 +5,7 @@ LISTING_CONFIG = [
         "name": "Asset Class Name",
         "formatting": None,
         "show": True,
-        "default": True,
+        "default": False,
         "model_key": False,
     },
     {
@@ -13,7 +13,7 @@ LISTING_CONFIG = [
         "name": "Sub Asset Class Name",
         "formatting": None,
         "show": True,
-        "default": True,
+        "default": False,
         "model_key": False,
     },
     {
@@ -21,7 +21,7 @@ LISTING_CONFIG = [
         "name": "Geography",
         "formatting": None,
         "show": True,
-        "default": True,
+        "default": False,
         "model_key": False,
     },
     {
@@ -29,7 +29,7 @@ LISTING_CONFIG = [
         "name": "Implementation Approach",
         "formatting": None,
         "show": True,
-        "default": True,
+        "default": False,
     },
     {
         "key": "fund_levr",

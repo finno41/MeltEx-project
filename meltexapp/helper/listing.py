@@ -170,3 +170,8 @@ def bulk_create_listing(user, df: pd.DataFrame):
         listings.append(Listing(**model_dict))
     Listing.objects.bulk_create(listings)
     return listings
+
+
+def can_edit_listing(user, listing):
+    listing_user = listing.owner
+    return listing_user.company == user.company

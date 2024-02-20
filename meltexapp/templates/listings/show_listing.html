@@ -108,6 +108,10 @@
   <div class="value">{{ listing_data.comments }}</div>
 </div>
 <div class="center-children-horizontal">
+  {% if can_edit %}
+  <div class="edit-button">Edit Listing</div>
+  {% else %}
   <div class="confirm-button">Register Interest</div>
+  {% endif %}
 </div>
 {% endblock %}
