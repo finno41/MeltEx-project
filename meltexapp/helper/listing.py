@@ -173,5 +173,8 @@ def bulk_create_listing(user, df: pd.DataFrame):
 
 
 def can_edit_listing(user, listing):
-    listing_user = listing.owner
-    return listing_user.company == user.company
+    if user.is_authenticated:
+        listing_user = listing.owner
+        return listing_user.company == user.company
+    else:
+        return False
