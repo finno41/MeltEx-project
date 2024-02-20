@@ -153,5 +153,5 @@ def run_seed(self, mode):
     create_asset_classes()
 
     # Creating listings
-    for i in range(200):
+    for i in range(40):
         create_listing(i)
