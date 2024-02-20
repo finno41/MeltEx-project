@@ -30,6 +30,7 @@ from meltexapp.config.listing import (
 from meltexapp.helper.listing import (
     get_listing_view_data,
     get_listing_template_variables,
+    can_edit_listing,
 )
 import json
 
@@ -206,6 +207,7 @@ def load_listings_table(request, listings_type):
 def show_listing(request, listing_id):
     user = request.user
     listing = get_listing_by_id(user, listing_id)
+    can_edit = can_edit_listing(user, listing)
     listing_data = ListingDTO(listing, user).output()
-    template_variables = {"listing_data": listing_data}
+    template_variables = {"listing_data": listing_data, "can_edit": can_edit}
     return render(request, "listings/show_listing.html", template_variables)

@@ -110,6 +110,14 @@ a:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.edit-button {
+  padding: 5px 40px;
+  background-color: #79B791;
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .center-children-horizontal {
   display: flex;
   justify-content: center;
