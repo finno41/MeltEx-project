@@ -27,12 +27,23 @@ function addEventListenerToCancelButton() {
   var cancelButton = document.getElementById("cancel-register-interest-button")
   cancelButton.addEventListener("click", hideRegisterInterestForm)
 }
+function closePopUpWindow() {
+  popupWindow.style.display = "none";
+  popUpContent.innerHTML = "";
+}
 
 closeButtons.forEach(function (closeButton) {
   closeButton.addEventListener("click", function () {
-    popupWindow.style.display = "none";
-    popUpContent.innerHTML = "";
+    closePopUpWindow()
   });
+});
+
+
+document.addEventListener('click', function (event) {
+  showListingPopUp = document.getElementById("show-listing-pop-up")
+  if (event.target !== showListingPopUp && !showListingPopUp.contains(event.target)) {
+    closePopUpWindow()
+  }
 });
 
 addPopUpEventListener()
