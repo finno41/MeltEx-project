@@ -108,6 +108,7 @@ a:hover {
   color: white;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
 }
 
 .edit-button {
@@ -160,4 +161,16 @@ a:hover {
 
 .tool-tip:hover .tool-tip-text {
   visibility: visible;
+}
+
+button,
+input[type="submit"],
+input[type="reset"] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }

@@ -4,6 +4,23 @@ var popupWindow = document.querySelector(".popup-window");
 var popUpContent = document.getElementById("view-listing-content")
 
 
+function showRegisterInterestForm() {
+  var registerInterestForm = document.getElementById("register-interest-form");
+  registerInterestForm.style.display = "block";
+  registerInterestButton.style.display = "none";
+  popupWindow.scrollTop = popupWindow.scrollHeight;
+}
+
+function hideRegisterInterestForm() {
+  var registerInterestForm = document.getElementById("register-interest-form");
+  registerInterestForm.style.display = "none";
+}
+
+function addEventListenerToRegisterInterest() {
+  var registerInterestButton = document.getElementById("register-interest-button")
+  registerInterestButton.addEventListener("click", showRegisterInterestForm)
+}
+
 closeButtons.forEach(function (closeButton) {
   closeButton.addEventListener("click", function () {
     popupWindow.style.display = "none";
@@ -25,6 +42,7 @@ function addPopUpEventListener() {
         .then(html => {
           popUpContent.innerHTML = html;
           popupWindow.style.display = "block"
+          addEventListenerToRegisterInterest()
         })
         .catch(error => {
           console.error('Error fetching HTML:', error);

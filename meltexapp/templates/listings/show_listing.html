@@ -113,7 +113,19 @@
     <div class="edit-button">Edit Listing</div>
   </a>
   {% else %}
-  <div class="confirm-button">Register Interest</div>
+  <div id="register-interest-button" class="confirm-button">Register Interest</div>
   {% endif %}
 </div>
+<div id="register-interest-form">
+  <div class="center-children-horizontal">
+    <form action="/submit" method="post">
+      <label for="message">Message:</label><br>
+      <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
+  </div>
+  <div class="center-children-horizontal">
+    <div class="confirm-button"><input type="submit" value="Submit"></div>
+  </div>
+  </form>
+</div>
 {% endblock %}
+<script src="{% static 'listings/show_listing.js' %}"></script>
