@@ -109,6 +109,17 @@ a:hover {
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  margin: 0px 10px;
+}
+
+.cancel-button {
+  padding: 5px 40px;
+  background-color: #C1666B;
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin: 0px 10px;
 }
 
 .edit-button {
@@ -173,4 +184,10 @@ input[type="reset"] {
   font: inherit;
   cursor: pointer;
   outline: inherit;
+}
+
+.big-text-form-field {
+  border-radius: 20px;
+  border: none;
+  padding: 10px;
 }

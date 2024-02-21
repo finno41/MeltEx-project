@@ -4,7 +4,7 @@ var popupWindow = document.querySelector(".popup-window");
 var popUpContent = document.getElementById("view-listing-content")
 
 
-function showRegisterInterestForm() {
+function showRegisterInterestForm(registerInterestButton) {
   var registerInterestForm = document.getElementById("register-interest-form");
   registerInterestForm.style.display = "block";
   registerInterestButton.style.display = "none";
@@ -13,12 +13,19 @@ function showRegisterInterestForm() {
 
 function hideRegisterInterestForm() {
   var registerInterestForm = document.getElementById("register-interest-form");
+  var registerInterestButton = document.getElementById("register-interest-button")
   registerInterestForm.style.display = "none";
+  registerInterestButton.style.display = "block";
 }
 
 function addEventListenerToRegisterInterest() {
   var registerInterestButton = document.getElementById("register-interest-button")
-  registerInterestButton.addEventListener("click", showRegisterInterestForm)
+  registerInterestButton.addEventListener("click", () => { showRegisterInterestForm(registerInterestButton) })
+}
+
+function addEventListenerToCancelButton() {
+  var cancelButton = document.getElementById("cancel-register-interest-button")
+  cancelButton.addEventListener("click", hideRegisterInterestForm)
 }
 
 closeButtons.forEach(function (closeButton) {
@@ -43,6 +50,7 @@ function addPopUpEventListener() {
           popUpContent.innerHTML = html;
           popupWindow.style.display = "block"
           addEventListenerToRegisterInterest()
+          addEventListenerToCancelButton()
         })
         .catch(error => {
           console.error('Error fetching HTML:', error);

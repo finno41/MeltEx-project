@@ -120,12 +120,13 @@
   <div class="center-children-horizontal">
     <form action="/submit" method="post">
       <label for="message">Message:</label><br>
-      <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
-  </div>
-  <div class="center-children-horizontal">
-    <div class="confirm-button"><input type="submit" value="Submit"></div>
+      <textarea id="message" name="message" rows="4" cols="50" class="big-text-form-field"></textarea><br>
   </div>
   </form>
+  <div class="center-children-horizontal">
+    <div id="confirm-register-interest-button" class="confirm-button">Submit</div>
+    <div id="cancel-register-interest-button" class="cancel-button">Cancel</div>
+  </div>
 </div>
 {% endblock %}
 <script src="{% static 'listings/show_listing.js' %}"></script>
