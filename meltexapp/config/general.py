@@ -3,7 +3,7 @@ PERMISSION_OPTIONS = [
     {"name": "Company", "key": "company"},
 ]
 
-DEFAULT_PERMISSION_KEY = "user"
+DEFAULT_PERMISSION_KEY = "company"
 
 
 def permissions_key_value_dict():

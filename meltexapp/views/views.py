@@ -1,4 +1,4 @@
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponse
 from django.urls import reverse
 from meltex.messages import LOG_IN_PROTECT_MESSAGE
 from meltexapp.service.listing.search import listing_search
@@ -32,6 +32,7 @@ from meltexapp.helper.listing import (
     get_listing_template_variables,
     can_edit_listing,
 )
+from meltexapp.helper.register_interest import create_register_interest
 import json
 
 
@@ -214,4 +215,6 @@ def show_listing(request, listing_id):
 
 
 def register_interest(request, listing_id):
-    test = "test"
+    user = request.user
+    create_register_interest(user, listing_id)
+    return HttpResponse("Interest successfully registered")
