@@ -211,3 +211,7 @@ def show_listing(request, listing_id):
     listing_data = ListingDTO(listing, user).output()
     template_variables = {"listing_data": listing_data, "can_edit": can_edit}
     return render(request, "listings/show_listing.html", template_variables)
+
+
+def register_interest(request, listing_id):
+    test = "test"

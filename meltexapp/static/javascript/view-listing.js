@@ -3,6 +3,12 @@ var closeButtons = document.querySelectorAll(".close-button");
 var popupWindow = document.querySelector(".popup-window");
 var popUpContent = document.getElementById("view-listing-content")
 
+function addSubmitToForm(formID, SubmitButtonId) {
+  document.getElementById(SubmitButtonId).addEventListener("click", function () {
+    var form = document.getElementById(formID);
+    form.submit();
+  })
+}
 
 function showRegisterInterestForm(registerInterestButton) {
   var registerInterestForm = document.getElementById("register-interest-form");
@@ -62,6 +68,7 @@ function addPopUpEventListener() {
           popupWindow.style.display = "block"
           addEventListenerToRegisterInterest()
           addEventListenerToCancelButton()
+          addSubmitToForm("expression-interest-form", "confirm-register-interest-button")
         })
         .catch(error => {
           console.error('Error fetching HTML:', error);

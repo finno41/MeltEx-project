@@ -32,6 +32,11 @@ urlpatterns = [
     path("load-geographies", views.load_geographies, name="load_geographies"),
     path("listing/create", create_listing, name="create_listing"),
     path("listing/<str:listing_id>", views.view_listing, name="view_listing"),
+    path(
+        "listing/<str:listing_id>/register_interest",
+        views.register_interest,
+        name="register_interest",
+    ),
     path("listing/<str:listing_id>/update", update_listing, name="update_listing"),
     path(
         "listing/<str:listing_id>/delete", views.delete_listing, name="delete_listing"
