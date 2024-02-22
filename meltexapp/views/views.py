@@ -216,5 +216,8 @@ def show_listing(request, listing_id):
 
 def register_interest(request, listing_id):
     user = request.user
+    if not user.is_authenticated:
+        # OF TODO: add to exception handler
+        raise Exception("You must be logged in to register interest")
     create_register_interest(user, listing_id)
     return HttpResponse("Interest successfully registered")

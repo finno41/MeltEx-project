@@ -20,7 +20,7 @@ def create_register_interest(
         # OF TODO: create custom exceptions for this
         raise Exception("You have already registered interest on this product")
 
-    if isinstance(listing)[str, uuid]:
+    if type(listing) in [str, uuid]:
         listing = get_listing_by_id(buyer_user, listing)
     register_interest = RegisterInterest()
     register_interest.buyer_user = buyer_user
