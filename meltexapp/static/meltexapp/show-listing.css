@@ -1,7 +1,10 @@
 #show-listing-pop-up {
+  overflow: scroll;
   position: fixed;
   z-index: 10;
   width: 600px;
+  height: 95%;
+  padding: 20px 20px;
   overflow: auto;
   background-color: #B1B2D6;
   top: 50%;
@@ -147,4 +150,8 @@
   width: 60%;
   text-align: center;
   font-size: 14px;
+}
+
+#register-interest-form {
+  display: none;
 }

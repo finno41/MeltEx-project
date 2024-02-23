@@ -108,6 +108,18 @@ a:hover {
   color: white;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin: 0px 10px;
+}
+
+.cancel-button {
+  padding: 5px 40px;
+  background-color: #C1666B;
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin: 0px 10px;
 }
 
 .edit-button {
@@ -160,4 +172,27 @@ a:hover {
 
 .tool-tip:hover .tool-tip-text {
   visibility: visible;
+}
+
+button,
+input[type="submit"],
+input[type="reset"] {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.big-text-form-field {
+  border-radius: 20px;
+  border: none;
+  padding: 10px;
+}
+
+.light-text {
+  font-weight: 300;
+  font-style: italic;
 }
