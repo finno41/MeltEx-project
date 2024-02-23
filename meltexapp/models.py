@@ -136,7 +136,7 @@ class RegisterInterest(BaseModel):
     seller_user = models.ForeignKey(
         User, related_name="seller_user", on_delete=models.CASCADE
     )
-    listing = models.ForeignKey(User, on_delete=models.CASCADE)
+    listing = models.ForeignKey(Listing, on_delete=models.CASCADE)
     PERMISSION_OPTIONS = permissions_key_value_tuples()
     buyer_message_permissions = models.CharField(
         max_length=30, choices=PERMISSION_OPTIONS, default=DEFAULT_PERMISSION_KEY

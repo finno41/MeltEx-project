@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{% static 'meltexapp/show-listing.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
 {{listing_id }}
+<div id="top-of-pop-up"></div>
 <div class="show-listing-type-bubbles">
   <div class="asset-class-bubble">{{ listing_data.asset_class_name }}</div>
   <div class="sub-asset-class-bubble">{{ listing_data.sub_asset_class_name }}</div>
@@ -118,13 +119,14 @@
 </div>
 <div id="register-interest-form">
   <div class="center-children-horizontal">
-    <form action="/submit" method="post">
+    <form action="#" method="post" id="expression-interest-form">
+      {% csrf_token %}
       <label for="message">Message <span class="light-text">(optional):</span></label><br>
       <textarea id="message" name="message" rows="4" cols="50" class="big-text-form-field"></textarea><br>
   </div>
   </form>
   <div class="center-children-horizontal">
-    <div id="confirm-register-interest-button" class="confirm-button">Submit</div>
+    <div id="confirm-register-interest-button" class="confirm-button">Register Interest</div>
     <div id="cancel-register-interest-button" class="cancel-button">Cancel</div>
   </div>
 </div>
