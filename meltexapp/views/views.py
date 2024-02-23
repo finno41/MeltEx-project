@@ -1,4 +1,4 @@
-from django.http import HttpResponseNotFound, HttpResponse
+from django.http import HttpResponseNotFound, HttpResponse, JsonResponse
 from django.urls import reverse
 from meltex.messages import LOG_IN_PROTECT_MESSAGE
 from meltexapp.service.listing.search import listing_search
@@ -11,6 +11,7 @@ from meltexapp.config.listing import (
     SORTABLE_LISTING_HEADERS_LOOKUP,
     HIDDEN_LISTING_FIELDS,
 )
+from meltexapp.config.error_messages import MUST_BE_LOGGED_IN
 from meltexapp.helper.redirects import login_redirect_url
 from meltexapp.forms import ListingForm, ExcelListingUploadForm
 from meltexapp.data.sub_asset_class import get_sub_acs_by_ac
@@ -34,6 +35,7 @@ from meltexapp.helper.listing import (
 )
 from meltexapp.helper.register_interest import create_register_interest
 import json
+from meltexapp.errors import ListingError
 
 
 def index(request):
@@ -215,9 +217,13 @@ def show_listing(request, listing_id):
 
 
 def register_interest(request, listing_id):
-    user = request.user
-    if not user.is_authenticated:
-        # OF TODO: add to exception handler
-        raise Exception("You must be logged in to register interest")
-    create_register_interest(user, listing_id)
-    return HttpResponse("Interest successfully registered")
+    try:
+        user = request.user
+        if not user.is_authenticated:
+            raise Exception("You must be logged in to register interest")
+        create_register_interest(user, listing_id)
+    except Exception as e:
+        # TODO OF: build a custom error handler to handle the exceptions and show the correct codes in JSON
+        return JsonResponse({"error": str(e)}, status=400)
+
+    return JsonResponse({"message": "Interest successfully registered"}, status=200)
