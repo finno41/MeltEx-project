@@ -4,14 +4,16 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
 <link rel="stylesheet" href="{% static 'meltexapp/home.css' %}">
-<div id="buy-sell-container">
-  <a id="buy-button" class="buy-sell-button" href="/listings/all_listings">
-    <i class="fa-solid fa-scale-unbalanced-flip"></i><br>
-    I want to buy assets
-  </a>
-  <a id="sell-button" class="buy-sell-button" href="/listings/add_listing">
-    <i class="fa-solid fa-scale-unbalanced"></i><br>
-    I want to sell assets
-  </a>
+<div class="main-background">
+  <div id="buy-sell-container">
+    <a id="buy-button" class="buy-sell-button" href="/listings/all_listings">
+      <i class="fa-solid fa-scale-unbalanced-flip"></i><br>
+      I want to buy assets
+    </a>
+    <a id="sell-button" class="buy-sell-button" href="/listings/add_listing">
+      <i class="fa-solid fa-scale-unbalanced"></i><br>
+      I want to sell assets
+    </a>
+  </div>
 </div>
 {% endblock %}

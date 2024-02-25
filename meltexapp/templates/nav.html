@@ -2,29 +2,32 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
 <link rel="stylesheet" href="{% static 'meltexapp/navbar.css' %}">
-<nav class="navbar navbar-expand-lg topnav">
+<div class="nav-elements nav-elements-top">
+  <a href="/">
+    <div>MELT-X</div>
+  </a>
+</div>
+<div class="nav-elements-bottom">
   <div class="nav-elements nav-elements-left">
-    <a href="/">
-      <div>Melt-X</div>
-    </a>
+
     <a href="/">
       <div>
-        Home
+        HOME
       </div>
     </a>
     <a href="/listings/all_listings">
       <div>
-        Listings
+        LISTINGS
       </div>
     </a>
     <a href="/listings/my_listings">
       <div>
-        My Listings
+        MY LISTINGS
       </div>
     </a>
     <a href="/listings/add_listing">
       <div>
-        Add Listings
+        ADD LISTINGS
       </div>
     </a>
   </div>
@@ -32,7 +35,7 @@
     {% if user.is_authenticated %}
     <a href="#">
       <div id="navbarDropdown" class="dropdown">
-        <strong>{{user.username}}</strong>
+        {{user.username|upper}}
         <div class="dropdown-content" aria-labelledby="navbarDropdown">
           <a class="dropdown-link" href="/listings/my_listings">My Listings</a>
           <a class="dropdown-link" href="/accounts/logout/">Sign out</a>
@@ -41,11 +44,8 @@
     </a>
     {% else %}
     <a href="/accounts/login/" class="nav-link">
-      <svg class="bi me-2" width="16" height="16">
-        <use xlink:href="#speedometer2"></use>
-      </svg>
-      Log in
+      LOG IN
     </a>
     {% endif %}
   </div>
-</nav>
+</div>
