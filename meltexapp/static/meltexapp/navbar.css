@@ -20,6 +20,11 @@
   display: flex;
 }
 
+.nav-item-underline:hover {
+  border-bottom: solid 1px black;
+  color: black;
+}
+
 .nav-elements-left {
   justify-content: left;
 }
@@ -30,6 +35,21 @@
 }
 
 .nav-elements a {
+  color: #908E8F;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.nav-elements-top a {
+  color: #908E8F;
+  text-align: center;
+  padding-top: 10px;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.nav-elements div {
   color: #908E8F;
   text-align: center;
   padding: 14px 16px;
@@ -65,4 +85,9 @@
 
 .dropdown {
   align-items: center;
+}
+
+.nav-item {
+  margin: 0px 10px;
+  padding: 10px 10px;
 }

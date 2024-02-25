@@ -22,3 +22,7 @@
 .buy-sell-button i {
   font-size: 30px;
 }
+
+.spaced-letters {
+  letter-spacing: 0.5px;
+}
