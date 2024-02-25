@@ -41,11 +41,11 @@
         <a class="dropdown-link nav-item" href="/listings/my_listings">My Listings</a>
         <a class="dropdown-link nav-item" href="/accounts/logout/">Sign out</a>
       </div>
+      {% else %}
+      <a href="/accounts/login/" class="spaced-letters">
+        LOG IN
+      </a>
     </div>
-    {% else %}
-    <a href="/accounts/login/" class="nav-link spaced-letters nav-item-underline">
-      LOG IN
-    </a>
     {% endif %}
   </div>
 </div>
