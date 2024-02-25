@@ -32,11 +32,11 @@
     </a>
   </div>
   <div class="nav-elements nav-elements-right">
-    {% if user.is_authenticated %}
     <a href="#">
-      <div id="navbarDropdown" class="dropdown">
-        {{user.username|upper}}
-        <div class="dropdown-content" aria-labelledby="navbarDropdown">
+      <div class="dropdown">
+        {% if user.is_authenticated %}
+        <i class="fa-solid fa-user"></i> {{user.username|upper}}
+        <div class="dropdown-content">
           <a class="dropdown-link" href="/listings/my_listings">My Listings</a>
           <a class="dropdown-link" href="/accounts/logout/">Sign out</a>
         </div>

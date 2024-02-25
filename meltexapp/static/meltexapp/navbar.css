@@ -26,6 +26,7 @@
 
 .nav-elements-right {
   justify-content: right;
+  align-items: center;
 }
 
 .nav-elements a {
@@ -60,4 +61,8 @@
 
 .dropdown-link {
   color: black;
+}
+
+.dropdown {
+  align-items: center;
 }
