@@ -43,6 +43,12 @@ a:hover {
   text-align: center;
 }
 
+.main-background {
+  min-height: 100vh;
+  min-width: 100vw;
+  background-image: url("../images/background.png");
+}
+
 .full-page-no-sb {
   min-height: 100vh;
   min-width: 100vw;
