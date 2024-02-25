@@ -2,49 +2,51 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
 <link rel="stylesheet" href="{% static 'meltexapp/navbar.css' %}">
-<div class="nav-elements-top">
-  <a href="/">
-    <div class="nav-item nav-item-top spaced-letters">MELT-X</div>
-  </a>
-</div>
-<div class="nav-elements-bottom">
-  <div class="nav-elements nav-elements-left">
+<div class="topnav">
+  <div class="nav-elements-top">
     <a href="/">
-      <div class="nav-item nav-item-underline">
-        HOME
-      </div>
-    </a>
-    <a href="/listings/all_listings">
-      <div class="spaced-letters nav-item nav-item-underline">
-        LISTINGS
-      </div>
-    </a>
-    <a href="/listings/my_listings">
-      <div class="spaced-letters nav-item nav-item-underline">
-        MY LISTINGS
-      </div>
-    </a>
-    <a href="/listings/add_listing">
-      <div class="spaced-letters nav-item nav-item-underline">
-        ADD LISTINGS
-      </div>
+      <div class="nav-item nav-item-top spaced-letters">MELT-X</div>
     </a>
   </div>
-  <div class="nav-elements nav-elements-right">
-    <a href="#">
-      <div class="dropdown spaced-letters nav-item nav-item-underline">
-        {% if user.is_authenticated %}
-        <i class="fa-solid fa-user"></i> {{user.username|upper}}
-    </a>
-    <div class="dropdown-content">
-      <a class="dropdown-link nav-item" href="/listings/my_listings">My Listings</a>
-      <a class="dropdown-link nav-item" href="/accounts/logout/">Sign out</a>
+  <div class="nav-elements-bottom">
+    <div class="nav-elements nav-elements-left">
+      <a href="/">
+        <div class="nav-item nav-item-underline">
+          HOME
+        </div>
+      </a>
+      <a href="/listings/all_listings">
+        <div class="spaced-letters nav-item nav-item-underline">
+          LISTINGS
+        </div>
+      </a>
+      <a href="/listings/my_listings">
+        <div class="spaced-letters nav-item nav-item-underline">
+          MY LISTINGS
+        </div>
+      </a>
+      <a href="/listings/add_listing">
+        <div class="spaced-letters nav-item nav-item-underline">
+          ADD LISTINGS
+        </div>
+      </a>
     </div>
+    <div class="nav-elements nav-elements-right">
+      <a href="#">
+        <div class="dropdown spaced-letters nav-item nav-item-underline">
+          {% if user.is_authenticated %}
+          <i class="fa-solid fa-user"></i> {{user.username|upper}}
+      </a>
+      <div class="dropdown-content">
+        <a class="dropdown-link nav-item" href="/listings/my_listings">My Listings</a>
+        <a class="dropdown-link nav-item" href="/accounts/logout/">Sign out</a>
+      </div>
+    </div>
+    {% else %}
+    <a href="/accounts/login/" class="nav-link spaced-letters nav-item-underline">
+      LOG IN
+    </a>
+    {% endif %}
   </div>
-  {% else %}
-  <a href="/accounts/login/" class="nav-link spaced-letters nav-item-underline">
-    LOG IN
-  </a>
-  {% endif %}
 </div>
 </div>

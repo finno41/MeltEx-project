@@ -1,7 +1,8 @@
 #buy-sell-container {
   display: flex;
   justify-content: space-evenly;
-  padding: 40vh 0;
+  align-items: center;
+  height: 80%;
 }
 
 .buy-sell-button {

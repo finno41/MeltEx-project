@@ -1,10 +1,10 @@
 {% extends "master.html" %}
 {% block content %}
-{% include "nav.html" %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
 <link rel="stylesheet" href="{% static 'meltexapp/home.css' %}">
 <div class="main-background">
+  {% include "nav.html" %}
   <div id="buy-sell-container">
     <a id="buy-button" class="buy-sell-button" href="/listings/all_listings">
       <i class="fa-solid fa-scale-unbalanced-flip"></i><br>
