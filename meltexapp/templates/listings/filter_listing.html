@@ -1,0 +1,32 @@
+{% extends "master.html" %}
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'meltexapp/filter-listings.css' %}">
+<link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
+<script src="{% static 'javascript/main.js' %}"></script>
+<div class="main-background">
+  {% include "nav.html" %}
+  <form action="" id="filter-form" class="mb-2 ms-3 form-check form-check-inline" method="get"
+    onsubmit="setFormStore()">
+    <div class="filter-card-container">
+      {% for data in filter_data %}
+      <div class="filter-options-card">
+        <div class="filter-options-card-title">
+          <label for="{{data.key}}" class="category-text mb-2">{{data.name|upper}}</label></br>
+        </div>
+        {% for option in data.options %}
+        <div class="form-check form-check-inline">
+          <input class="form-check-input mr-2" type="checkbox" id="{{option.key}}" name="{{tb_settings.param}}"
+            value="{{option.key}}">
+          <label class="form-check-label" for="{{option.key}}">{{option.name}}</label><br>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </form>
+  <div class="center-children-horizontal">
+    <div class="confirm-button" onclick="submitForm('filter-form')">Search Listings</div>
+  </div>
+</div>
+{% endblock %}
