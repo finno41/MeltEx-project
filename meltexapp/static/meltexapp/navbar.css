@@ -25,6 +25,10 @@
   color: black;
 }
 
+.nav-item-highlight:hover {
+  color: black;
+}
+
 .nav-elements-left {
   justify-content: left;
 }
@@ -60,12 +64,12 @@
 .dropdown-content {
   position: absolute;
   display: none;
-  color: black;
-  background-color: black;
+  background-color: rgb(255, 255, 255);
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 2;
-  left: -80px;
+  left: -24px;
+  top: 49px;
 }
 
 .dropdown-content a {
@@ -77,10 +81,6 @@
 
 .dropdown:hover .dropdown-content {
   display: block;
-}
-
-.dropdown-link {
-  color: black;
 }
 
 .dropdown {

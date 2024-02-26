@@ -33,9 +33,8 @@
     </div>
     <div class="nav-elements nav-elements-right">
       <a href="#">
-        <div class="dropdown spaced-letters nav-item nav-item-underline">
-          {% if user.is_authenticated %}
-          <i class="fa-solid fa-user"></i> {{user.username|upper}}
+        <div class="dropdown spaced-letters nav-item">
+          {% if user.is_authenticated %}<i class="fa-solid fa-user"></i> {{user.username|upper}}
       </a>
       <div class="dropdown-content">
         <a class="dropdown-link nav-item" href="/listings/my_listings">My Listings</a>
