@@ -14,3 +14,19 @@ function displayBannerNotification(type, message, topOfPageId, parentScrollEleme
 function submitForm(formId) {
   document.getElementById(formId).submit();
 }
+
+if (typeof closeButtons !== 'undefined') {
+  closeButtons.forEach(function (closeButton) {
+    closeButton.addEventListener("click", function () {
+      popupWindow.style.display = "none";
+    });
+  });
+}
+
+function checkTickboxes(tickboxIds) {
+  console.log(tickboxIds)
+  tickboxIds.forEach(function (tickboxId) {
+    var tickbox = document.getElementById(tickboxId)
+    tickbox.checked = true
+  })
+}

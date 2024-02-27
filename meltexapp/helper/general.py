@@ -23,3 +23,10 @@ def bulk_manipulate_dict_list(list_of_dicts, from_to_map: dict = {}, add_keys={}
     for key, value in add_keys.items():
         df[key] = value
     return df.to_dict("records")
+
+
+def convert_uuids_to_str(uuids: list):
+    """
+    Checks a list for uuids and converts them to strings if they're found
+    """
+    return [id.hex if isinstance(id, UUID) else id for id in uuids]
