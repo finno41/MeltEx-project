@@ -12,6 +12,7 @@ from meltexapp.config.listing import (
     SORTABLE_LISTING_HEADERS_LOOKUP,
     HIDDEN_LISTING_FIELDS,
 )
+from meltexapp.helper.listing import get_selected_filters
 from meltexapp.config.error_messages import MUST_BE_LOGGED_IN
 from meltexapp.helper.redirects import login_redirect_url
 from meltexapp.forms import ListingForm, ExcelListingUploadForm
@@ -236,4 +237,12 @@ def filter_listings(request):
     filter_data = add_filter_formatting(
         asset_class_filter_data, continents_filter_data, columns
     )
-    return render(request, "listings/filter_listing.html", {"filter_data": filter_data})
+    checked_tickboxes = get_selected_filters(user, combined_list=True, hex=True)
+    return render(
+        request,
+        "listings/filter_listing.html",
+        {
+            "filter_data": filter_data,
+            "checked_tickboxes": json.dumps(checked_tickboxes),
+        },
+    )

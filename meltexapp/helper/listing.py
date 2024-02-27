@@ -8,6 +8,7 @@ from meltexapp.service.listing.search import listing_search
 from meltexapp.helper.asset_class import get_available_ac_ids, get_asset_class_options
 from meltexapp.helper.geography import (
     get_continents_countries,
+    get_continent_ids,
     get_permitted_geographies,
 )
 from meltexapp.config.listing import (
@@ -17,6 +18,7 @@ from meltexapp.config.listing import (
     SORTABLE_LISTING_HEADERS_LOOKUP,
     column_ids_names,
 )
+from meltexapp.helper.general import convert_uuids_to_str
 from meltexapp.data_format.table import format_for_table
 from meltexapp.data.asset_class import get_permitted_asset_classes
 import json
@@ -178,3 +180,18 @@ def can_edit_listing(user, listing):
         return listing_user.company == user.company
     else:
         return False
+
+
+def get_selected_filters(user, combined_list=False, hex=False):
+    asset_class_ids = list(
+        get_permitted_asset_classes(user).values_list("id", flat=True)
+    )
+    column_keys = get_default_listing_columns()
+    continent_ids = get_continent_ids(user)
+    if hex:
+        asset_class_ids = convert_uuids_to_str(asset_class_ids)
+        column_keys = convert_uuids_to_str(column_keys)
+        continent_ids = convert_uuids_to_str(continent_ids)
+    if combined_list:
+        return asset_class_ids + column_keys + continent_ids
+    return asset_class_ids, column_keys, continent_ids
