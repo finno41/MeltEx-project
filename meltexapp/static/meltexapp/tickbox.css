@@ -1,0 +1,44 @@
+/* Hide the default checkbox */
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #333;
+  /* Border color */
+  border-radius: 3px;
+  /* Rounded corners */
+  outline: none;
+  cursor: pointer;
+}
+
+/* Style the tick */
+input[type="checkbox"]:checked::before {
+  content: '\2713';
+  /* Unicode for tick */
+  display: inline-block;
+  font-size: 16px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  color: #fff;
+  /* Color of the tick */
+  background-color: #908E8F;
+  /* Background color when checked */
+  border-radius: 3px;
+  /* Rounded corners */
+}
+
+/* Style for when checkbox is focused */
+input[type="checkbox"]:focus {
+  box-shadow: 0 0 3px #908E8F;
+  /* Focus effect */
+}
+
+/* Style for when checkbox is hovered */
+input[type="checkbox"]:hover {
+  border-color: #908E8F;
+  /* Border color when hovered */
+}

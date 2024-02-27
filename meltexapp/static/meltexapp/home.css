@@ -1,13 +1,15 @@
 #buy-sell-container {
   display: flex;
   justify-content: space-evenly;
-  padding: 40vh 0;
+  align-items: center;
+  height: calc(100vh - 100px);
 }
 
 .buy-sell-button {
   text-align: center;
   padding: 50px 80px;
-  background-color: lightgrey;
+  opacity: 0.95;
+  background-color: white;
   color: grey;
   box-shadow: 4.0px 8.0px 8.0px hsl(0deg 0% 0% / 0.38);
   cursor: pointer;
@@ -17,8 +19,13 @@
   border: 1px solid grey;
   padding: 49px 79px;
   color: rgb(78, 78, 78);
+  opacity: 1;
 }
 
 .buy-sell-button i {
   font-size: 30px;
+}
+
+.spaced-letters {
+  letter-spacing: 0.5px;
 }

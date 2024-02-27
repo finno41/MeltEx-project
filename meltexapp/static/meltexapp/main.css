@@ -43,6 +43,16 @@ a:hover {
   text-align: center;
 }
 
+.main-background {
+  position: relative;
+  background-size: cover;
+  background-position: center top;
+  background-image: url("../images/background.png");
+  background-attachment: fixed;
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
 .full-page-no-sb {
   min-height: 100vh;
   min-width: 100vw;
@@ -103,8 +113,8 @@ a:hover {
 }
 
 .confirm-button {
-  padding: 5px 40px;
-  background-color: rgb(51, 49, 87);
+  padding: 10px 40px;
+  background-color: #1C4E55;
   color: white;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

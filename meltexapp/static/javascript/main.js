@@ -10,3 +10,7 @@ function displayBannerNotification(type, message, topOfPageId, parentScrollEleme
   topOfPageElement.innerHTML = html
   parentScrollElement.scrollTop = 0;
 }
+
+function submitForm(formId) {
+  document.getElementById(formId).submit();
+}

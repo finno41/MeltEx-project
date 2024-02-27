@@ -2,6 +2,7 @@ from django.http import HttpResponseNotFound, HttpResponse, JsonResponse
 from django.urls import reverse
 from meltex.messages import LOG_IN_PROTECT_MESSAGE
 from meltexapp.service.listing.search import listing_search
+from meltexapp.service.listing.filter import get_filter_options, add_filter_formatting
 from meltexapp.dto.listing import ListingDTOCollection, ListingDTO
 from meltexapp.data_format.table import format_for_table
 from meltexapp.helper.asset_class import get_asset_class_options
@@ -227,3 +228,12 @@ def register_interest(request, listing_id):
         return JsonResponse({"error": str(e)}, status=400)
 
     return JsonResponse({"message": "Interest successfully registered"}, status=200)
+
+
+def filter_listings(request):
+    user = request.user
+    asset_class_filter_data, continents_filter_data, columns = get_filter_options(user)
+    filter_data = add_filter_formatting(
+        asset_class_filter_data, continents_filter_data, columns
+    )
+    return render(request, "listings/filter_listing.html", {"filter_data": filter_data})
