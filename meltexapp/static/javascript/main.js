@@ -30,3 +30,14 @@ function checkTickboxes(tickboxIds) {
     tickbox.checked = true
   })
 }
+
+function addHoverstate(hoverButtonId, hoverContentId) {
+  const hoverButton = document.getElementById(hoverButtonId)
+  const hoverContent = document.getElementById(hoverContentId)
+  hoverButton.addEventListener("mouseover", function () {
+    hoverContent.style.display = "block"
+  })
+  hoverButton.addEventListener("mouseout", function () {
+    hoverContent.style.display = "none"
+  })
+}

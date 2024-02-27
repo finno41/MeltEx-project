@@ -2,6 +2,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
 <link rel="stylesheet" href="{% static 'meltexapp/navbar.css' %}">
+<script src="{% static 'javascript/main.js' %}"></script>
 <div class="topnav">
   <div class="nav-elements-top">
     <a href="/">
@@ -33,10 +34,11 @@
     </div>
     <div class="nav-elements nav-elements-right">
       <a href="#">
-        <div class="dropdown spaced-letters nav-item">
+        <div id="user-dropdown-button" class="dropdown spaced-letters nav-item nav-item-underline">
           {% if user.is_authenticated %}<i class="fa-solid fa-user"></i> {{user.username|upper}}
+        </div>
       </a>
-      <div class="dropdown-content">
+      <div id="user-dropdown-content" class="dropdown-content">
         <a class="dropdown-link nav-item" href="/listings/my_listings">My Listings</a>
         <a class="dropdown-link nav-item" href="/accounts/logout/">Sign out</a>
       </div>
@@ -50,3 +52,4 @@
 </div>
 </div>
 </div>
+<script> addHoverstate("user-dropdown-button", "user-dropdown-content")</script>
