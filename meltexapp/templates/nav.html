@@ -1,95 +1,52 @@
 <!DOCTYPE html>
 {% load static %}
 <link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">Home</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="/listings">Listings</a>
-        <a class="nav-link active" href="/listings/add_listing">Add Listing</a>
-        <a class="nav-link active" href="/listings/my_listings">My Listing</a>
-      </div>
-    </div>
+<link rel="stylesheet" href="{% static 'meltexapp/navbar.css' %}">
+<div class="topnav">
+  <div class="nav-elements-top">
+    <a href="/">
+      <div class="nav-item nav-item-top spaced-letters">MELT-X</div>
+    </a>
   </div>
-</nav> -->
-<div class="d-flex flex-row bd-highlight">
-  <div class="page-wrap min-vw-100">
-    <div class="bd-highlight">
-      <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" id="sidebar"
-        style="width: 220px; height: 100vh">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-          <svg class="bi me-2" width="40" height="32">
-            <use xlink:href="#bootstrap"></use>
-          </svg>
-          <span class="fs-4">Melt-X</span>
-        </a>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-            <a href="/" class="nav-link text-white" aria-current="page">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="/"></use>
-              </svg>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="/listings/all_listings" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#speedometer2"></use>
-              </svg>
-              Listings
-            </a>
-          </li>
-          <li>
-            <a href="/listings/my_listings" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#table"></use>
-              </svg>
-              My Listings
-            </a>
-          </li>
-          <li>
-            <a href="/listings/add_listing" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16">
-                <use xlink:href="#table"></use>
-              </svg>
-              Add Listings
-            </a>
-          </li>
-        </ul>
-        <hr>
-        {% if user.is_authenticated %}
-        <div class="dropdown">
-          <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-solid fa-user ms-3 me-3" style="color: #98aac8;"></i>
-            <strong>{{user.username}}</strong>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="/listings/my_listings">My Listings</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="/accounts/logout/">Sign out</a></li>
-          </ul>
+  <div class="nav-elements-bottom">
+    <div class="nav-elements nav-elements-left">
+      <a href="/">
+        <div class="nav-item nav-item-underline">
+          HOME
         </div>
-        {% else %}
-        <a href="/accounts/login/" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#speedometer2"></use>
-          </svg>
-          Log in
-        </a>
-        {% endif %}
+      </a>
+      <a href="/listings/filter">
+        <div class="spaced-letters nav-item nav-item-underline">
+          LISTINGS
+        </div>
+      </a>
+      <a href="/listings/my_listings">
+        <div class="spaced-letters nav-item nav-item-underline">
+          MY LISTINGS
+        </div>
+      </a>
+      <a href="/listings/add_listing">
+        <div class="spaced-letters nav-item nav-item-underline">
+          ADD LISTINGS
+        </div>
+      </a>
+    </div>
+    <div class="nav-elements nav-elements-right">
+      <a href="#">
+        <div class="dropdown spaced-letters nav-item">
+          {% if user.is_authenticated %}<i class="fa-solid fa-user"></i> {{user.username|upper}}
+      </a>
+      <div class="dropdown-content">
+        <a class="dropdown-link nav-item" href="/listings/my_listings">My Listings</a>
+        <a class="dropdown-link nav-item" href="/accounts/logout/">Sign out</a>
       </div>
     </div>
-    <div class="p-0 navbar-pad">
-      <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+    {% else %}
+    <a href="/accounts/login/" class="spaced-letters">
+      LOG IN
+    </a>
+  </div>
+  {% endif %}
+</div>
+</div>
+</div>

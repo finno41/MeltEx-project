@@ -12,3 +12,7 @@ def permissions_key_value_dict():
 
 def permissions_key_value_tuples():
     return [(option["key"], option["name"]) for option in PERMISSION_OPTIONS]
+
+
+def get_config_by_key(key, config):
+    return next(lc for lc in config if lc["key"] == key)

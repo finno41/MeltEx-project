@@ -27,6 +27,7 @@ urlpatterns = [
         views.show_listing,
         name="show_listing",
     ),
+    path("listings/filter", views.filter_listings, name="filter_listings"),
     path("listings/<str:listings_type>", views.get_listings, name="get_listings"),
     path("ajax/load-subacs/", views.load_sub_acs, name="load_sub_acs"),
     path("load-geographies", views.load_geographies, name="load_geographies"),
