@@ -29,4 +29,8 @@
     <div class="confirm-button" onclick="submitForm('filter-form')">Search Listings</div>
   </div>
 </div>
+<script>
+  const tickboxIds = JSON.parse('{{checked_tickboxes|safe}}');
+  checkTickboxes(tickboxIds)
+</script>
 {% endblock %}
