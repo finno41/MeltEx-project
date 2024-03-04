@@ -50,7 +50,7 @@ a:hover {
   background-image: url("../images/background.png");
   background-attachment: fixed;
   min-width: 100vw;
-  min-height: calc(100vh - 100px);
+  min-height: 100vh;
 }
 
 .full-page-no-sb {
@@ -205,4 +205,28 @@ input[type="reset"] {
 .light-text {
   font-weight: 300;
   font-style: italic;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-align-left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.flex-align-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dot-seperator {
+  margin: 0px 5px;
+}
+
+.flex-align-bottom {
+  display: flex;
+  align-items: flex-end;
 }
