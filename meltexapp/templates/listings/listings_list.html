@@ -1,10 +1,10 @@
-<colgroup>
-  {% for header in headers %}
-  <col>
-  {% endfor %}
-  <col>
-</colgroup>
 {% load static %}
+<link rel="stylesheet" href="{% static 'meltexapp/listing-list.css' %}">
 {% for listing in listings %}
-{{listing.nav}}
+<div class="menu-listing-card">
+  <div>{{listing.nav}}</div>
+  <div>{{listing.geography}}</div>
+  <div>{{listing.country_code}}</div>
+</div>
+{% endfor %}
 <script src="{% static 'javascript/view-listing.js' %}"></script>
