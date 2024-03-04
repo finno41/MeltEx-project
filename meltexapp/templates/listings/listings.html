@@ -44,7 +44,7 @@
   </div>
   <div class="w-100">
     <table table class="table table-striped" id="listings-table">
-      {% include 'listings/listings_table.html' %}
+      {% include 'listings/listings_list.html' %}
       <script src="{% static 'listings/check_filters.js' %}"></script>
       <script>
         selected_form_ids = JSON.parse('{{selected_filters|safe}}')

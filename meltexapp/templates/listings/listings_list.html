@@ -1,0 +1,10 @@
+<colgroup>
+  {% for header in headers %}
+  <col>
+  {% endfor %}
+  <col>
+</colgroup>
+{% load static %}
+{% for listing in listings %}
+{{listing.nav}}
+<script src="{% static 'javascript/view-listing.js' %}"></script>
