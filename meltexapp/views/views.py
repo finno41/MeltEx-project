@@ -235,7 +235,8 @@ def filter_listings(request):
     user = request.user
     asset_class_filter_data, continents_filter_data, columns = get_filter_options(user)
     filter_data = add_filter_formatting(
-        asset_class_filter_data, continents_filter_data, columns
+        asset_class_filter=asset_class_filter_data,
+        continents_filter=continents_filter_data,
     )
     checked_tickboxes = get_selected_filters(user, combined_list=True, hex=True)
     return render(
