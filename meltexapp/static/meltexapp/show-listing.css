@@ -12,6 +12,22 @@
   transform: translate(-50%, -50%);
 }
 
+#show-listing-col-1 {
+  width: 66%;
+  margin-right: 20px;
+}
+
+#show-listing-col-2 {
+  width: 34%;
+  margin-right: 20px;
+}
+
+#listing-info-data {
+  display: flex;
+  justify-content: stretch;
+  width: 100%;
+}
+
 .show-listing-type-bubbles {
   display: flex;
   justify-content: flex-start;
@@ -135,6 +151,7 @@
   width: 100%;
   padding: 5px 50px 5px 20px;
   margin-bottom: 10px;
+  flex: max-content;
 }
 
 .listing-info-large-bubble div {

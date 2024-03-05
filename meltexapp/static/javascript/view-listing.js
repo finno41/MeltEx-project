@@ -5,7 +5,6 @@ var popUpContent = document.getElementById("view-listing-content")
 const csrftoken = getCookie('csrftoken');
 
 function addFetchToInterestSubmit(listingId) {
-  console.log(csrftoken)
   document.getElementById("confirm-register-interest-button").addEventListener("click", function () {
     var form = document.getElementById("expression-interest-form");
     url = `/listing/${listingId}/register_interest`
@@ -23,9 +22,11 @@ function addFetchToInterestSubmit(listingId) {
       })
       .then(({ response, jsonResponse }) => {
         if (response.status === 200) {
-          displayBannerNotification("success", jsonResponse.message, "top-of-pop-up", "show-listing-pop-up");
+          displayBannerNotification("success", jsonResponse.message, "top-of-listing-info", "listing-info-column");
+          hideRegisterInterestForm();
         } else {
-          displayBannerNotification("fail", jsonResponse.error, "top-of-pop-up", "show-listing-pop-up");
+          displayBannerNotification("fail", jsonResponse.error, "top-of-listing-info", "listing-info-column");
+          hideRegisterInterestForm();
         }
       })
       .catch(error => {

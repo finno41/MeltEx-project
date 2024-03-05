@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
 {% for listing in listings %}
-<div class="menu-listing-card">
+<div id={{listing.id}} class="menu-listing-card">
   <div class="flex-space-between pt-2 mx-2">
     <div class="flex-align-left">
       <div class="listing-card-asset-class menu-listing-small-text">{{listing.asset_class_name}}</div>
@@ -31,4 +31,3 @@
 </div>
 {% endfor %}
 <script src="{% static 'javascript/view-listing.js' %}"></script>
-<script src="{% static 'listings/select_listing.js' %}"></script>

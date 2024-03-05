@@ -1,12 +1,17 @@
-.listing-card-column {
+#listing-card-column {
   background-color: #ffffff5a;
-  width: 300px;
+  width: 25%;
+  min-width: 250px;
   height: calc(100vh - 100px);
   overflow: scroll;
-  /* -ms-overflow-style: none;
-  scrollbar-width: none; */
   padding-right: 15px;
   margin-right: 12px;
+}
+
+#listing-info-column {
+  height: calc(100vh - 100px);
+  width: 75%;
+  overflow: scroll;
 }
 
 .menu-listing-card {
@@ -27,11 +32,6 @@
   font-size: 20px;
   margin-bottom: -4px;
 }
-
-/*
-.menu-listing-nav {
-  min-width: 55px;
-} */
 
 
 .menu-listing-card-selected {
