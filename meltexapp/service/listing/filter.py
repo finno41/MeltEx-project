@@ -20,8 +20,10 @@ def get_filter_options(user):
     return asset_class_filter_data, continents_filter_data, columns
 
 
-def add_filter_formatting(asset_class_filter, continents_filter, columns_filter):
-    return [
+def add_filter_formatting(
+    asset_class_filter=False, continents_filter=False, columns_filter=False
+):
+    filter_settings = [
         {
             "name": "Columns",
             "key": "columns",
@@ -40,4 +42,9 @@ def add_filter_formatting(asset_class_filter, continents_filter, columns_filter)
             "type": "tickbox",
             "options": asset_class_filter,
         },
+    ]
+    return [
+        filter_setting
+        for filter_setting in filter_settings
+        if filter_setting["options"] is not False
     ]

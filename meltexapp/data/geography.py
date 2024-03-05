@@ -42,3 +42,8 @@ def get_geographies_by_parents(user, geographies):
     perm_geos = get_permitted_geographies(user)
     geos = perm_geos.filter(parent__in=geographies)
     return geos
+
+
+def get_geographies_by_type(user, type):
+    geographies = get_permitted_geographies(user)
+    return geographies.filter(type=type)

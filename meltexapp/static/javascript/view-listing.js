@@ -1,11 +1,10 @@
 var popupLinks = document.querySelectorAll(".popup-link");
 var closeButtons = document.querySelectorAll(".close-button");
-var popupWindow = document.querySelector(".popup-window");
+var listingInfoColumn = document.querySelector(".listing-info-column");
 var popUpContent = document.getElementById("view-listing-content")
 const csrftoken = getCookie('csrftoken');
 
 function addFetchToInterestSubmit(listingId) {
-  console.log(csrftoken)
   document.getElementById("confirm-register-interest-button").addEventListener("click", function () {
     var form = document.getElementById("expression-interest-form");
     url = `/listing/${listingId}/register_interest`
@@ -23,9 +22,11 @@ function addFetchToInterestSubmit(listingId) {
       })
       .then(({ response, jsonResponse }) => {
         if (response.status === 200) {
-          displayBannerNotification("success", jsonResponse.message, "top-of-pop-up", "show-listing-pop-up");
+          displayBannerNotification("success", jsonResponse.message, "top-of-listing-info", "listing-info-column");
+          hideRegisterInterestForm();
         } else {
-          displayBannerNotification("fail", jsonResponse.error, "top-of-pop-up", "show-listing-pop-up");
+          displayBannerNotification("fail", jsonResponse.error, "top-of-listing-info", "listing-info-column");
+          hideRegisterInterestForm();
         }
       })
       .catch(error => {
@@ -38,7 +39,7 @@ function showRegisterInterestForm(registerInterestButton) {
   var registerInterestForm = document.getElementById("register-interest-form");
   registerInterestForm.style.display = "block";
   registerInterestButton.style.display = "none";
-  popupWindow.scrollTop = popupWindow.scrollHeight;
+  listingInfoColumn.scrollTop = listingInfoColumn.scrollHeight;
 }
 
 function hideRegisterInterestForm() {
@@ -56,49 +57,6 @@ function addEventListenerToRegisterInterest() {
 function addEventListenerToCancelButton() {
   var cancelButton = document.getElementById("cancel-register-interest-button")
   cancelButton.addEventListener("click", hideRegisterInterestForm)
-}
-function closePopUpWindow() {
-  popupWindow.style.display = "none";
-  popUpContent.innerHTML = "";
-}
-
-closeButtons.forEach(function (closeButton) {
-  closeButton.addEventListener("click", function () {
-    closePopUpWindow()
-  });
-});
-
-
-document.addEventListener('click', function (event) {
-  showListingPopUp = document.getElementById("show-listing-pop-up")
-  if (event.target !== showListingPopUp && !showListingPopUp.contains(event.target)) {
-    closePopUpWindow()
-  }
-});
-
-addPopUpEventListener()
-
-function addPopUpEventListener() {
-  var popupLinks = document.querySelectorAll(".popup-link");
-  popupLinks.forEach(popupLink => {
-    const listingId = popupLink.id;
-    popupLink.addEventListener("click", function (event) {
-      event.preventDefault();
-      const url = `/listings/show_listing/${listingId}`;
-      fetch(url)
-        .then(response => response.text())
-        .then(html => {
-          popUpContent.innerHTML = html;
-          popupWindow.style.display = "block"
-          addEventListenerToRegisterInterest()
-          addEventListenerToCancelButton()
-          addFetchToInterestSubmit(listingId)
-        })
-        .catch(error => {
-          console.error('Error fetching HTML:', error);
-        });
-    })
-  })
 }
 
 function getCookie(name) {

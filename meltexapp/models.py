@@ -154,3 +154,4 @@ class Message(BaseModel):
     message = models.TextField(max_length=1000)
     register_interest = models.ForeignKey(RegisterInterest, on_delete=models.CASCADE)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
+    read = models.BooleanField(default=False)

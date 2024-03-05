@@ -27,7 +27,9 @@ function checkTickboxes(tickboxIds) {
   console.log(tickboxIds)
   tickboxIds.forEach(function (tickboxId) {
     var tickbox = document.getElementById(tickboxId)
-    tickbox.checked = true
+    if (tickbox) {
+      tickbox.checked = true
+    }
   })
 }
 

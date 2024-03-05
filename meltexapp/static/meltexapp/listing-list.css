@@ -1,0 +1,49 @@
+#listing-card-column {
+  background-color: #ffffff5a;
+  width: 25%;
+  min-width: 250px;
+  height: calc(100vh - 100px);
+  overflow: scroll;
+  padding-right: 15px;
+  margin-right: 12px;
+}
+
+#listing-info-column {
+  height: calc(100vh - 100px);
+  width: 75%;
+  overflow: scroll;
+}
+
+.menu-listing-card {
+  background-color: #ffffffde;
+  min-height: 90px;
+  width: 100%;
+  margin: 5px 3px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+.menu-listing-small-text {
+  font-size: 12px;
+}
+
+.menu-listing-large-text {
+  font-size: 20px;
+  margin-bottom: -4px;
+}
+
+
+.menu-listing-card-selected {
+  background-color: #54797Ede;
+  min-height: 90px;
+  width: 100%;
+  margin: 5px 3px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  padding-bottom: 10px;
+}
+
+.menu-listing-card-selected * .menu-listing-small-text,
+.menu-listing-card-selected * .menu-listing-large-text {
+  color: #ffffff;
+}
