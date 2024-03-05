@@ -1,12 +1,11 @@
 function selectDeselectAssets(elementsClass, selectClass) {
-  console.log("test function")
-  // elements = document.getElementsByClassName(elementsClass)
-  // elements.forEach(element => {
-  //   element.addEventListener('click', function () {
-  //     elements.classList.remove(selectClass)
-  //     element.classList.add(selectClass)
-  //   })
-  // })
+  elements = document.querySelectorAll(`.${elementsClass}`)
+  elements.forEach((element) => {
+    element.addEventListener('click', function () {
+      elements.forEach((element) => { element.classList.remove(selectClass) })
+      element.classList.add(selectClass)
+    })
+  })
 }
 
 function displayBannerNotification(type, message, topOfPageId, parentScrollElementId) {

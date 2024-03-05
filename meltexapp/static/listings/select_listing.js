@@ -20,6 +20,7 @@ listingCards.forEach(listingCard => {
         addEventListenerToRegisterInterest()
         addEventListenerToCancelButton()
         addFetchToInterestSubmit(listingId)
+        selectDeselectAssets("round-square-icon", "round-square-icon-selected")
       })
       .catch(error => {
         console.error('Error fetching HTML:', error);
