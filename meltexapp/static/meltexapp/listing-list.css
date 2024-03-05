@@ -26,11 +26,13 @@
 
 .menu-listing-small-text {
   font-size: 12px;
+  color: #707070;
 }
 
 .menu-listing-large-text {
   font-size: 20px;
   margin-bottom: -4px;
+  color: #707070;
 }
 
 
