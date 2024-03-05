@@ -1,3 +1,14 @@
+function selectDeselectAssets(elementsClass, selectClass) {
+  console.log("test function")
+  // elements = document.getElementsByClassName(elementsClass)
+  // elements.forEach(element => {
+  //   element.addEventListener('click', function () {
+  //     elements.classList.remove(selectClass)
+  //     element.classList.add(selectClass)
+  //   })
+  // })
+}
+
 function displayBannerNotification(type, message, topOfPageId, parentScrollElementId) {
   var topOfPageElement = document.getElementById(topOfPageId)
   var parentScrollElement = document.getElementById(parentScrollElementId)
@@ -41,5 +52,17 @@ function addHoverstate(hoverButtonId, hoverContentId) {
   })
   hoverButton.addEventListener("mouseout", function () {
     hoverContent.style.display = "none"
+  })
+}
+
+
+
+function checkTickboxes(tickboxIds) {
+  console.log(tickboxIds)
+  tickboxIds.forEach(function (tickboxId) {
+    var tickbox = document.getElementById(tickboxId)
+    if (tickbox) {
+      tickbox.checked = true
+    }
   })
 }

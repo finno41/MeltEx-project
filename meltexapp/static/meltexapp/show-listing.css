@@ -183,3 +183,7 @@
 #register-interest-form {
   display: none;
 }
+
+.large-icon {
+  font-size: 24px;
+}
