@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{% static 'meltexapp/show-listing.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
 {{listing_id }}
-<div id="top-of-listing-info"></div>
+<div id="top-of-listing-info" class="mt-2"></div>
 <div id="listing-info-data">
   <div id="show-listing-col-1">
     <div class="main-listing-info-container">
@@ -85,18 +85,18 @@
       </table>
     </div>
     <div class="listing-info-bubble">
-      <div class="key light-table-key">Implementation Approach</div>
+      <div class="key light-table-key py-2">Implementation Approach</div>
       <div class="dashed-line-small"></div>
       <div class="value">{{ listing_data.impl_approach }}</div>
     </div>
-    <div class="listing-info-bubble">
+    <div class="listing-info-bubble py-2">
       <div class="key light-table-key">Risk Profile</div>
       <div class="dashed-line-small"></div>
       <div class="value">{{ listing_data.risk_prof }}</div>
     </div>
   </div>
   <div id="show-listing-col-2" class="full-height-flex-stretch">
-    <div class="listing-info-bubble mt-2">
+    <div class="listing-info-bubble mt-2 px-2">
       <div class="key light-table-key">EoID</div>
       <div class="dashed-line-small"></div>
       <div class="value">{{ listing_data.expr_int_ddline }}</div>

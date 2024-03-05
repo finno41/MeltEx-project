@@ -28,6 +28,10 @@
   width: 100%;
 }
 
+#top-of-listing-info {
+  margin-right: 20px;
+}
+
 .show-listing-type-bubbles {
   display: flex;
   justify-content: flex-start;
@@ -76,6 +80,7 @@
   background-color: white;
   border-radius: 20px;
   padding: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
 }
 
 .dashed-line {
@@ -98,6 +103,7 @@
   background-color: white;
   border-radius: 20px;
   padding: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
 }
 
 .main-listing-fund-container {
@@ -140,6 +146,7 @@
   padding: 5px 50px 5px 20px;
   margin-bottom: 10px;
   align-items: center;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
 }
 
 .listing-info-large-bubble {
@@ -152,6 +159,7 @@
   padding: 5px 50px 5px 20px;
   margin-bottom: 10px;
   flex: max-content;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
 }
 
 .listing-info-large-bubble div {
