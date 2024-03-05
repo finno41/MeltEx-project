@@ -76,7 +76,6 @@ def get_listing_view_data(user: User, listings_type: str, params: dict) -> tuple
     asset_class_name = params.get("asset_class_name")
     sub_asset_class_name = params.get("sub_asset_class_name")
     geography_ids = params.get("continents")
-    columns = params.get("columns", get_default_listing_columns())
     selected_continents = params.get("continents", [c["id"] for c in continents])
     sort_columns = params.get("sort", ["expr_int_ddline"])
     ascending = params.get("ascending", [False])
@@ -97,7 +96,6 @@ def get_listing_view_data(user: User, listings_type: str, params: dict) -> tuple
         continents,
         countries,
         ac_ids,
-        columns,
         selected_continents,
         listings_data,
         available_cols,
@@ -112,24 +110,23 @@ def get_listing_template_variables(
     available_cols,
     continents,
     selected_continents,
-    columns,
     ac_ids,
     countries,
     listings_type,
     user,
 ):
-    table_variables = format_for_table(listings, columns)
+    # table_variables = format_for_table(listings, columns)
     tickbox_form_config = [
         {"title": "ASSET CLASS", "options": ac_options, "param": "ac_id"},
-        {"title": "COLUMNS", "options": available_cols, "param": "columns"},
         {"title": "CONTINENTS", "options": continents, "param": "continents"},
     ]
-    return table_variables | {
+    return {
+        "listings": listings,
         "params_present": params,
         "json_params": json.dumps(params),
         "tickbox": tickbox_form_config,
         "page": listings_type,
-        "selected_filters": json.dumps([selected_continents, columns, ac_ids]),
+        "selected_filters": json.dumps([selected_continents, ac_ids]),
         "countries": countries,
         "sortable_headers": list(SORTABLE_LISTING_HEADERS_LOOKUP.keys()),
         "user": user,

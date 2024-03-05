@@ -34,6 +34,7 @@ class ListingDTO(BaseDTO):
         else:
             geog_info = geog_df.loc[[geog_id]]
             self.geography = geog_info["name"].iloc[0]
+            self.country_code = geog_info["country_code"].iloc[0]
         if ac_df.empty:
             sub_acs = get_sub_assets_by_ids(user, [sub_ac_id]).values(
                 "id", "name", "asset_class__name"
@@ -60,6 +61,7 @@ class ListingDTOCollection(BaseDTOCollection):
             geography_ids = [d["geography_id"].hex for d in data]
             geographies = get_geographies_by_ids(user, geography_ids).values()
             geog_df = pd.DataFrame(geographies).set_index("id")
+            geog_df["country_code"] = geog_df["name"].map(COUNTRY_CODE_LOOKUP.get)
             sub_ac_ids = [d["sub_asset_class_id"].hex for d in data]
             sub_acs = get_sub_assets_by_ids(user, sub_ac_ids).values(
                 "id", "name", "asset_class__name"

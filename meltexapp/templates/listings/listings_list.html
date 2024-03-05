@@ -1,0 +1,33 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'meltexapp/listing-list.css' %}">
+<link rel="stylesheet" href="{% static 'meltexapp/main.css' %}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
+{% for listing in listings %}
+<div id={{listing.id}} class="menu-listing-card">
+  <div class="flex-space-between pt-2 mx-2">
+    <div class="flex-align-left">
+      <div class="listing-card-asset-class menu-listing-small-text">{{listing.asset_class_name}}</div>
+      <div class="dot-seperator menu-listing-small-text">•</div>
+      <div class="listing-card-sub-asset-class menu-listing-small-text">{{listing.sub_asset_class_name}}</div>
+    </div>
+    <div class="flex-align-right">
+      <div class="targ_irr menu-listing-small-text">
+        {{listing.targ_irr}}
+      </div>
+    </div>
+  </div>
+  <div class="flex-space-between mt-3 mx-2">
+    <div class="flex-align-left flex-align-bottom">
+      <div class="main-listing-info country-flag tool-tip mx-2"><span class="fi fi-{{ listing.country_code }}"></span>
+      </div>
+      <div class="menu-listing-large-text menu-listing-nav">{{listing.nav}}</div>
+      <div class="menu-listing-small-text mx-2">{{listing.nav_dis_avl}}%</div>
+      <!-- <div>{{listing.geography}}</div> -->
+    </div>
+    <div class="flex-align-right flex-align-bottom">
+      <div class="menu-listing-small-text">{{listing.expr_int_ddline}}</div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+<script src="{% static 'javascript/view-listing.js' %}"></script>

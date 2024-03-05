@@ -8,6 +8,7 @@ from meltexapp.models import (
     User,
 )
 from meltexapp.helper.model import get_random_instance
+from meltexapp.helper.geography import get_random_geography
 import pandas as pd
 import random
 
@@ -117,11 +118,10 @@ def create_listing(i, user=False):
     if not user:
         user = User.objects.get(username="admin_oli")
     sub_asset_class = get_random_instance(SubAssetClass)
-    asset_class = sub_asset_class.asset_class
-    geography = get_random_instance(Geography)
+    country = get_random_geography(user, geography_type="country")
     listing = Listing()
     listing.sub_asset_class = sub_asset_class
-    listing.geography = geography
+    listing.geography = country
     listing.impl_approach = "Test"
     listing.fund_levr = round(random.uniform(0.00, 30.00), 2)
     listing.fund_struc = "test fund struc"
