@@ -32,6 +32,14 @@
   margin-right: 20px;
 }
 
+#listing-info-icon-container {
+  /* background-color: rgba(255, 255, 255, 0.312); */
+  background-image: linear-gradient(to left, rgba(251, 251, 251, 0.85), rgba(255, 255, 255, 0.381));
+  border-radius: 20px;
+  padding: 1px 0px;
+  margin: 5px 0px;
+}
+
 .show-listing-type-bubbles {
   display: flex;
   justify-content: flex-start;
@@ -182,4 +190,8 @@
 
 #register-interest-form {
   display: none;
+}
+
+.large-icon {
+  font-size: 24px;
 }

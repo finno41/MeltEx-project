@@ -22,10 +22,10 @@ function addFetchToInterestSubmit(listingId) {
       })
       .then(({ response, jsonResponse }) => {
         if (response.status === 200) {
-          displayBannerNotification("success", jsonResponse.message, "top-of-listing-info", "listing-info-column");
+          displayBannerNotification("success", jsonResponse.message, "top-of-listing-info", "lower-listing-panel");
           hideRegisterInterestForm();
         } else {
-          displayBannerNotification("fail", jsonResponse.error, "top-of-listing-info", "listing-info-column");
+          displayBannerNotification("fail", jsonResponse.error, "top-of-listing-info", "lower-listing-panel");
           hideRegisterInterestForm();
         }
       })
