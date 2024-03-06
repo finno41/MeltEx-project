@@ -149,6 +149,9 @@ class RegisterInterest(BaseModel):
         max_length=30, choices=STATUS_OPTIONS, default=DEFAULT_INTEREST_STATUS_KEY
     )
 
+    class Meta:
+        unique_together = ("buyer_user", "listing")
+
 
 class Message(BaseModel):
     message = models.TextField(max_length=1000)
