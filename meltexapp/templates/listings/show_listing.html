@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="{% static 'meltexapp/show-listing.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css" />
 {{listing_id }}
-<div id="top-of-listing-info" class="mt-2"></div>
 <div id="listing-info-icon-container">
   <div class="d-flex flex-row-reverse mx-3">
     <div class="round-square-icon">
@@ -16,127 +15,130 @@
     </div>
   </div>
 </div>
-<div id="listing-info-data">
-  <div id="show-listing-col-1">
-    <div class="main-listing-info-container">
-      {% if listing_data.country_code %}
-      <div class="main-listing-info country-flag tool-tip"><span class="fi fi-{{ listing_data.country_code }}"></span>
-        <span class="tool-tip-text mt-4">
-          {% for key, value in listing_data.geography_info.items %}
-          <div>
-            {{value}}{% if forloop.counter != listing_data.geography_info_length %},{% endif %}
+<div id="lower-listing-panel">
+  <div id="top-of-listing-info" class="mt-2"></div>
+  <div id="listing-info-data">
+    <div id="show-listing-col-1">
+      <div class="main-listing-info-container">
+        {% if listing_data.country_code %}
+        <div class="main-listing-info country-flag tool-tip"><span class="fi fi-{{ listing_data.country_code }}"></span>
+          <span class="tool-tip-text mt-4">
+            {% for key, value in listing_data.geography_info.items %}
+            <div>
+              {{value}}{% if forloop.counter != listing_data.geography_info_length %},{% endif %}
+            </div>
+            {% endfor %}
+          </span>
+        </div>
+        <div class="dashed-line"></div>
+        {% endif %}
+        <div class="main-listing-info">
+          <div class="title text-small tool-tip">NAV
+            <span class="tool-tip-text mt-3">
+              <div>
+                Net Asset Value
+              </div>
+            </span>
           </div>
-          {% endfor %}
-        </span>
+          <div class="value text-large">{{ listing_data.nav }}
+          </div>
+        </div>
+        <div class="dashed-line"></div>
+        <div class="main-listing-info">
+          <div class="title text-small tool-tip">ND
+            <span class="tool-tip-text mt-3">
+              <div>
+                Nav Discount Available
+              </div>
+            </span>
+          </div>
+          <div class="value text-large">{{ listing_data.nav_dis_avl }}</div>
+        </div>
+        <div class="dashed-line"></div>
+        <div class="main-listing-info">
+          <div class="title text-small tool-tip">TIR
+            <span class="tool-tip-text mt-3">
+              <div>
+                Target internal rate of return (IRR)
+              </div>
+            </span>
+          </div>
+          <div class="value text-large">{{ listing_data.targ_irr }}</div>
+        </div>
       </div>
-      <div class="dashed-line"></div>
-      {% endif %}
-      <div class="main-listing-info">
-        <div class="title text-small tool-tip">NAV
-          <span class="tool-tip-text mt-3">
-            <div>
-              Net Asset Value
-            </div>
-          </span>
-        </div>
-        <div class="value text-large">{{ listing_data.nav }}
-        </div>
+      <div class="main-listing-fund-container">
+        <div class="fund-table-title category-text">FUND INFORMATION</div>
+        <table class="fund-table light-table">
+          <tr>
+            <td class="light-table-key">Structure</td>
+            <td>{{ listing_data.fund_struc }}</td>
+          </tr>
+          <tr>
+            <td class="light-table-key">Leverage</td>
+            <td class="light-table-value">{{ listing_data.fund_levr }}</td>
+          </tr>
+          <tr>
+            <td class="light-table-key">Inclusion Year</td>
+            <td class="light-table-value">{{ listing_data.fund_inc_year }}</td>
+          </tr>
+          <tr>
+            <td class="light-table-key">Vehicle Type</td>
+            <td class="light-table-value">{{ listing_data.fund_vehi_type }}</td>
+          </tr>
+          <tr>
+            <td class="light-table-key">Target Close Year</td>
+            <td class="light-table-value">{{ listing_data.fund_targ_clos_yr }}</td>
+          </tr>
+          <tr>
+            <td class="light-table-key">Total Expense Ratio</td>
+            <td class="light-table-value">{{ listing_data.fund_ter }}</td>
+          </tr>
+        </table>
       </div>
-      <div class="dashed-line"></div>
-      <div class="main-listing-info">
-        <div class="title text-small tool-tip">ND
-          <span class="tool-tip-text mt-3">
-            <div>
-              Nav Discount Available
-            </div>
-          </span>
-        </div>
-        <div class="value text-large">{{ listing_data.nav_dis_avl }}</div>
+      <div class="listing-info-bubble">
+        <div class="key light-table-key py-2">Implementation Approach</div>
+        <div class="dashed-line-small"></div>
+        <div class="value">{{ listing_data.impl_approach }}</div>
       </div>
-      <div class="dashed-line"></div>
-      <div class="main-listing-info">
-        <div class="title text-small tool-tip">TIR
-          <span class="tool-tip-text mt-3">
-            <div>
-              Target internal rate of return (IRR)
-            </div>
-          </span>
-        </div>
-        <div class="value text-large">{{ listing_data.targ_irr }}</div>
+      <div class="listing-info-bubble py-2">
+        <div class="key light-table-key">Risk Profile</div>
+        <div class="dashed-line-small"></div>
+        <div class="value">{{ listing_data.risk_prof }}</div>
       </div>
     </div>
-    <div class="main-listing-fund-container">
-      <div class="fund-table-title category-text">FUND INFORMATION</div>
-      <table class="fund-table light-table">
-        <tr>
-          <td class="light-table-key">Structure</td>
-          <td>{{ listing_data.fund_struc }}</td>
-        </tr>
-        <tr>
-          <td class="light-table-key">Leverage</td>
-          <td class="light-table-value">{{ listing_data.fund_levr }}</td>
-        </tr>
-        <tr>
-          <td class="light-table-key">Inclusion Year</td>
-          <td class="light-table-value">{{ listing_data.fund_inc_year }}</td>
-        </tr>
-        <tr>
-          <td class="light-table-key">Vehicle Type</td>
-          <td class="light-table-value">{{ listing_data.fund_vehi_type }}</td>
-        </tr>
-        <tr>
-          <td class="light-table-key">Target Close Year</td>
-          <td class="light-table-value">{{ listing_data.fund_targ_clos_yr }}</td>
-        </tr>
-        <tr>
-          <td class="light-table-key">Total Expense Ratio</td>
-          <td class="light-table-value">{{ listing_data.fund_ter }}</td>
-        </tr>
-      </table>
-    </div>
-    <div class="listing-info-bubble">
-      <div class="key light-table-key py-2">Implementation Approach</div>
-      <div class="dashed-line-small"></div>
-      <div class="value">{{ listing_data.impl_approach }}</div>
-    </div>
-    <div class="listing-info-bubble py-2">
-      <div class="key light-table-key">Risk Profile</div>
-      <div class="dashed-line-small"></div>
-      <div class="value">{{ listing_data.risk_prof }}</div>
+    <div id="show-listing-col-2" class="full-height-flex-stretch">
+      <div class="listing-info-bubble mt-2 px-2">
+        <div class="key light-table-key">EoID</div>
+        <div class="dashed-line-small"></div>
+        <div class="value">{{ listing_data.expr_int_ddline }}</div>
+      </div>
+      <div class="listing-info-large-bubble">
+        <div class="key light-table-key">Comments</div>
+        <div class="value">{{ listing_data.comments }}</div>
+      </div>
     </div>
   </div>
-  <div id="show-listing-col-2" class="full-height-flex-stretch">
-    <div class="listing-info-bubble mt-2 px-2">
-      <div class="key light-table-key">EoID</div>
-      <div class="dashed-line-small"></div>
-      <div class="value">{{ listing_data.expr_int_ddline }}</div>
-    </div>
-    <div class="listing-info-large-bubble">
-      <div class="key light-table-key">Comments</div>
-      <div class="value">{{ listing_data.comments }}</div>
-    </div>
-  </div>
-</div>
-<div class="center-children-horizontal">
-  {% if can_edit %}
-  <a href="/listing/{{ listing_data.id }}">
-    <div class="edit-button">Edit Listing</div>
-  </a>
-  {% else %}
-  <div id="register-interest-button" class="confirm-button mb-3">Register Interest</div>
-  {% endif %}
-</div>
-<div id="register-interest-form">
   <div class="center-children-horizontal">
-    <form action="#" method="post" id="expression-interest-form">
-      {% csrf_token %}
-      <label for="message">Message <span class="light-text">(optional):</span></label><br>
-      <textarea id="message" name="message" rows="4" cols="50" class="big-text-form-field"></textarea><br>
+    {% if can_edit %}
+    <a href="/listing/{{ listing_data.id }}">
+      <div class="edit-button">Edit Listing</div>
+    </a>
+    {% else %}
+    <div id="register-interest-button" class="confirm-button mb-3">Register Interest</div>
+    {% endif %}
   </div>
-  </form>
-  <div class="center-children-horizontal">
-    <div id="confirm-register-interest-button" class="confirm-button mb-3">Register Interest</div>
-    <div id="cancel-register-interest-button" class="cancel-button mb-3">Cancel</div>
+  <div id="register-interest-form">
+    <div class="center-children-horizontal">
+      <form action="#" method="post" id="expression-interest-form">
+        {% csrf_token %}
+        <label for="message">Message <span class="light-text">(optional):</span></label><br>
+        <textarea id="message" name="message" rows="4" cols="50" class="big-text-form-field"></textarea><br>
+    </div>
+    </form>
+    <div class="center-children-horizontal">
+      <div id="confirm-register-interest-button" class="confirm-button mb-3">Register Interest</div>
+      <div id="cancel-register-interest-button" class="cancel-button mb-3">Cancel</div>
+    </div>
   </div>
 </div>
 <script src="{% static 'javascript/main.js' %}"></script>
