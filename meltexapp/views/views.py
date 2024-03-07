@@ -35,6 +35,7 @@ from meltexapp.helper.listing import (
     get_listing_template_variables,
     can_edit_listing,
 )
+from meltexapp.service.register_interest import get_register_interest_data
 from meltexapp.helper.register_interest import create_register_interest
 import json
 from meltexapp.errors import ListingError
@@ -243,3 +244,8 @@ def filter_listings(request):
             "checked_tickboxes": json.dumps(checked_tickboxes),
         },
     )
+
+
+def get_messages(request, listing_id):
+    user = request.user
+    messages = get_register_interest_data(user, listing_id)

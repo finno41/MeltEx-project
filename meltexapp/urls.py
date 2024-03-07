@@ -59,4 +59,5 @@ urlpatterns = [
         upload_excel_listings,
         name="upload_excel_listings",
     ),
+    path("messages/<str:listing_id>", views.get_messages, name="get_messages"),
 ]

@@ -192,3 +192,7 @@ def get_selected_filters(user, combined_list=False, hex=False):
     if combined_list:
         return asset_class_ids + column_keys + continent_ids
     return asset_class_ids, column_keys, continent_ids
+
+
+def does_user_own_listing(user, listing):
+    return user.company == listing.owner.company

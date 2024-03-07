@@ -18,3 +18,9 @@ def check_register_interest_exists(buyer_user, listing) -> bool:
     return permitted.filter(
         Q(listing=listing) & Q(buyer_user__in=company_users)
     ).exists()
+
+
+def get_register_interest(buyer_user, listing):
+    permitted = get_permitted_register_interest(buyer_user)
+    company_users = get_company_users(buyer_user)
+    permitted.get(Q(listing=listing) & Q(buyer_user__in=company_users))
