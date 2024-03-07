@@ -1,6 +1,5 @@
 var popupLinks = document.querySelectorAll(".popup-link");
 var closeButtons = document.querySelectorAll(".close-button");
-var listingInfoColumn = document.querySelector(".listing-info-column");
 var popUpContent = document.getElementById("view-listing-content")
 const csrftoken = getCookie('csrftoken');
 
@@ -39,7 +38,8 @@ function showRegisterInterestForm(registerInterestButton) {
   var registerInterestForm = document.getElementById("register-interest-form");
   registerInterestForm.style.display = "block";
   registerInterestButton.style.display = "none";
-  listingInfoColumn.scrollTop = listingInfoColumn.scrollHeight;
+  var lowerListingPanel = document.getElementById("lower-listing-panel");
+  lowerListingPanel.scrollTop = lowerListingPanel.scrollHeight;
 }
 
 function hideRegisterInterestForm() {
