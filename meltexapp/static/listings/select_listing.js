@@ -17,10 +17,11 @@ listingCards.forEach(listingCard => {
       .then(response => response.text())
       .then(html => {
         listingInfoColumn.innerHTML = html;
-        addEventListenerToRegisterInterest()
-        addEventListenerToCancelButton()
-        addFetchToInterestSubmit(listingId)
         selectDeselectAssets("round-square-icon", "round-square-icon-selected")
+        // ensure that these functions are only called if the listing does not belong to the user
+        addEventListenerToRegisterInterest()
+        addFetchToInterestSubmit(listingId)
+        addEventListenerToCancelButton()
       })
       .catch(error => {
         console.error('Error fetching HTML:', error);

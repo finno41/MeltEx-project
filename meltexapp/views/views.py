@@ -248,4 +248,4 @@ def filter_listings(request):
 
 def get_messages(request, listing_id):
     user = request.user
-    messages = get_register_interest_data(user, listing_id)
+    user_type, register_interests = get_register_interest_data(user, listing_id)
