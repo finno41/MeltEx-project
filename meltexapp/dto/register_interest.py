@@ -21,17 +21,18 @@ class RegisterInterestDTOCollection(BaseDTOCollection):
     def __init__(self, data, user, user_type, hide_keys=HIDDEN_REG_INTEREST_FIELDS):
         if not isinstance(data, list):
             data = list(data.values())
-        user_ids = [d["buyer_user_id"] for d in data]
-        user_queryset = get_users_by_ids(user_ids)
-        user_display_attrs = [
-            "first_name",
-            "last_name",
-            "company__name",
-            "job_title",
-        ]
-        self.link_model(
-            "user", user, "buyer_user_id", "id", user_queryset, user_display_attrs
-        )
+        if user_type == "seller":
+            user_ids = [d["buyer_user_id"] for d in data]
+            user_queryset = get_users_by_ids(user_ids)
+            user_display_attrs = [
+                "first_name",
+                "last_name",
+                "company__name",
+                "job_title",
+            ]
+            self.link_model(
+                "user", user, "buyer_user_id", "id", user_queryset, user_display_attrs
+            )
         super().__init__(
             data,
             user,

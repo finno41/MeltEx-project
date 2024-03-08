@@ -16,6 +16,7 @@ class ListingDTO(BaseDTO):
         hide_keys=HIDDEN_LISTING_FIELDS,
         geog_df=pd.DataFrame(),
         ac_df=pd.DataFrame(),
+        **kwargs
     ):
         if not isinstance(data, dict):
             data = data.__dict__
@@ -44,11 +45,7 @@ class ListingDTO(BaseDTO):
         self.asset_class_name = ac_info["asset_class__name"].iloc[0]
         self.sub_asset_class_name = ac_info["name"].iloc[0]
 
-        super().__init__(
-            data,
-            user,
-            hide_keys=hide_keys,
-        )
+        super().__init__(data, user, hide_keys=hide_keys, **kwargs)
 
 
 class ListingDTOCollection(BaseDTOCollection):

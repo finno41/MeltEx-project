@@ -38,6 +38,7 @@ from meltexapp.helper.listing import (
 from meltexapp.service.register_interest import get_register_interest_data
 from meltexapp.helper.register_interest import create_register_interest
 from meltexapp.dto.register_interest import RegisterInterestDTOCollection
+from meltexapp.dto.message import MessageDTOCollection
 import json
 from meltexapp.errors import ListingError
 
@@ -251,6 +252,11 @@ def filter_listings(request):
 def get_messages(request, listing_id):
     user = request.user
     user_type, register_interests = get_register_interest_data(user, listing_id)
-    message_data = RegisterInterestDTOCollection(
-        register_interests, user, user_type
-    ).output()
+    if user_type == "seller":
+        message_data = RegisterInterestDTOCollection(
+            register_interests, user, user_type
+        ).output()
+    else:
+        register_interest = register_interests
+        message_data = MessageDTOCollection(register_interest, user).output()
+        test = "test"

@@ -61,6 +61,7 @@ class BaseDTOCollection:
         linked_model_data = {"df": linked_model_df, "lookup_key": foreign_key}
         if hasattr(self, "linked_model_df"):
             if linked_model_name in self.linked_model_df:
+                # create exception which allows a dev only exception
                 raise Exception(
                     "You cannot cal 'link_model()' more than once in a DTOCollection with the same linked_model_name"
                 )

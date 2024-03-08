@@ -36,3 +36,10 @@ def create_register_interest(
     register_interest.status = status
     register_interest.save()
     return register_interest
+
+
+def is_user_permitted_reg_interest(user, register_interest):
+    return (
+        user.company == register_interest.buyer_user.company
+        or user.company == register_interest.seller_user.company
+    )
