@@ -5,6 +5,7 @@ from meltexapp.models import User, Company
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
+
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
@@ -16,7 +17,14 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["username", "email", "phone_number", "company", "subscriber"]
+        fields = [
+            "username",
+            "email",
+            "phone_number",
+            "company",
+            "job_title",
+            "subscriber",
+        ]
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -34,6 +42,7 @@ class UserCreationForm(forms.ModelForm):
             user.save()
         return user
 
+
 class UserChangeForm(forms.ModelForm):
     """A form for updating users. Includes all the fields on
     the user, but replaces the password field with admin's
@@ -45,6 +54,7 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ["phone_number", "company", "subscriber"]
+
 
 class UserAdmin(BaseUserAdmin):
     # The forms to add and change user instances
@@ -68,7 +78,16 @@ class UserAdmin(BaseUserAdmin):
             None,
             {
                 "classes": ["wide"],
-                "fields": ["username", "email", "phone_number", "company", "subscriber", "password1", "password2"],
+                "fields": [
+                    "username",
+                    "email",
+                    "phone_number",
+                    "company",
+                    "job_title",
+                    "subscriber",
+                    "password1",
+                    "password2",
+                ],
             },
         ),
     ]
@@ -76,8 +95,10 @@ class UserAdmin(BaseUserAdmin):
     ordering = ["email"]
     filter_horizontal = []
 
+
 class CompanyAdmin(admin.ModelAdmin):
     pass
+
 
 # Register your models here.
 admin.site.register(User, UserAdmin)

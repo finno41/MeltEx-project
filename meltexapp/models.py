@@ -34,6 +34,7 @@ class User(AbstractUser):
     company = models.ForeignKey(
         Company, on_delete=models.CASCADE, blank=True, null=True
     )
+    job_title = models.CharField(max_length=50, blank=False, null=False)
     subscriber = models.BooleanField(default=False)
 
     def __str__(self):

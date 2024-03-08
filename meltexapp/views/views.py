@@ -37,6 +37,7 @@ from meltexapp.helper.listing import (
 )
 from meltexapp.service.register_interest import get_register_interest_data
 from meltexapp.helper.register_interest import create_register_interest
+from meltexapp.dto.register_interest import RegisterInterestDTOCollection
 import json
 from meltexapp.errors import ListingError
 
@@ -220,7 +221,8 @@ def register_interest(request, listing_id):
         user = request.user
         if not user.is_authenticated:
             raise Exception("You must be logged in to register interest")
-        create_register_interest(user, listing_id)
+        listing = get_listing_by_id(user, listing_id)
+        create_register_interest(user, listing)
     except Exception as e:
         # TODO OF: build a custom error handler to handle the exceptions and show the correct codes in JSON
         return JsonResponse({"error": str(e)}, status=400)
@@ -249,3 +251,6 @@ def filter_listings(request):
 def get_messages(request, listing_id):
     user = request.user
     user_type, register_interests = get_register_interest_data(user, listing_id)
+    message_data = RegisterInterestDTOCollection(
+        register_interests, user, user_type
+    ).output()
