@@ -8,7 +8,7 @@ from meltexapp.management.commands.seed import run_seed
 from meltexapp.models import User
 from parameterized import parameterized
 from meltexapp.global_variables import MASTER_USER_ID
-from meltexapp.helper.geography import get_continent_ids
+from meltexapp.helper.geography import get_geography_ids
 from meltexapp.helper.asset_class import get_available_ac_ids
 from meltexapp.views.views import get_listings, load_listings_table
 from meltexapp.config.listing import get_listing_title_map, get_default_listing_columns
@@ -25,7 +25,7 @@ class APITests(TestCase):
     user = User.objects.get(id=MASTER_USER_ID)
     all_columns = get_all_listing_columns()
     default_listing_columns = get_default_listing_columns()
-    all_continents = get_continent_ids(user)
+    all_geographies = get_geography_ids(user)
     all_asset_classes = get_available_ac_ids(user)
     url_variables = ["all_listings", "my_listings"]
     params_data = [
@@ -34,8 +34,8 @@ class APITests(TestCase):
             "param_values": all_asset_classes,
         },
         {
-            "key": "continents",
-            "param_values": all_continents,
+            "key": "geographies",
+            "param_values": all_geographies,
         },
         {
             "key": "columns",

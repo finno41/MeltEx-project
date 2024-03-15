@@ -10,18 +10,19 @@
       <div class="dot-seperator menu-listing-small-text">•</div>
       <div class="listing-card-sub-asset-class menu-listing-small-text">{{listing.sub_asset_class_name}}</div>
     </div>
-    <div class="flex-align-right">
+    <!-- <div class="flex-align-right">
       <div class="targ_irr menu-listing-small-text">
         {{listing.targ_irr}}
       </div>
-    </div>
+    </div> -->
   </div>
   <div class="flex-space-between mt-3 mx-2">
     <div class="flex-align-left flex-align-bottom">
-      <div class="main-listing-info country-flag tool-tip mx-2"><span class="fi fi-{{ listing.country_code }}"></span>
+      <div class="main-listing-info tool-tip mx-2 small-drop-shadow">
+        <img src="{% static '/images/geography_icons/' %}{{ listing.geography_icon_code }}.png" alt="My image">
       </div>
-      <div class="menu-listing-large-text menu-listing-nav">{{listing.nav}}</div>
-      <div class="menu-listing-small-text mx-2">{{listing.nav_dis_avl}}%</div>
+      <div class="menu-listing-large-text menu-listing-nav">£{{listing.nav}}m</div>
+      <div class="menu-listing-small-text mx-2">NAV</div>
       <!-- <div>{{listing.geography}}</div> -->
     </div>
     <div class="flex-align-right flex-align-bottom">

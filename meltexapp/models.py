@@ -67,6 +67,7 @@ class AssetClassInterest(BaseModel):
 
 class Geography(BaseModel):
     name = models.CharField(max_length=100, blank=False, null=False)
+    key = models.CharField(max_length=100, blank=False, null=False)
     type = models.CharField(max_length=100, blank=False, null=False)
     parent = models.ForeignKey(
         "self", on_delete=models.CASCADE, blank=True, null=True, related_name="children"
