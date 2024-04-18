@@ -1,4 +1,4 @@
-var popupWindow = document.getElementById("popup-window");
+var popupWindow = document.getElementById("upload-popup-window");
 var failHTML = "<div class='alert alert-danger' role='alert'>Your listings were not uploaded due to an error, please check the sheet</div>"
 var bannerContainer = document.getElementById("banner-placement");
 
