@@ -13,6 +13,8 @@ def get_filter_options(user):
         add_keys={"default": True},
     )
     geographies = get_available_geographies(user)
+    for geography in geographies:
+        geography["id"] = geography["id"].hex
     geography_filter_data = bulk_manipulate_dict_list(
         geographies,
         add_keys={"default": True},

@@ -18,11 +18,15 @@ class Command(BaseCommand):
     help = "seed database for testing and development."
 
     def add_arguments(self, parser):
-        parser.add_argument("--mode", type=str, help="Mode")
+        parser.add_argument(
+            "--clear_db",
+            action="store_true",
+            help="clears the db but skips the re-seed",
+        )
 
     def handle(self, *args, **options):
         self.stdout.write("seeding data...")
-        run_seed(self, options["mode"])
+        run_seed(self, options["clear_db"])
         self.stdout.write("done.")
 
 
@@ -131,7 +135,7 @@ def create_listing(i, user=False):
     return listing
 
 
-def run_seed(self, mode):
+def run_seed(self, clear_db):
     """Seed database based on mode
 
     :param mode: refresh / clear
@@ -139,10 +143,11 @@ def run_seed(self, mode):
     """
     # Clear data from tables
     clear_data()
-    create_company()
     create_geographies()
     create_asset_classes()
+    if not clear_db:
+        create_company()
 
-    # Creating listings
-    for i in range(40):
-        create_listing(i)
+        # Creating listings
+        for i in range(40):
+            create_listing(i)
