@@ -9,6 +9,7 @@ from meltexapp.models import (
 )
 from meltexapp.helper.model import get_random_instance
 from meltexapp.helper.geography import get_random_geography
+from meltexapp.helper.string import snake_case
 import pandas as pd
 import random
 
@@ -17,11 +18,15 @@ class Command(BaseCommand):
     help = "seed database for testing and development."
 
     def add_arguments(self, parser):
-        parser.add_argument("--mode", type=str, help="Mode")
+        parser.add_argument(
+            "--clear_db",
+            action="store_true",
+            help="clears the db but skips the re-seed",
+        )
 
     def handle(self, *args, **options):
         self.stdout.write("seeding data...")
-        run_seed(self, options["mode"])
+        run_seed(self, options["clear_db"])
         self.stdout.write("done.")
 
 
@@ -67,25 +72,15 @@ def create_company(user=False):
 def create_geographies(user=False):
     if not user:
         user = User.objects.get(username="admin_oli")
-    country_df = pd.read_excel(
+    geography_df = pd.read_excel(
         "meltexapp/seeding/seed_data/seed_data.xlsx", sheet_name="Geography Data"
     )
-    continents = list(set(country_df["Continent"]))
-    for continent in continents:
-        print(f"creating {continent}")
+
+    for id, row_data in geography_df.iterrows():
         geography = Geography()
-        geography.type = "continent"
-        geography.name = continent
-        geography.owner = user
-        geography.save()
-    geo_mapper = Geography.objects.filter(parent_id__isnull=True)
-    geo_mapper = {gm.name: gm for gm in geo_mapper}
-    for i, row in country_df.iterrows():
-        print(f"creating {row['Country']}")
-        geography = Geography()
-        geography.name = row["Country"]
-        geography.type = "country"
-        geography.parent = geo_mapper[row["Continent"]]
+        geography.type = row_data.axes[0][0]
+        geography.name = row_data[0]
+        geography.key = snake_case(geography.name)
         geography.owner = user
         geography.save()
 
@@ -118,10 +113,10 @@ def create_listing(i, user=False):
     if not user:
         user = User.objects.get(username="admin_oli")
     sub_asset_class = get_random_instance(SubAssetClass)
-    country = get_random_geography(user, geography_type="country")
+    geography = get_random_geography(user, geography_type="meltex_region")
     listing = Listing()
     listing.sub_asset_class = sub_asset_class
-    listing.geography = country
+    listing.geography = geography
     listing.impl_approach = "Test"
     listing.fund_levr = round(random.uniform(0.00, 30.00), 2)
     listing.fund_struc = "test fund struc"
@@ -140,7 +135,7 @@ def create_listing(i, user=False):
     return listing
 
 
-def run_seed(self, mode):
+def run_seed(self, clear_db):
     """Seed database based on mode
 
     :param mode: refresh / clear
@@ -148,10 +143,11 @@ def run_seed(self, mode):
     """
     # Clear data from tables
     clear_data()
-    create_company()
     create_geographies()
     create_asset_classes()
+    if not clear_db:
+        create_company()
 
-    # Creating listings
-    for i in range(40):
-        create_listing(i)
+        # Creating listings
+        for i in range(40):
+            create_listing(i)

@@ -7,7 +7,6 @@ from meltexapp.config.listing import (
 )
 from meltexapp.models import User
 from meltexapp.global_variables import MASTER_USER_ID
-from meltexapp.helper.geography import get_continent_ids
 from meltexapp.helper.asset_class import get_available_ac_ids
 
 

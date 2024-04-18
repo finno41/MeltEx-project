@@ -9,23 +9,13 @@ import pandas as pd
 from uuid import UUID
 import random
 
-
-def get_continents_countries(user, continents_only=False):
+def get_available_geographies(user):
     all_geographies = get_permitted_geographies(user)
-    geo_df = pd.DataFrame(all_geographies.values())
-    geo_df["id"] = geo_df["id"].apply(lambda x: x.hex)
-    continents_df = geo_df[geo_df["parent_id"].isna()]
-    countries_df = geo_df[geo_df["parent_id"].notna()]
-    continents = continents_df.to_dict("records")
-    countries = countries_df.to_dict("records")
-    if continents_only:
-        return continents
-    return continents, countries
+    return list(all_geographies.values())
 
-
-def get_continent_ids(user):
-    continents = get_continents_countries(user, continents_only=True)
-    return [c["id"] for c in continents]
+def get_geography_ids(user):
+    all_geographies = get_available_geographies(user)
+    return [geography["id"] for geography in all_geographies]
 
 
 def get_geography_names(user):

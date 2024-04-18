@@ -7,8 +7,8 @@ from meltexapp.data.sub_asset_class import (
 from meltexapp.service.listing.search import listing_search
 from meltexapp.helper.asset_class import get_available_ac_ids, get_asset_class_options
 from meltexapp.helper.geography import (
-    get_continents_countries,
-    get_continent_ids,
+    get_available_geographies,
+    get_geography_ids,
     get_permitted_geographies,
 )
 from meltexapp.config.listing import (
@@ -70,13 +70,13 @@ def create_listing(
 
 
 def get_listing_view_data(user: User, listings_type: str, params: dict) -> tuple:
-    continents, countries = get_continents_countries(user)
+    geographies = get_available_geographies(user)
     avaliable_ac_ids = get_available_ac_ids(user)
     ac_ids = params.get("ac_id", avaliable_ac_ids)
     asset_class_name = params.get("asset_class_name")
     sub_asset_class_name = params.get("sub_asset_class_name")
-    geography_ids = params.get("continents")
-    selected_continents = params.get("continents", [c["id"] for c in continents])
+    geography_ids = params.get("meltex_regions")
+    selected_geographies = params.get("geographies", [c["id"].hex for c in geographies])
     sort_columns = params.get("sort", ["expr_int_ddline"])
     ascending = params.get("ascending", [False])
     listings_data = listing_search(
@@ -93,10 +93,9 @@ def get_listing_view_data(user: User, listings_type: str, params: dict) -> tuple
     ac_options = get_asset_class_options(user)
 
     return (
-        continents,
-        countries,
+        geographies,
         ac_ids,
-        selected_continents,
+        selected_geographies,
         listings_data,
         available_cols,
         ac_options,
@@ -104,21 +103,20 @@ def get_listing_view_data(user: User, listings_type: str, params: dict) -> tuple
 
 
 def get_listing_template_variables(
+    available_geographies,
     listings,
     params,
     ac_options,
     available_cols,
-    continents,
-    selected_continents,
+    selected_geographies,
     ac_ids,
-    countries,
     listings_type,
     user,
 ):
     # table_variables = format_for_table(listings, columns)
     tickbox_form_config = [
         {"title": "ASSET CLASS", "options": ac_options, "param": "ac_id"},
-        {"title": "CONTINENTS", "options": continents, "param": "continents"},
+        {"title": "REGION", "options": available_geographies, "param": "meltex_regions"},
     ]
     return {
         "listings": listings,
@@ -126,8 +124,7 @@ def get_listing_template_variables(
         "json_params": json.dumps(params),
         "tickbox": tickbox_form_config,
         "page": listings_type,
-        "selected_filters": json.dumps([selected_continents, ac_ids]),
-        "countries": countries,
+        "selected_filters": json.dumps([selected_geographies, ac_ids]),
         "sortable_headers": list(SORTABLE_LISTING_HEADERS_LOOKUP.keys()),
         "user": user,
     }
@@ -184,11 +181,11 @@ def get_selected_filters(user, combined_list=False, hex=False):
         get_permitted_asset_classes(user).values_list("id", flat=True)
     )
     column_keys = get_default_listing_columns()
-    continent_ids = get_continent_ids(user)
+    geography_ids = get_geography_ids(user)
     if hex:
         asset_class_ids = convert_uuids_to_str(asset_class_ids)
         column_keys = convert_uuids_to_str(column_keys)
-        continent_ids = convert_uuids_to_str(continent_ids)
+        geography_ids = convert_uuids_to_str(geography_ids)
     if combined_list:
-        return asset_class_ids + column_keys + continent_ids
-    return asset_class_ids, column_keys, continent_ids
+        return asset_class_ids + column_keys + geography_ids
+    return asset_class_ids, column_keys, geography_ids
