@@ -24,7 +24,6 @@ from meltexapp.helper.asset_class import (
     get_asset_class_from_listing,
     get_available_ac_ids,
 )
-from meltexapp.helper.geography import get_continents_countries
 from meltexapp.config.listing import (
     get_default_listing_columns,
     get_listing_k_v_tuple,
@@ -53,10 +52,9 @@ def get_listings(request, listings_type):
         return redirect(login_url)
     params = dict(request.GET)
     (
-        continents,
-        countries,
+        geographies,
         ac_ids,
-        selected_continents,
+        selected_geographies,
         listings_data,
         available_cols,
         ac_options,
@@ -67,14 +65,13 @@ def get_listings(request, listings_type):
         hide_keys=HIDDEN_LISTING_FIELDS,
     ).output()
     template_vars = get_listing_template_variables(
+        geographies,
         listings,
         params,
         ac_options,
         available_cols,
-        continents,
-        selected_continents,
+        selected_geographies,
         ac_ids,
-        countries,
         listings_type,
         user,
     )
@@ -177,13 +174,12 @@ def load_listings_table(request, listings_type):
     user = request.user
     params = dict(request.GET)
     (
-        continents,
-        countries,
         ac_ids,
-        selected_continents,
+        selected_geographies,
         listings_data,
         available_cols,
         ac_options,
+        available_geographies
     ) = get_listing_view_data(user, listings_type, params)
     listings = ListingDTOCollection(
         listings_data,
@@ -191,14 +187,13 @@ def load_listings_table(request, listings_type):
         hide_keys=HIDDEN_LISTING_FIELDS,
     ).output()
     template_vars = get_listing_template_variables(
+        available_geographies,
         listings,
         params,
         ac_options,
         available_cols,
-        continents,
-        selected_continents,
+        selected_geographies,
         ac_ids,
-        countries,
         listings_type,
         user,
     )
@@ -229,10 +224,10 @@ def register_interest(request, listing_id):
 
 def filter_listings(request):
     user = request.user
-    asset_class_filter_data, continents_filter_data, columns = get_filter_options(user)
+    asset_class_filter_data, geography_filter_data, columns = get_filter_options(user)
     filter_data = add_filter_formatting(
         asset_class_filter=asset_class_filter_data,
-        continents_filter=continents_filter_data,
+        geography_filter=geography_filter_data,
     )
     checked_tickboxes = get_selected_filters(user, combined_list=True, hex=True)
     return render(
