@@ -11,8 +11,8 @@ def get_permitted_listings(user, valid_exp_int_ddline=True):
     listings = Listing.objects.filter(
         Q(public=True) | (Q(owner__in=company_users) | Q(owner=MASTER_USER_ID))
     )
-    if valid_exp_int_ddline:
-        listings = listings.filter(expr_int_ddline__lte=date.today())
+    # if valid_exp_int_ddline:
+    #     listings = listings.filter(expr_int_ddline__lte=date.today())
     return listings
 
 
