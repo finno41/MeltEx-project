@@ -116,7 +116,11 @@ def get_listing_template_variables(
     # table_variables = format_for_table(listings, columns)
     tickbox_form_config = [
         {"title": "ASSET CLASS", "options": ac_options, "param": "ac_id"},
-        {"title": "REGION", "options": available_geographies, "param": "meltex_regions"},
+        {
+            "title": "REGION",
+            "options": available_geographies,
+            "param": "meltex_regions",
+        },
     ]
     return {
         "listings": listings,
@@ -152,11 +156,16 @@ def bulk_create_listing(user, df: pd.DataFrame):
             if get_config_by_key(k).get("model_key", True)
         }
         sub_asset_class = next(
-            sub_ac_data["sub_asset_class"]
-            for sub_ac_data in sub_asset_class_map
-            if sub_ac_data["asset_class_name"] == row["asset_class_name"]
-            and sub_ac_data["sub_asset_class_name"] == row["sub_asset_class_name"]
+            (
+                sub_ac_data["sub_asset_class"]
+                for sub_ac_data in sub_asset_class_map
+                if sub_ac_data["asset_class_name"] == row["asset_class_name"]
+                and sub_ac_data["sub_asset_class_name"] == row["sub_asset_class_name"]
+            ),
+            row,
         )
+        if isinstance(sub_asset_class, pd.Series):
+            raise Exception(f"there is an issue with this row \n{row}")
         geography = geography_map[row["geography"]]
         model_dict |= {
             "sub_asset_class": sub_asset_class,
