@@ -1,9 +1,12 @@
 var popupWindow = document.getElementById("upload-popup-window");
-var failHTML = "<div class='alert alert-danger' role='alert'>Your listings were not uploaded due to an error, please check the sheet</div>"
 var bannerContainer = document.getElementById("banner-placement");
 
 function getSuccessHTML(numberUploaded) {
   return `<div class='alert alert-success' role='alert'>${numberUploaded} listings were uploaded successfully</div>`
+}
+
+function getFailHTML(message) {
+  return `<div class='alert alert-danger' role='alert'>${message}</div>`
 }
 
 $(document).ready(function () {
@@ -29,6 +32,8 @@ $(document).ready(function () {
           let successHTML = getSuccessHTML(data.length)
           bannerContainer.innerHTML = successHTML;
         } else {
+          data = response
+          let failHTML = getFailHTML(data["message"])
           bannerContainer.innerHTML = failHTML;
         }
       },

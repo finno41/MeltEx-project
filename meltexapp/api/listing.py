@@ -62,6 +62,9 @@ def upload_excel_listings(request):
     user = request.user
     excel_upload = request.FILES["excel_file"].file
     df = pd.read_excel(excel_upload, sheet_name="Sheet1")
-    listings = bulk_create_listing(user, df)
+    try:
+        listings = bulk_create_listing(user, df)
+    except Exception as e:
+        return JsonResponse({"success": False, "message": str(e)})
     serialized_data = serialize("json", listings)
     return JsonResponse({"success": True, "data": serialized_data})

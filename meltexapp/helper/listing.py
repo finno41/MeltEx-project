@@ -149,7 +149,7 @@ def bulk_create_listing(user, df: pd.DataFrame):
     geographies = get_permitted_geographies(user)
     geography_map = {geography.name: geography for geography in geographies}
     listings = []
-    for _, row in df.iterrows():
+    for i, row in df.iterrows():
         model_dict = {
             k: v
             for k, v in dict(row).items()
@@ -165,7 +165,7 @@ def bulk_create_listing(user, df: pd.DataFrame):
             row,
         )
         if isinstance(sub_asset_class, pd.Series):
-            raise Exception(f"there is an issue with this row \n{row}")
+            raise Exception(f"there is an issue with row {i+1} in the upload document")
         geography = geography_map[row["geography"]]
         model_dict |= {
             "sub_asset_class": sub_asset_class,
